@@ -1,75 +1,85 @@
+@font-face {
+    font-family: 'URW Form';
+    src: url('fonts/URWForm-Regular.woff2') format('woff2'),
+         url('fonts/URWForm-Regular.woff') format('woff'),
+         url('fonts/URWForm-Regular.ttf') format('truetype'),
+         url('fonts/URWForm-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brevia';
+    src: url('fonts/Brevia-Regular.woff2') format('woff2'),
+         url('fonts/Brevia-Regular.woff') format('woff'),
+         url('fonts/Brevia-Regular.ttf') format('truetype'),
+         url('fonts/Brevia-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brevia';
+    src: url('fonts/Brevia-Bold.woff2') format('woff2'),
+         url('fonts/Brevia-Bold.woff') format('woff'),
+         url('fonts/Brevia-Bold.ttf') format('truetype'),
+         url('fonts/Brevia-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Brevia', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background-color: #000;
-    min-height: 100vh;
+    min-height: 100%;
+    height: 100%;
 }
 
 header {
     background-color: #000;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.logo-section {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.logo-icon img {
+    border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.1);
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
     width: 100%;
-    height: 100%;
+    position: relative;
+    z-index: 1001;
+}
+
+header *,
+header *::before,
+header *::after,
+.navbar,
+.navbar *,
+.navbar *::before,
+.navbar *::after {
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+}
+
+.navbar {
+    padding: 1rem 2rem;
+}
+
+.navbar-brand {
+    padding: 0;
+    margin: 0;
+}
+
+.logo-img {
+    height: 3.75rem;
+    width: auto;
     object-fit: contain;
-}
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.logo-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
-    line-height: 1.2;
-    margin: 0;
-}
-
-.logo-tagline {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.7);
-    font-weight: normal;
-    margin: 0;
-}
-
-.nav-section {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
 }
 
 .search-container {
@@ -79,16 +89,18 @@ header {
 }
 
 .search-input {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
     padding: 0.625rem 1rem 0.625rem 2.5rem;
     color: #fff;
     font-size: 0.875rem;
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
     width: 100%;
-    min-width: 200px;
-    max-width: 300px;
-    transition: all 0.3s ease;
+    min-width: 12.5rem;
+    max-width: 18.75rem;
 }
 
 .search-input::placeholder {
@@ -98,89 +110,198 @@ header {
 .search-input:focus {
     outline: none;
     border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.4);
     color: #fff;
 }
 
 .search-icon {
     position: absolute;
     left: 0.75rem;
-    width: 18px;
-    height: 18px;
+    width: 1.125rem;
+    height: 1.125rem;
     pointer-events: none;
     color: rgba(255, 255, 255, 0.8);
     z-index: 1;
 }
 
 .notification-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    width: 44px;
-    height: 44px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
     padding: 0;
 }
 
 .notification-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .notification-icon {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     color: #fff;
 }
 
 .login-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
     padding: 0.625rem 1.5rem;
     color: #fff;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+    font-weight: 400;
     cursor: pointer;
-    transition: all 0.3s ease;
     white-space: nowrap;
 }
 
 .login-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.4);
     color: #fff;
+}
+
+/* Typography utilities for content */
+.text-bold {
+    font-weight: 700;
+    font-family: 'Brevia', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Main Navigation Menu */
+.main-nav {
+    position: fixed;
+    left: 0;
+    top: 5rem;
+    height: calc(100% - 5rem);
+    width: 6.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0;
+    gap: 0;
+    z-index: 1000;
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: transparent;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #fff;
+    width: 5rem;
+    padding: 0.5rem 0;
+    flex-shrink: 0;
+}
+
+.nav-icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.75rem;
+    color: #fff;
+}
+
+.nav-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.nav-icon-gradient-1 {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
+}
+
+.nav-icon-gradient-2 {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
+}
+
+.nav-label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+    display: block;
 }
 
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
-    header {
+    /* Main Navigation - Mobile: Bottom bar */
+    .main-nav {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top: auto;
+        height: auto;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 1rem 0.5rem;
+        gap: 0.5rem;
+        background: transparent;
+    }
+
+    .nav-item {
+        flex: 1;
+        width: auto;
+        padding: 0.5rem 0;
+        gap: 0.25rem;
+    }
+
+    .nav-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .nav-icon svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .nav-label {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    body {
+        padding-left: 0;
+        padding-bottom: 5rem;
+    }
+
+    .navbar {
         padding: 1rem;
     }
 
-    .header-container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .logo-brand {
-        font-size: 1.25rem;
-    }
-
-    .logo-tagline {
-        font-size: 0.75rem;
-    }
-
-    .nav-section {
-        width: 100%;
-        justify-content: space-between;
+    .logo-img {
+        height: 3.125rem;
     }
 
     .search-container {
         flex: 1;
-        min-width: 150px;
+        min-width: 9.375rem;
     }
 
     .search-input {
@@ -190,26 +311,14 @@ header {
 }
 
 @media (max-width: 575.98px) {
-    .logo-section {
-        gap: 0.5rem;
+    .logo-img {
+        height: 2.5rem;
     }
 
-    .logo-icon {
-        width: 32px;
-        height: 32px;
-    }
-
-    .logo-brand {
-        font-size: 1.1rem;
-    }
-
-    .logo-tagline {
-        font-size: 0.7rem;
-    }
-
-    .nav-section {
+    .d-flex {
         flex-direction: column;
-        gap: 0.75rem;
+        width: 100%;
+        gap: 0.75rem !important;
     }
 
     .search-container {
