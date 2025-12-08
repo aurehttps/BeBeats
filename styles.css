@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Brevia', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Brevia', sans-serif;
     background-color: #000;
     background-image: url('Images/BG_BeBeats.png');
     background-size: cover;
@@ -23,7 +23,7 @@ header {
 }
 
 header * {
-    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'URW Form', sans-serif;
 }
 
 .navbar {
