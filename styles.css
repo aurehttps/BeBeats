@@ -131,6 +131,31 @@ header * {
     color: #fff;
 }
 
+.settings-btn-header {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    color: #fff;
+}
+
+.settings-btn-header:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.settings-btn-header svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
 /* Typography utilities for content */
 .text-bold {
     font-weight: 700;
@@ -208,8 +233,13 @@ header * {
     display: block;
 }
 
-/* Responsive adjustments */
-@media (max-width: 991.98px) {
+/* Masquer Connexion dans le menu principal par défaut (desktop) */
+.nav-item-login {
+    display: none;
+}
+
+/* Responsive adjustments - Tablet */
+@media (max-width: 768px) {
     /* Main Navigation - Mobile: Bottom bar */
     .main-nav {
         position: fixed;
@@ -246,6 +276,16 @@ header * {
         font-size: 0.65rem;
     }
 
+    /* Masquer Réglages du menu principal sur tablette/mobile */
+    .nav-item-settings {
+        display: none;
+    }
+
+    /* Afficher Connexion dans le menu principal sur tablette/mobile */
+    .nav-item-login {
+        display: flex;
+    }
+
     body {
         padding-bottom: 80px;
     }
@@ -267,9 +307,28 @@ header * {
         max-width: none;
         width: 100%;
     }
+
+    /* Masquer le bouton Connexion du header sur tablette/mobile */
+    .navbar .d-flex .login-btn,
+    header .login-btn,
+    .login-btn {
+        display: none !important;
+    }
+
+    /* Afficher le bouton Réglages dans le header sur tablette/mobile */
+    .settings-btn-header {
+        display: flex !important;
+    }
+
+    /* Ajuster le layout du header pour éviter les problèmes */
+    .navbar .d-flex {
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+    }
 }
 
-@media (max-width: 575.98px) {
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
     .logo-img {
         height: 40px;
     }
@@ -286,11 +345,6 @@ header * {
 
     .search-input {
         max-width: none;
-    }
-
-    .login-btn {
-        width: 100%;
-        padding: 0.75rem 1.5rem;
     }
 }
 
@@ -443,7 +497,8 @@ header * {
     }
 }
 
-@media (max-width: 575.98px) {
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
     .main-content {
         padding: 1rem;
         padding-top: calc(80px + 1rem);

@@ -128,7 +128,8 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 991.98px) {
+/* Responsive adjustments - Tablet */
+@media (max-width: 768px) {
     .event-content {
         margin-left: 0;
         margin-right: 0;
@@ -160,7 +161,8 @@
     }
 }
 
-@media (max-width: 575.98px) {
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
     .event-content {
         padding: 1rem;
         padding-top: calc(80px + 1rem);

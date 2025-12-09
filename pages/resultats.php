@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeBeats - Réglages</title>
+    <title>BeBeats - Résultats de recherche</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="../css/pages/reglages.css">
+    <link rel="stylesheet" href="../css/pages/resultats.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
                 <!-- Logo -->
-                <a class="navbar-brand" href="../index.html">
+                <a class="navbar-brand" href="../index.php">
                     <img src="../Images/Logo_BeBeats_Deskstop.png" alt="BeBeats Logo" class="logo-img" />
                 </a>
 
@@ -27,7 +27,8 @@
                         </svg>
                         <input 
                             type="search" 
-                            class="search-input" 
+                            class="search-input"
+                            name="q"
                             placeholder="Chercher dans BeBeats..." 
                             aria-label="Rechercher dans BeBeats"
                         />
@@ -39,21 +40,14 @@
                         </svg>
                     </button>
                     
-                    <button class="settings-btn-header" type="button" onclick="window.location.href='reglages.html'" aria-label="Réglages">
+                    <button class="settings-btn-header" type="button" onclick="window.location.href='reglages.php'" aria-label="Réglages">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </button>
                     
-                    <button class="settings-btn-header" type="button" onclick="window.location.href='reglages.html'" aria-label="Réglages">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </button>
-                    
-                    <button class="login-btn" type="button" onclick="window.location.href='connexion.html'">Connexion</button>
+                    <button class="login-btn" type="button" onclick="window.location.href='connexion.php'">Connexion</button>
                 </div>
             </div>
         </nav>
@@ -61,7 +55,7 @@
 
     <!-- Main Navigation Menu -->
     <nav class="main-nav" aria-label="Navigation principale">
-        <a href="../index.html" class="nav-item" aria-label="Accueil">
+        <a href="../index.php" class="nav-item" aria-label="Accueil">
             <div class="nav-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -70,7 +64,7 @@
             <span class="nav-label">Accueil</span>
         </a>
         
-        <a href="recherche.html" class="nav-item" aria-label="Recherche">
+        <a href="recherche.php" class="nav-item" aria-label="Recherche">
             <div class="nav-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -79,7 +73,7 @@
             <span class="nav-label">Recherche</span>
         </a>
         
-        <a href="contribuer.html" class="nav-item" aria-label="Contribuer">
+        <a href="contribuer.php" class="nav-item" aria-label="Contribuer">
             <div class="nav-icon nav-icon-gradient-1">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -88,7 +82,7 @@
             <span class="nav-label">Contribuer</span>
         </a>
         
-        <a href="event.html" class="nav-item" aria-label="Event">
+        <a href="event.php" class="nav-item" aria-label="Event">
             <div class="nav-icon nav-icon-gradient-2">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -97,7 +91,7 @@
             <span class="nav-label">Event</span>
         </a>
         
-        <a href="reglages.html" class="nav-item nav-item-settings active" aria-label="Réglages">
+        <a href="reglages.php" class="nav-item nav-item-settings" aria-label="Réglages">
             <div class="nav-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
@@ -107,7 +101,7 @@
             <span class="nav-label">Réglages</span>
         </a>
         
-        <a href="connexion.html" class="nav-item nav-item-login" aria-label="Connexion">
+        <a href="connexion.php" class="nav-item nav-item-login" aria-label="Connexion">
             <div class="nav-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -118,61 +112,72 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <section class="settings-panel glassmorphism">
-            <div class="settings-grid">
-                <div class="setting-item">
-                    <label class="setting-label">Cookies</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="toggle-cookies" class="toggle-input">
-                        <span class="toggle-slider">
-                            <span class="toggle-checkmark">✓</span>
-                            <span class="toggle-knob"></span>
-                        </span>
-                    </label>
+    <main class="search-content">
+        <!-- Search Results Section -->
+        <section class="search-results" id="search-results-section">
+            <h2 class="results-title">Résultats de recherche</h2>
+            <p class="results-query" id="search-query"></p>
+            <!-- Les résultats de recherche apparaîtront ici -->
+        </section>
+
+        <!-- Discovery Card -->
+        <section class="discovery-card glassmorphism">
+            <div class="discovery-content">
+                <div class="discovery-text">
+                    <h1 class="discovery-title">Découvrez</h1>
+                    <ol class="discovery-steps">
+                        <li>Choisissez une catégorie</li>
+                        <li>Roll</li>
+                        <li>Enjoy</li>
+                    </ol>
+                    <button class="roll-btn">Roll !</button>
                 </div>
-                
-                <div class="setting-item">
-                    <label class="setting-label">Langues</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="toggle-langues" class="toggle-input">
-                        <span class="toggle-slider">
-                            <span class="toggle-checkmark">✓</span>
-                            <span class="toggle-knob"></span>
-                        </span>
-                    </label>
-                </div>
-                
-                <div class="setting-item">
-                    <label class="setting-label">Mode</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="toggle-mode" class="toggle-input">
-                        <span class="toggle-slider">
-                            <span class="toggle-checkmark">✓</span>
-                            <span class="toggle-knob"></span>
-                        </span>
-                    </label>
-                </div>
-                
-                <div class="setting-item">
-                    <label class="setting-label">Repost</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="toggle-repost" class="toggle-input">
-                        <span class="toggle-slider">
-                            <span class="toggle-checkmark">✓</span>
-                            <span class="toggle-knob"></span>
-                        </span>
-                    </label>
+                <div class="discovery-graphic">
+                    <img src="../Images/discovery-image.png" alt="Découvrez" class="discovery-image">
                 </div>
             </div>
+        </section>
+
+        <!-- Category Buttons -->
+        <section class="categories-grid">
+            <button class="category-btn glassmorphism">Musique</button>
+            <button class="category-btn glassmorphism">Fan Arts</button>
+            <button class="category-btn glassmorphism">Evènement</button>
+            <button class="category-btn glassmorphism">Article</button>
         </section>
     </main>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     
-    <!-- Toggles Script -->
-    <script src="../js/toggles.js"></script>
+    <!-- Search Script -->
+    <script src="../js/search.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupérer le terme de recherche depuis l'URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchTerm = urlParams.get('q');
+            const searchResultsSection = document.getElementById('search-results-section');
+            const searchQueryElement = document.getElementById('search-query');
+            
+            // Le contenu "Découvrez" et les catégories sont toujours visibles (pas de JavaScript pour les masquer)
+            
+            if (searchTerm && searchTerm.trim() !== '') {
+                // Afficher les résultats de recherche si un terme de recherche est présent
+                if (searchResultsSection) {
+                    searchResultsSection.style.display = 'block';
+                }
+                if (searchQueryElement) {
+                    searchQueryElement.textContent = 'Recherche pour : "' + searchTerm + '"';
+                }
+            } else {
+                // Masquer les résultats de recherche s'il n'y a pas de terme de recherche
+                if (searchResultsSection) {
+                    searchResultsSection.style.display = 'none';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
 
