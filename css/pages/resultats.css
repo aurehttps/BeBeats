@@ -1,4 +1,4 @@
-/* Styles spécifiques à la page Recherche */
+/* Styles spécifiques à la page Résultats */
 
 .search-content {
     margin-left: 320px;
@@ -117,16 +117,10 @@
 }
 
 /* Search Results Section */
-.search-results-content {
-    margin-left: 320px;
-    margin-right: 320px;
-    padding: 2rem;
-    padding-top: calc(80px + 2rem);
-    max-width: 1680px;
-}
-
 .search-results {
     width: 100%;
+    margin-bottom: 2rem;
+    display: none; /* Masqué par défaut, affiché par JavaScript si recherche présente */
 }
 
 .results-title {
@@ -143,30 +137,6 @@
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2rem;
-}
-
-/* Responsive adjustments for search results */
-@media (max-width: 991.98px) {
-    .search-results-content {
-        margin-left: 0;
-        margin-right: 0;
-        padding: 1.5rem;
-        padding-top: calc(80px + 1.5rem);
-        padding-bottom: calc(80px + 1.5rem);
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 575.98px) {
-    .search-results-content {
-        padding: 1rem;
-        padding-top: calc(80px + 1rem);
-        padding-bottom: calc(80px + 1rem);
-    }
-
-    .results-title {
-        font-size: 1.75rem;
-    }
 }
 
 /* Responsive adjustments */
@@ -239,4 +209,9 @@
         padding: 1.5rem;
         font-size: 1.125rem;
     }
+
+    .results-title {
+        font-size: 1.75rem;
+    }
 }
+
