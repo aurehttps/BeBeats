@@ -96,11 +96,60 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Contenu de la page Réglages -->
+        <section class="settings-panel glassmorphism">
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label class="setting-label">Cookies</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle-cookies" class="toggle-input">
+                        <span class="toggle-slider">
+                            <span class="toggle-checkmark">✓</span>
+                            <span class="toggle-knob"></span>
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Langues</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle-langues" class="toggle-input">
+                        <span class="toggle-slider">
+                            <span class="toggle-checkmark">✓</span>
+                            <span class="toggle-knob"></span>
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Mode</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle-mode" class="toggle-input">
+                        <span class="toggle-slider">
+                            <span class="toggle-checkmark">✓</span>
+                            <span class="toggle-knob"></span>
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Repost</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle-repost" class="toggle-input">
+                        <span class="toggle-slider">
+                            <span class="toggle-checkmark">✓</span>
+                            <span class="toggle-knob"></span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    <!-- Toggles Script -->
+    <script src="../js/toggles.js"></script>
 </body>
 </html>
 
