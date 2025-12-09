@@ -1,0 +1,33 @@
+footer {
+  margin: 20px auto;
+  max-width: 90%;
+}
+
+footer div {
+  background: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(241, 242, 238, 0.2);
+  border-radius: 10px;
+  padding: 0;
+  text-align: center;
+  color: #F1F2EE;
+  font-family: "URW Form", sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 265px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+@media (min-width: 769px) {
+  footer div {
+    width: 379px;
+    height: 36px;
+  }
+}
+
