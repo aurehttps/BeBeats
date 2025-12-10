@@ -8,21 +8,21 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Déterminer le chemin relatif selon la page actuelle
-        const currentPath = window.location.pathname;
-        let resultsPath = 'pages/resultats.php';
-        
-        // Si on est déjà dans le dossier pages, le chemin est différent
-        if (currentPath.includes('/pages/') || currentPath.endsWith('/pages')) {
-            resultsPath = 'resultats.php';
+        // Utiliser l'URL WordPress pour la page résultats
+        // Si la variable WordPress est disponible, l'utiliser, sinon construire l'URL
+        let resultsUrl;
+        if (typeof bebeatsAjax !== 'undefined' && bebeatsAjax.homeUrl) {
+            resultsUrl = bebeatsAjax.homeUrl + '/resultats?q=' + encodeURIComponent(trimmedTerm);
+        } else {
+            // Fallback : utiliser la structure WordPress standard
+            const homeUrl = window.location.origin;
+            resultsUrl = homeUrl + '/resultats?q=' + encodeURIComponent(trimmedTerm);
         }
         
-        // Construire l'URL complète
-        const fullUrl = resultsPath + '?q=' + encodeURIComponent(trimmedTerm);
-        console.log('Redirection vers:', fullUrl);
+        console.log('Redirection vers:', resultsUrl);
         
         // Rediriger vers la page de résultats
-        window.location.href = fullUrl;
+        window.location.href = resultsUrl;
     }
     
     // Trouver tous les formulaires de recherche
