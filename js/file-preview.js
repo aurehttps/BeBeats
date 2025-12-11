@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Gérer les inputs de fichiers images (photo de profil, bannière)
     // Exclure les inputs de la page réglages qui ont déjà leur propre système d'aperçu
-    const imageInputs = document.querySelectorAll('input[type="file"][accept*="image"]:not(#profile-photo-input):not(#banner-input)');
+    // Exclure également l'input media-input de la page contribuer qui a son propre système
+    const imageInputs = document.querySelectorAll('input[type="file"][accept*="image"]:not(#profile-photo-input):not(#banner-input):not(#media-input)');
     
     imageInputs.forEach(function(input) {
         input.addEventListener('change', function(e) {

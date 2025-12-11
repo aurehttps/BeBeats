@@ -54,28 +54,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Fichier sélectionné:', file.name, file.type);
                 const reader = new FileReader();
                 reader.onload = function(e) {
+                    console.log('FileReader onload déclenché');
+                    
                     // Supprimer le placeholder
                     const placeholder = mediaPreview.querySelector('.media-placeholder');
                     if (placeholder) {
                         placeholder.remove();
+                        console.log('Placeholder supprimé');
                     }
                     
                     // Vider la zone (au cas où il y aurait déjà du contenu)
                     const existingMedia = mediaPreview.querySelector('img, video');
                     if (existingMedia) {
                         existingMedia.remove();
+                        console.log('Média existant supprimé');
                     }
+                    
+                    // Ajouter une classe pour indiquer qu'un média est présent
+                    mediaPreview.classList.add('has-media');
+                    console.log('Classe has-media ajoutée');
                     
                     if (file.type.startsWith('image/')) {
                         const img = document.createElement('img');
                         img.src = e.target.result;
                         img.alt = 'Post media';
+                        img.className = 'media-preview-image';
+                        img.style.display = 'block';
+                        img.style.visibility = 'visible';
+                        img.style.opacity = '1';
                         mediaPreview.appendChild(img);
-                        console.log('Image ajoutée à l\'aperçu');
+                        console.log('Image ajoutée à l\'aperçu:', img.src.substring(0, 50) + '...');
+                        console.log('Media preview classes:', mediaPreview.className);
+                        console.log('Media preview display:', window.getComputedStyle(mediaPreview).display);
+                        console.log('Image display:', window.getComputedStyle(img).display);
                     } else if (file.type.startsWith('video/')) {
                         const video = document.createElement('video');
                         video.src = e.target.result;
                         video.controls = true;
+                        video.className = 'media-preview-video';
+                        video.style.display = 'block';
+                        video.style.visibility = 'visible';
+                        video.style.opacity = '1';
                         mediaPreview.appendChild(video);
                         console.log('Vidéo ajoutée à l\'aperçu');
                     }
@@ -86,6 +105,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 reader.readAsDataURL(file);
             } else {
                 console.log('Aucun fichier sélectionné');
+                // Si aucun fichier, réinitialiser l'aperçu
+                const existingMedia = mediaPreview.querySelector('img, video');
+                if (existingMedia) {
+                    existingMedia.remove();
+                }
+                mediaPreview.classList.remove('has-media');
+                // Réafficher le placeholder s'il n'existe pas
+                if (!mediaPreview.querySelector('.media-placeholder')) {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'media-placeholder';
+                    placeholder.innerHTML = `
+                        <svg class="media-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <p class="media-placeholder-text">Ajoutez une image ou une vidéo</p>
+                    `;
+                    mediaPreview.appendChild(placeholder);
+                }
             }
         });
     }
@@ -233,8 +270,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Gestion du bouton "Options"
+    const optionsBtn = document.getElementById('options-btn');
+    const optionsModal = document.getElementById('options-modal');
+    const optionsModalClose = document.getElementById('options-modal-close');
+    
+    if (optionsBtn && optionsModal) {
+        optionsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            optionsModal.style.display = 'flex';
+        });
+    }
+    
+    if (optionsModalClose) {
+        optionsModalClose.addEventListener('click', function() {
+            optionsModal.style.display = 'none';
+        });
+    }
+    
+    // Fermer le modal Options en cliquant à l'extérieur
+    if (optionsModal) {
+        optionsModal.addEventListener('click', function(e) {
+            if (e.target === optionsModal) {
+                optionsModal.style.display = 'none';
+            }
+        });
+    }
+    
+    // Gestion des toggles d'options
+    const toggleComments = document.getElementById('toggle-comments');
+    const toggleRepost = document.getElementById('toggle-repost');
+    const toggleLikes = document.getElementById('toggle-likes');
+    
+    const allowCommentsInput = document.getElementById('allow-comments-input');
+    const allowRepostInput = document.getElementById('allow-repost-input');
+    const showLikesInput = document.getElementById('show-likes-input');
+    
+    // Initialiser les valeurs par défaut (tous activés)
+    if (toggleComments && allowCommentsInput) {
+        toggleComments.addEventListener('change', function() {
+            allowCommentsInput.value = this.checked ? '1' : '0';
+            console.log('Commentaires:', this.checked ? 'activés' : 'désactivés');
+        });
+    }
+    
+    if (toggleRepost && allowRepostInput) {
+        toggleRepost.addEventListener('change', function() {
+            allowRepostInput.value = this.checked ? '1' : '0';
+            console.log('Republication:', this.checked ? 'activée' : 'désactivée');
+        });
+    }
+    
+    if (toggleLikes && showLikesInput) {
+        toggleLikes.addEventListener('change', function() {
+            showLikesInput.value = this.checked ? '1' : '0';
+            console.log('Affichage des likes:', this.checked ? 'activé' : 'désactivé');
+        });
+    }
+    
     // Gestion des autres actions du menu latéral
-    const menuItems = document.querySelectorAll('.menu-item:not(#tag-user-btn):not(.menu-item-media)');
+    const menuItems = document.querySelectorAll('.menu-item:not(#tag-user-btn):not(#options-btn):not(.menu-item-media)');
     
     menuItems.forEach(item => {
         item.addEventListener('click', function(e) {
@@ -275,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function handleMenuAction(action) {
     switch(action) {
         case 'Options':
-            // Ouvrir les options
+            // Le modal est maintenant géré directement par l'événement click sur le bouton
             break;
         case 'Contenu multimédia':
             // Déclencher le clic sur l'input file

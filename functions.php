@@ -89,6 +89,13 @@ function bebeats_enqueue_scripts() {
         ));
     }
     
+    if (is_page('contribuer')) {
+        wp_enqueue_script('bebeats-contribuer', get_template_directory_uri() . '/js/contribuer.js', array('jquery'), '1.0', true);
+        wp_localize_script('bebeats-contribuer', 'bebeatsContribuer', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('bebeats_search_users_action')
+        ));
+    }
     
     // Enqueue file-preview.js pour les pages d'inscription
     if (is_page('inscription-fan-step3') || is_page('inscription-artiste-step3') || is_page('inscription-artiste-step4')) {

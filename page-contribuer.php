@@ -33,6 +33,10 @@ get_header(); ?>
                 <input type="hidden" name="action" value="bebeats_create_post">
                 <?php wp_nonce_field('bebeats_create_post_action', 'bebeats_create_post_nonce'); ?>
                 <input type="hidden" name="post_type" id="post-type-input" value="fan-art">
+                <!-- Champs cachés pour les options -->
+                <input type="hidden" name="allow_comments" id="allow-comments-input" value="1">
+                <input type="hidden" name="allow_repost" id="allow-repost-input" value="1">
+                <input type="hidden" name="show_likes" id="show-likes-input" value="1">
                 <!-- Modal pour identifier des personnes -->
                 <div class="tag-user-modal" id="tag-user-modal" style="display: none;">
                     <div class="tag-user-modal-content">
@@ -49,6 +53,53 @@ get_header(); ?>
                                 autocomplete="off"
                             >
                             <div class="user-suggestions" id="user-suggestions" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal pour les options -->
+                <div class="options-modal" id="options-modal" style="display: none;">
+                    <div class="options-modal-content">
+                        <div class="options-modal-header">
+                            <h3>Options de publication</h3>
+                            <button type="button" class="options-modal-close" id="options-modal-close">×</button>
+                        </div>
+                        <div class="options-modal-body">
+                            <!-- Toggle pour désactiver les commentaires -->
+                            <div class="option-item">
+                                <div class="option-label">
+                                    <span class="option-title">Autoriser les commentaires</span>
+                                    <span class="option-description">Permettre aux autres utilisateurs de commenter ce post</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="toggle-comments" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <!-- Toggle pour désactiver la republication -->
+                            <div class="option-item">
+                                <div class="option-label">
+                                    <span class="option-title">Autoriser la republication</span>
+                                    <span class="option-description">Permettre aux autres utilisateurs de republier ce post</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="toggle-repost" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <!-- Toggle pour désactiver l'affichage des likes -->
+                            <div class="option-item">
+                                <div class="option-label">
+                                    <span class="option-title">Afficher les likes</span>
+                                    <span class="option-description">Afficher le nombre de likes sur ce post</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="toggle-likes" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,7 +196,7 @@ get_header(); ?>
                     <span class="menu-label">Identifier une personne</span>
                 </button>
                 
-                <button class="menu-item" aria-label="Options">
+                <button type="button" class="menu-item" id="options-btn" aria-label="Options">
                     <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
