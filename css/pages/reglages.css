@@ -140,3 +140,243 @@
         transform: translateX(26px);
     }
 }
+
+/* Section titre */
+.settings-section-title {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 2rem 0;
+}
+
+/* Section Profil */
+.profile-settings-section {
+    margin-top: 2rem;
+}
+
+.profile-settings-form {
+    margin-top: 1.5rem;
+}
+
+.profile-settings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: start;
+}
+
+.profile-setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+}
+
+.profile-setting-item-full {
+    grid-column: 1 / -1;
+}
+
+.profile-setting-label {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+}
+
+/* Aperçu photo de profil */
+.profile-photo-preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.profile-photo-preview {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+/* Aperçu bannière */
+.profile-banner-preview-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.profile-banner-preview {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.profile-banner-placeholder {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+}
+
+/* Bouton de fichier */
+.profile-file-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.profile-file-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.profile-file-input {
+    display: none;
+}
+
+/* Input description */
+.profile-description-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.profile-description-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.profile-description-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Bouton enregistrer */
+.profile-save-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-save-btn:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+}
+
+/* Messages de succès/erreur */
+.settings-success-message,
+.settings-error-message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+}
+
+.settings-success-message {
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #4ade80;
+}
+
+.settings-error-message {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+/* Section Compte */
+.account-settings-section {
+    margin-top: 2rem;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+}
+
+/* Responsive pour la section profil */
+@media (max-width: 768px) {
+    .profile-settings-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .profile-photo-preview {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-banner-preview {
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-section-title {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-settings-section,
+    .account-settings-section {
+        margin-top: 1.5rem;
+    }
+}

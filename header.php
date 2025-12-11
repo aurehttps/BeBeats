@@ -42,7 +42,19 @@
                         </svg>
                     </button>
                     
-                    <button class="login-btn" type="button" onclick="window.location.href='<?php echo esc_url(home_url('/connexion')); ?>'">Connexion</button>
+                    <?php if (is_user_logged_in()): 
+                        $current_user = wp_get_current_user();
+                        $profile_photo = get_user_meta($current_user->ID, 'bebeats_profile_photo', true);
+                        if (empty($profile_photo)) {
+                            $profile_photo = get_avatar_url($current_user->ID, array('size' => 44));
+                        }
+                    ?>
+                        <button class="profile-btn-header" type="button" onclick="window.location.href='<?php echo esc_url(home_url('/profil')); ?>'" aria-label="Profil">
+                            <img src="<?php echo esc_url($profile_photo); ?>" alt="<?php echo esc_attr($current_user->display_name); ?>" class="profile-btn-img">
+                        </button>
+                    <?php else: ?>
+                        <button class="login-btn" type="button" onclick="window.location.href='<?php echo esc_url(home_url('/auth-start')); ?>'">Connexion</button>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>
@@ -96,7 +108,7 @@
             <span class="nav-label">Réglages</span>
         </a>
         
-        <a href="<?php echo esc_url(home_url('/connexion')); ?>" class="nav-item nav-item-login <?php echo is_page('connexion') ? 'active' : ''; ?>" aria-label="Connexion">
+        <a href="<?php echo esc_url(home_url('/auth-start')); ?>" class="nav-item nav-item-login <?php echo is_page('auth-start') ? 'active' : ''; ?>" aria-label="Connexion">
             <div class="nav-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
