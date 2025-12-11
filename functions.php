@@ -53,6 +53,10 @@ function bebeats_enqueue_styles() {
         wp_enqueue_style('bebeats-profil-style', get_template_directory_uri() . '/css/pages/profil.css', array('bebeats-style'), '1.0');
     }
     
+    if (is_page('feed')) {
+        wp_enqueue_style('bebeats-feed-style', get_template_directory_uri() . '/css/pages/feed.css', array('bebeats-style'), '1.0');
+    }
+    
     if (is_page('resultats') || is_search()) {
         wp_enqueue_style('bebeats-resultats-style', get_template_directory_uri() . '/css/pages/resultats.css', array('bebeats-style'), '1.0');
     }
@@ -71,14 +75,20 @@ function bebeats_enqueue_scripts() {
     ));
     
     // Page-specific scripts
-    if (is_page('contribuer')) {
-        wp_enqueue_script('bebeats-contribuer', get_template_directory_uri() . '/js/contribuer.js', array('jquery'), '1.0', true);
-    }
     
     if (is_page('reglages')) {
         wp_enqueue_script('bebeats-toggles', get_template_directory_uri() . '/js/toggles.js', array('jquery'), '1.0', true);
         wp_enqueue_script('bebeats-file-preview', get_template_directory_uri() . '/js/file-preview.js', array(), '1.0', true);
     }
+    
+    if (is_page('feed')) {
+        wp_enqueue_script('bebeats-feed', get_template_directory_uri() . '/js/feed.js', array('jquery'), '1.0', true);
+        wp_localize_script('bebeats-feed', 'bebeatsFeed', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('bebeats_reaction_action')
+        ));
+    }
+    
     
     // Enqueue file-preview.js pour les pages d'inscription
     if (is_page('inscription-fan-step3') || is_page('inscription-artiste-step3') || is_page('inscription-artiste-step4')) {
@@ -198,6 +208,66 @@ function bebeats_create_registration_table() {
 
 // Créer la table à l'activation du thème
 add_action('after_switch_theme', 'bebeats_create_registration_table');
+add_action('after_switch_theme', 'bebeats_create_posts_table');
+add_action('after_switch_theme', 'bebeats_create_post_reactions_table');
+
+/**
+ * Créer la table de base de données pour les posts
+ */
+function bebeats_create_posts_table() {
+    global $wpdb;
+    
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    
+    $table_name = $wpdb->prefix . 'bebeats_posts';
+    $charset_collate = $wpdb->get_charset_collate();
+    
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        user_id bigint(20) NOT NULL,
+        post_type varchar(20) NOT NULL DEFAULT 'post',
+        content text,
+        media_url varchar(500),
+        media_type varchar(20),
+        created_at datetime DEFAULT CURRENT_TIMESTAMP,
+        updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (id),
+        KEY user_id (user_id),
+        KEY created_at (created_at),
+        KEY post_type (post_type)
+    ) $charset_collate;";
+    
+    dbDelta($sql);
+}
+
+/**
+ * Créer la table de base de données pour les réactions aux posts
+ */
+function bebeats_create_post_reactions_table() {
+    global $wpdb;
+    
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    
+    $table_name = $wpdb->prefix . 'bebeats_post_reactions';
+    $charset_collate = $wpdb->get_charset_collate();
+    
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        post_id bigint(20) NOT NULL,
+        user_id bigint(20) NOT NULL,
+        reaction_type varchar(20) NOT NULL,
+        comment_text text,
+        parent_comment_id bigint(20) DEFAULT NULL,
+        created_at datetime DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id),
+        KEY post_id (post_id),
+        KEY user_id (user_id),
+        KEY reaction_type (reaction_type),
+        KEY parent_comment_id (parent_comment_id)
+    ) $charset_collate;";
+    
+    dbDelta($sql);
+}
 
 /**
  * Traitement de l'étape 1 d'inscription Fan
@@ -926,4 +996,254 @@ function bebeats_handle_logout() {
     exit;
 }
 add_action('admin_post_bebeats_logout', 'bebeats_handle_logout');
+
+/**
+ * Traitement de la création d'un post
+ */
+function bebeats_handle_create_post() {
+    // Vérifier que l'utilisateur est connecté
+    if (!is_user_logged_in()) {
+        wp_redirect(home_url('/auth-start'));
+        exit;
+    }
+    
+    // Vérifier le nonce
+    if (!isset($_POST['bebeats_create_post_nonce']) || !wp_verify_nonce($_POST['bebeats_create_post_nonce'], 'bebeats_create_post_action')) {
+        wp_redirect(home_url('/contribuer?error=1'));
+        exit;
+    }
+    
+    $current_user = wp_get_current_user();
+    $user_id = $current_user->ID;
+    
+    // Récupérer les données
+    $post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : 'post';
+    
+    // Récupérer le contenu selon le type de post
+    $content = '';
+    if ($post_type === 'post') {
+        $content = isset($_POST['content']) ? sanitize_textarea_field($_POST['content']) : '';
+    } elseif ($post_type === 'fan-art') {
+        // Pour fan-art, le contenu peut venir de 'content' (description)
+        $content = isset($_POST['content']) ? sanitize_textarea_field($_POST['content']) : '';
+    } elseif ($post_type === 'audio') {
+        // Pour audio, le contenu peut venir de 'content' (description)
+        $content = isset($_POST['content']) ? sanitize_textarea_field($_POST['content']) : '';
+    }
+    
+    $media_type = '';
+    $media_url = '';
+    
+    // Gérer l'upload du média selon le type
+    if ($post_type === 'fan-art' && !empty($_FILES['media']['name'])) {
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+        
+        $upload = wp_handle_upload($_FILES['media'], array('test_form' => false));
+        if (!isset($upload['error'])) {
+            $media_url = $upload['url'];
+            // Déterminer le type de média
+            $file_type = wp_check_filetype($upload['file']);
+            if (strpos($file_type['type'], 'image') !== false) {
+                $media_type = 'image';
+            } elseif (strpos($file_type['type'], 'video') !== false) {
+                $media_type = 'video';
+            } else {
+                $media_type = 'image'; // Par défaut
+            }
+        }
+    } elseif ($post_type === 'audio' && !empty($_FILES['media']['name'])) {
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+        
+        $upload = wp_handle_upload($_FILES['media'], array('test_form' => false));
+        if (!isset($upload['error'])) {
+            $media_url = $upload['url'];
+            $media_type = 'audio';
+        }
+    }
+    
+    // Validation : au moins du contenu ou un média
+    if (empty($content) && empty($media_url)) {
+        wp_redirect(home_url('/contribuer?error=2'));
+        exit;
+    }
+    
+    // Insérer le post dans la base de données
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'bebeats_posts';
+    
+    $result = $wpdb->insert(
+        $table_name,
+        array(
+            'user_id' => $user_id,
+            'post_type' => $post_type,
+            'content' => $content,
+            'media_url' => $media_url,
+            'media_type' => $media_type
+        ),
+        array('%d', '%s', '%s', '%s', '%s')
+    );
+    
+    if ($result === false) {
+        wp_redirect(home_url('/contribuer?error=1'));
+        exit;
+    }
+    
+    // Rediriger vers le feed avec un message de succès
+    wp_redirect(home_url('/feed?success=1'));
+    exit;
+}
+add_action('admin_post_bebeats_create_post', 'bebeats_handle_create_post');
+
+/**
+ * Traitement des réactions aux posts (like, commentaire, republier, favoris)
+ */
+function bebeats_handle_post_reaction() {
+    // Vérifier que l'utilisateur est connecté
+    if (!is_user_logged_in()) {
+        wp_send_json_error(array('message' => 'Vous devez être connecté'));
+        exit;
+    }
+    
+    // Vérifier le nonce
+    if (!isset($_POST['bebeats_reaction_nonce']) || !wp_verify_nonce($_POST['bebeats_reaction_nonce'], 'bebeats_reaction_action')) {
+        wp_send_json_error(array('message' => 'Erreur de sécurité'));
+        exit;
+    }
+    
+    $current_user = wp_get_current_user();
+    $user_id = $current_user->ID;
+    
+    $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+    $reaction_type = isset($_POST['reaction_type']) ? sanitize_text_field($_POST['reaction_type']) : '';
+    $action = isset($_POST['action_type']) ? sanitize_text_field($_POST['action_type']) : 'toggle'; // toggle, add, remove
+    $comment_text = isset($_POST['comment_text']) ? sanitize_textarea_field($_POST['comment_text']) : '';
+    $parent_comment_id = isset($_POST['parent_comment_id']) ? intval($_POST['parent_comment_id']) : 0;
+    
+    if (empty($post_id) || empty($reaction_type)) {
+        wp_send_json_error(array('message' => 'Données manquantes'));
+        exit;
+    }
+    
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'bebeats_post_reactions';
+    
+    // Pour les likes, republier et favoris : toggle (ajouter ou supprimer)
+    if (in_array($reaction_type, array('like', 'repost', 'favorite')) && $action === 'toggle') {
+        // Vérifier si la réaction existe déjà (sans parent_comment_id pour ces types)
+        $existing = $wpdb->get_row($wpdb->prepare(
+            "SELECT id FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND (parent_comment_id IS NULL OR parent_comment_id = 0)",
+            $post_id, $user_id, $reaction_type
+        ));
+        
+        if ($existing) {
+            // Supprimer la réaction
+            $wpdb->delete(
+                $table_name,
+                array('id' => $existing->id),
+                array('%d')
+            );
+            wp_send_json_success(array('action' => 'removed', 'reaction_type' => $reaction_type));
+        } else {
+            // Ajouter la réaction
+            $wpdb->insert(
+                $table_name,
+                array(
+                    'post_id' => $post_id,
+                    'user_id' => $user_id,
+                    'reaction_type' => $reaction_type,
+                    'parent_comment_id' => null
+                ),
+                array('%d', '%d', '%s', '%d')
+            );
+            wp_send_json_success(array('action' => 'added', 'reaction_type' => $reaction_type));
+        }
+    }
+    // Pour les commentaires : toujours ajouter
+    elseif ($reaction_type === 'comment' && !empty($comment_text)) {
+        $wpdb->insert(
+            $table_name,
+            array(
+                'post_id' => $post_id,
+                'user_id' => $user_id,
+                'reaction_type' => 'comment',
+                'comment_text' => $comment_text,
+                'parent_comment_id' => $parent_comment_id > 0 ? $parent_comment_id : null
+            ),
+            array('%d', '%d', '%s', '%s', '%d')
+        );
+        wp_send_json_success(array('action' => 'added', 'reaction_type' => 'comment'));
+    }
+    // Pour liker un commentaire
+    elseif ($reaction_type === 'comment_like' && $parent_comment_id > 0) {
+        $existing = $wpdb->get_row($wpdb->prepare(
+            "SELECT id FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND parent_comment_id = %d",
+            $post_id, $user_id, 'comment_like', $parent_comment_id
+        ));
+        
+        if ($existing) {
+            $wpdb->delete(
+                $table_name,
+                array('id' => $existing->id),
+                array('%d')
+            );
+            wp_send_json_success(array('action' => 'removed', 'reaction_type' => 'comment_like'));
+        } else {
+            $wpdb->insert(
+                $table_name,
+                array(
+                    'post_id' => $post_id,
+                    'user_id' => $user_id,
+                    'reaction_type' => 'comment_like',
+                    'parent_comment_id' => $parent_comment_id
+                ),
+                array('%d', '%d', '%s', '%d')
+            );
+            wp_send_json_success(array('action' => 'added', 'reaction_type' => 'comment_like'));
+        }
+    } else {
+        wp_send_json_error(array('message' => 'Action invalide'));
+    }
+}
+add_action('wp_ajax_bebeats_post_reaction', 'bebeats_handle_post_reaction');
+add_action('wp_ajax_nopriv_bebeats_post_reaction', 'bebeats_handle_post_reaction');
+
+// Fonction pour rechercher des utilisateurs (autocomplete)
+function bebeats_search_users() {
+    check_ajax_referer('bebeats_search_users_action', 'nonce');
+    
+    $search_term = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
+    
+    if (strlen($search_term) < 2) {
+        wp_send_json_success(array('users' => array()));
+    }
+    
+    $users = get_users(array(
+        'search' => '*' . $search_term . '*',
+        'search_columns' => array('user_login', 'user_nicename', 'display_name'),
+        'number' => 10
+    ));
+    
+    $results = array();
+    foreach ($users as $user) {
+        $profile_photo = get_user_meta($user->ID, 'bebeats_profile_photo', true);
+        if (empty($profile_photo)) {
+            $profile_photo = get_avatar_url($user->ID, array('size' => 50));
+        }
+        
+        $results[] = array(
+            'id' => $user->ID,
+            'username' => $user->user_login,
+            'display_name' => $user->display_name ?: $user->user_login,
+            'profile_photo' => $profile_photo
+        );
+    }
+    
+    wp_send_json_success(array('users' => $results));
+}
+add_action('wp_ajax_bebeats_search_users', 'bebeats_search_users');
+add_action('wp_ajax_nopriv_bebeats_search_users', 'bebeats_search_users');
 

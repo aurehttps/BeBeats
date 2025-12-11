@@ -7,14 +7,201 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    pointer-events: auto;
+}
+
+.contribuer-error-message {
+    padding: 1rem;
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 8px;
+    color: #f87171;
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
 }
 
 .content-area {
     flex: 1;
     min-height: 400px;
-    margin-bottom: 60px;
+    margin-bottom: 2rem;
     margin-right: 200px;
-    /* Zone centrale vide pour le contenu */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+/* Template de post */
+.post-template {
+    width: 100%;
+    max-width: 600px;
+    padding: 1.5rem;
+    border-radius: 16px;
+    position: relative;
+    z-index: 5;
+}
+
+.post-template-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.post-template-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.post-template-author {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-template-username {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.post-template-content {
+    margin-bottom: 1rem;
+}
+
+.post-type-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.post-content-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.post-content-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.post-content-textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.post-content-description {
+    min-height: 80px;
+    margin-top: 1rem;
+}
+
+/* Aperçu du média */
+.media-preview {
+    width: 100%;
+    min-height: 300px;
+    border-radius: 12px;
+    overflow: visible;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+.media-preview img,
+.media-preview video {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+}
+
+.media-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.media-preview:has(img),
+.media-preview:has(video) {
+    border: none;
+    background: transparent;
+    padding: 0;
+    min-height: auto;
+    display: block;
+    overflow: visible;
+    z-index: 10;
+}
+
+.media-preview:has(img) .media-placeholder,
+.media-preview:has(video) .media-placeholder {
+    display: none;
+}
+
+.media-placeholder-icon {
+    width: 64px;
+    height: 64px;
+    color: rgba(255, 255, 255, 0.4);
+    stroke-width: 1.5;
+}
+
+.media-placeholder-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+
+/* Boutons d'interaction du template */
+.post-template-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-action-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    cursor: default;
+}
+
+.post-action-item .action-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
 }
 
 /* Right Side Menu - Boutons à droite sur desktop */
@@ -26,6 +213,7 @@
     flex-direction: column;
     gap: 1rem;
     width: 180px;
+    z-index: 0;
 }
 
 .menu-item {
@@ -76,51 +264,6 @@
     transform: translateY(-1px);
 }
 
-/* Bottom Navigation Bar */
-.category-nav {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    gap: 2rem;
-    padding: 1.5rem 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    order: 3;
-}
-
-.category-tab {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.6);
-    font-family: 'URW Form', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
-    padding: 0.5rem 0;
-    transition: color 0.2s ease;
-    position: relative;
-}
-
-.category-tab:hover {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.category-tab.active {
-    color: #fff;
-    font-weight: 500;
-}
-
-.category-tab.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #FF6B35;
-    border-radius: 2px 2px 0 0;
-}
 
 /* Responsive adjustments - Tablet */
 @media (max-width: 768px) {
@@ -161,12 +304,6 @@
         height: 18px;
     }
 
-    .category-nav {
-        position: relative;
-        padding: 1rem;
-        gap: 1.5rem;
-        order: 3;
-    }
 }
 
 /* Responsive adjustments - Mobile */
@@ -207,15 +344,256 @@
         line-height: 1.3;
     }
 
-    .category-nav {
-        flex-direction: column;
-        gap: 0.75rem;
+    
+    .post-template {
         padding: 1rem;
-        order: 3;
     }
+    
+    .post-template-header {
+        gap: 0.75rem;
+    }
+    
+    .post-template-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .post-template-username {
+        font-size: 0.9rem;
+    }
+    
+}
 
-    .category-tab {
-        text-align: left;
-        font-size: 0.9375rem;
-    }
+/* Styles pour les champs description */
+.description-container {
+    margin-top: 1rem;
+}
+
+/* Styles pour les utilisateurs identifiés */
+.tagged-users-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+#tagged-users {
+    display: flex;
+}
+
+.tagged-users-label {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.tagged-users-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tagged-user-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 0.875rem;
+}
+
+.tagged-user-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.tagged-user-name {
+    font-family: 'URW Form', sans-serif;
+    color: #fff;
+    font-weight: 500;
+}
+
+.tagged-user-remove {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.tagged-user-remove:hover {
+    color: #fff;
+}
+
+/* Styles pour le modal d'identification */
+.tag-user-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.tag-user-modal-content {
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tag-user-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tag-user-modal-header h3 {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.tag-user-modal-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.tag-user-modal-close:hover {
+    color: #fff;
+}
+
+.tag-user-modal-body {
+    padding: 1.5rem;
+    position: relative;
+}
+
+.tag-user-search-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    outline: none;
+}
+
+.tag-user-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.tag-user-search-input:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Styles pour les suggestions d'utilisateurs */
+.user-suggestions {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.user-suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.user-suggestion-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.user-suggestion-item:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.user-suggestion-item:last-child {
+    border-radius: 0 0 12px 12px;
+}
+
+.user-suggestion-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-suggestion-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.user-suggestion-name {
+    font-family: 'Brevia', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.user-suggestion-username {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.6);
 }

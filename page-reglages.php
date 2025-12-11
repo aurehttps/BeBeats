@@ -95,16 +95,6 @@ if (is_user_logged_in()) {
                 <button type="submit" class="profile-save-btn">Enregistrer les modifications</button>
             </form>
         </section>
-
-        <!-- Section Compte -->
-        <section class="settings-panel glassmorphism account-settings-section">
-            <h2 class="settings-section-title">Compte</h2>
-            <form method="POST" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
-                <input type="hidden" name="action" value="bebeats_logout">
-                <?php wp_nonce_field('bebeats_logout_action', 'bebeats_logout_nonce'); ?>
-                <button type="submit" class="logout-btn">Se déconnecter</button>
-            </form>
-        </section>
         <?php endif; ?>
 
         <!-- Section Réglages généraux -->
@@ -156,6 +146,18 @@ if (is_user_logged_in()) {
                 </div>
             </div>
         </section>
+
+        <?php if (is_user_logged_in()): ?>
+        <!-- Section Compte -->
+        <section class="settings-panel glassmorphism account-settings-section">
+            <h2 class="settings-section-title">Compte</h2>
+            <form method="POST" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                <input type="hidden" name="action" value="bebeats_logout">
+                <?php wp_nonce_field('bebeats_logout_action', 'bebeats_logout_nonce'); ?>
+                <button type="submit" class="logout-btn">Se déconnecter</button>
+            </form>
+        </section>
+        <?php endif; ?>
     </main>
 
 <?php get_footer(); ?>

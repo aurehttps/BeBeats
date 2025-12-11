@@ -2,6 +2,16 @@
 
     <!-- Main Content -->
     <main class="main-content">
+        <!-- Navigation Accueil/Feed -->
+        <nav class="home-feed-nav">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="nav-tab <?php echo is_front_page() ? 'active' : ''; ?>">
+                Accueil
+            </a>
+            <a href="<?php echo esc_url(home_url('/feed')); ?>" class="nav-tab <?php echo is_page('feed') ? 'active' : ''; ?>">
+                Feed
+            </a>
+        </nav>
+        
         <!-- Video Section -->
         <section class="video-section">
             <div class="video-container glassmorphism">

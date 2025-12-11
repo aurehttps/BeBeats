@@ -195,6 +195,43 @@ header * {
     border-radius: 6px;
 }
 
+/* Navigation Accueil/Feed */
+.home-feed-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.nav-tab {
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-tab:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-tab.active {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    color: #fff;
+}
+
 /* Typography utilities for content */
 .text-bold {
     font-weight: 700;
