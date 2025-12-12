@@ -289,63 +289,81 @@
     }
 }
 
-/* Styles pour les posts dans le profil */
+/* Styles pour les posts dans le profil - Format compact comme la page d'accueil */
 .profile-posts-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
 }
 
+.profile-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .profile-post-item {
-    padding: 1.5rem;
+    padding: 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    cursor: pointer;
 }
 
-.profile-post-item:hover {
+.profile-post-link:hover .profile-post-item {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .profile-post-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .profile-post-time {
     font-family: 'URW Form', sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.6);
 }
 
 .profile-post-type {
     font-family: 'URW Form', sans-serif;
-    font-size: 0.75rem;
-    padding: 0.25rem 0.75rem;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
     background: rgba(255, 107, 53, 0.2);
     border: 1px solid rgba(255, 107, 53, 0.3);
-    border-radius: 12px;
+    border-radius: 8px;
     color: #FF6B35;
     text-transform: uppercase;
     font-weight: 500;
 }
 
 .profile-post-content {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    flex: 1;
 }
 
 .profile-post-text {
     font-family: 'URW Form', sans-serif;
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: #fff;
-    line-height: 1.6;
-    margin: 0 0 1rem 0;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .profile-post-media {
@@ -356,15 +374,16 @@
 
 .profile-post-image {
     width: 100%;
-    max-height: 400px;
-    object-fit: contain;
+    height: 200px;
+    object-fit: cover;
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.2);
 }
 
 .profile-post-video {
     width: 100%;
-    max-height: 400px;
+    height: 200px;
+    object-fit: cover;
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.2);
 }
@@ -374,66 +393,124 @@
     border-radius: 12px;
 }
 
-.profile-post-stats {
+.profile-post-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding-top: 1rem;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
 }
 
-.profile-post-stat {
+.profile-post-action-btn {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-family: 'URW Form', sans-serif;
-    font-size: 0.875rem;
+    gap: 0.4rem;
+    background: transparent;
+    border: none;
     color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.4rem 0.6rem;
+    border-radius: 90px;
 }
 
-.stat-icon {
+.profile-post-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.profile-post-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.profile-post-action-btn.active {
+    color: #A855F7;
+}
+
+.profile-post-action-btn.active .profile-action-icon {
+    fill: #A855F7;
+}
+
+.profile-action-icon {
     width: 18px;
     height: 18px;
     stroke-width: 2;
 }
 
+.profile-action-count {
+    font-size: 0.8rem;
+    font-weight: 600;
+    min-width: 16px;
+    text-align: center;
+}
+
+.profile-post-action-btn.favorite-btn.active {
+    color: #FFD700;
+}
+
+.profile-post-action-btn.favorite-btn.active .profile-action-icon {
+    fill: #FFD700;
+    stroke: #FFD700;
+}
+
 /* Responsive pour les posts du profil */
 @media (max-width: 768px) {
     .profile-posts-list {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         gap: 1.25rem;
-    }
-    
-    .profile-post-item {
-        padding: 1.25rem;
-    }
-    
-    .profile-post-image,
-    .profile-post-video {
-        max-height: 300px;
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-posts-list {
-        gap: 1rem;
     }
     
     .profile-post-item {
         padding: 1rem;
     }
     
+    .profile-post-image,
+    .profile-post-video {
+        height: 180px;
+    }
+    
+    .profile-action-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-posts-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .profile-post-item {
+        padding: 0.875rem;
+    }
+    
     .profile-post-text {
-        font-size: 0.9375rem;
+        font-size: 0.8125rem;
     }
     
     .profile-post-image,
     .profile-post-video {
-        max-height: 250px;
+        height: 150px;
     }
     
-    .profile-post-stats {
+    .profile-post-actions {
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .profile-action-icon {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .profile-action-count {
+        font-size: 0.7rem;
     }
 }
 

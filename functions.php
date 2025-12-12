@@ -51,6 +51,11 @@ function bebeats_enqueue_styles() {
     
     if (is_page('profil')) {
         wp_enqueue_style('bebeats-profil-style', get_template_directory_uri() . '/css/pages/profil.css', array('bebeats-style'), '1.0');
+        wp_enqueue_script('bebeats-profil', get_template_directory_uri() . '/js/profil.js', array('jquery'), '1.0', true);
+        wp_localize_script('bebeats-profil', 'bebeatsProfil', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('bebeats_reaction_action')
+        ));
     }
     
     if (is_page('feed-page')) {
@@ -89,6 +94,11 @@ function bebeats_enqueue_scripts() {
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('bebeats_reaction_action')
         ));
+        wp_enqueue_script('bebeats-time-update', get_template_directory_uri() . '/js/time-update.js', array(), '1.0', true);
+    }
+    
+    if (is_page('profil')) {
+        wp_enqueue_script('bebeats-time-update', get_template_directory_uri() . '/js/time-update.js', array(), '1.0', true);
     }
     
     if (is_page('contribuer')) {
@@ -126,6 +136,20 @@ function bebeats_disable_feed_redirect() {
 }
 add_action('parse_request', 'bebeats_disable_feed_redirect', 1);
 add_action('parse_query', 'bebeats_disable_feed_redirect', 1);
+
+// Donner les permissions de publication à tous les utilisateurs lors de leur connexion
+function bebeats_grant_post_permissions_on_login($user_login, $user) {
+    if ($user && isset($user->ID)) {
+        $user_obj = get_userdata($user->ID);
+        if ($user_obj) {
+            $user_obj->add_cap('publish_posts');
+            $user_obj->add_cap('edit_posts');
+            $user_obj->add_cap('edit_published_posts');
+            $user_obj->add_cap('delete_posts');
+        }
+    }
+}
+add_action('wp_login', 'bebeats_grant_post_permissions_on_login', 10, 2);
 
 // Hook into WordPress
 add_action('wp_enqueue_scripts', 'bebeats_enqueue_styles');
@@ -177,6 +201,15 @@ function bebeats_handle_login() {
         exit;
     } else {
         // Connexion réussie
+        // Donner les permissions nécessaires pour créer des posts
+        $user_obj = get_userdata($user->ID);
+        if ($user_obj) {
+            $user_obj->add_cap('publish_posts');
+            $user_obj->add_cap('edit_posts');
+            $user_obj->add_cap('edit_published_posts');
+            $user_obj->add_cap('delete_posts');
+        }
+        
         wp_clear_auth_cookie();
         wp_set_current_user($user->ID);
         wp_set_auth_cookie($user->ID, true); // true pour "remember me"
@@ -309,7 +342,7 @@ function bebeats_create_post_reactions_table() {
         user_id bigint(20) NOT NULL,
         reaction_type varchar(20) NOT NULL,
         comment_text text,
-        parent_comment_id bigint(20) DEFAULT NULL,
+        parent_comment_id bigint(20) DEFAULT 0,
         created_at datetime DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (id),
         KEY post_id (post_id),
@@ -319,6 +352,42 @@ function bebeats_create_post_reactions_table() {
     ) $charset_collate;";
     
     dbDelta($sql);
+    
+    // Ajouter la contrainte unique si elle n'existe pas déjà (pour les mises à jour)
+    // Utiliser un index unique sur (user_id, post_id, reaction_type, parent_comment_id)
+    // mais seulement pour les réactions qui n'ont pas de parent_comment_id (like, repost, favorite)
+    $index_exists = $wpdb->get_results($wpdb->prepare(
+        "SHOW INDEX FROM $table_name WHERE Key_name = %s",
+        'unique_user_post_reaction'
+    ));
+    
+    if (empty($index_exists)) {
+        // Mettre à jour les NULL en 0 pour les réactions sans parent
+        $wpdb->query("
+            UPDATE $table_name 
+            SET parent_comment_id = 0 
+            WHERE parent_comment_id IS NULL 
+            AND reaction_type IN ('like', 'repost', 'favorite')
+        ");
+        
+        // Supprimer les doublons potentiels avant d'ajouter la contrainte
+        $wpdb->query("
+            DELETE r1 FROM $table_name r1
+            INNER JOIN $table_name r2 
+            WHERE r1.id > r2.id 
+            AND r1.user_id = r2.user_id 
+            AND r1.post_id = r2.post_id 
+            AND r1.reaction_type = r2.reaction_type 
+            AND COALESCE(r1.parent_comment_id, 0) = COALESCE(r2.parent_comment_id, 0)
+            AND r1.reaction_type IN ('like', 'repost', 'favorite', 'comment_like')
+        ");
+        
+        // Ajouter la contrainte unique (maintenant que parent_comment_id utilise 0 au lieu de NULL)
+        $wpdb->query("
+            ALTER TABLE $table_name 
+            ADD UNIQUE KEY unique_user_post_reaction (user_id, post_id, reaction_type, parent_comment_id)
+        ");
+    }
 }
 
 /**
@@ -562,6 +631,15 @@ function bebeats_handle_register_fan_step3() {
         );
         
         if (!is_wp_error($user_id)) {
+            // Donner les permissions nécessaires pour créer des posts
+            $user_obj = get_userdata($user_id);
+            if ($user_obj) {
+                $user_obj->add_cap('publish_posts');
+                $user_obj->add_cap('edit_posts');
+                $user_obj->add_cap('edit_published_posts');
+                $user_obj->add_cap('delete_posts');
+            }
+            
             // Mettre à jour les meta utilisateur
             update_user_meta($user_id, 'bebeats_user_type', 'fan');
             update_user_meta($user_id, 'bebeats_genres', json_decode($registration->genres, true));
@@ -926,6 +1004,15 @@ function bebeats_handle_register_artiste_step4() {
         );
         
         if (!is_wp_error($user_id)) {
+            // Donner les permissions nécessaires pour créer des posts
+            $user_obj = get_userdata($user_id);
+            if ($user_obj) {
+                $user_obj->add_cap('publish_posts');
+                $user_obj->add_cap('edit_posts');
+                $user_obj->add_cap('edit_published_posts');
+                $user_obj->add_cap('delete_posts');
+            }
+            
             // Mettre à jour les meta utilisateur
             update_user_meta($user_id, 'bebeats_user_type', 'artiste');
             update_user_meta($user_id, 'bebeats_genres', json_decode($registration->genres, true));
@@ -1150,18 +1237,31 @@ function bebeats_handle_create_post() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'bebeats_posts';
     
+    // Vérifier que la table existe
+    $table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'");
+    if (!$table_exists) {
+        error_log('bebeats_create_post: ❌ ERREUR - La table ' . $table_name . ' n\'existe pas!');
+        // Créer la table si elle n'existe pas
+        bebeats_create_posts_table();
+    }
+    
+    // Préparer les données pour l'insertion
+    $insert_data = array(
+        'user_id' => $user_id,
+        'post_type' => $post_type,
+        'content' => $content,
+        'media_url' => $media_url,
+        'media_type' => $media_type,
+        'allow_comments' => $allow_comments,
+        'allow_repost' => $allow_repost,
+        'show_likes' => $show_likes
+    );
+    
+    error_log('bebeats_create_post: Données à insérer: ' . print_r($insert_data, true));
+    
     $result = $wpdb->insert(
         $table_name,
-        array(
-            'user_id' => $user_id,
-            'post_type' => $post_type,
-            'content' => $content,
-            'media_url' => $media_url,
-            'media_type' => $media_type,
-            'allow_comments' => $allow_comments,
-            'allow_repost' => $allow_repost,
-            'show_likes' => $show_likes
-        ),
+        $insert_data,
         array('%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d')
     );
     
@@ -1183,8 +1283,19 @@ function bebeats_handle_create_post() {
     error_log('bebeats_create_post: Post créé avec succès dans la table personnalisée, ID: ' . $bebeats_post_id);
     error_log('bebeats_create_post: User ID: ' . $user_id);
     error_log('bebeats_create_post: Post Type: ' . $post_type);
-    error_log('bebeats_create_post: Content: ' . (!empty($content) ? 'Oui' : 'Non'));
-    error_log('bebeats_create_post: Media URL: ' . (!empty($media_url) ? $media_url : 'Non'));
+    error_log('bebeats_create_post: Content: ' . (!empty($content) ? substr($content, 0, 50) . '...' : 'VIDE'));
+    error_log('bebeats_create_post: Media URL: ' . (!empty($media_url) ? $media_url : 'Aucun'));
+    
+    // Vérifier que le post a bien été inséré en le récupérant
+    $verify_post = $wpdb->get_row($wpdb->prepare(
+        "SELECT * FROM $table_name WHERE id = %d",
+        $bebeats_post_id
+    ));
+    if ($verify_post) {
+        error_log('bebeats_create_post: ✅ Post vérifié dans la base de données');
+    } else {
+        error_log('bebeats_create_post: ❌ ERREUR - Post non trouvé après insertion!');
+    }
     
     // Créer aussi un post WordPress pour qu'il apparaisse dans le menu Posts
     $wp_post_title = !empty($content) ? wp_trim_words($content, 10, '...') : 'Post BeBeats - ' . ucfirst($post_type);
@@ -1206,15 +1317,18 @@ function bebeats_handle_create_post() {
         }
     }
     
-    // Vérifier que l'utilisateur a les permissions pour publier
-    if (!current_user_can('publish_posts')) {
-        // Donner temporairement les permissions à l'utilisateur
-        $user = get_userdata($user_id);
-        if ($user) {
-            $user->add_cap('publish_posts');
-            $user->add_cap('edit_posts');
-        }
+    // Donner les permissions nécessaires à l'utilisateur pour créer des posts
+    $user = get_userdata($user_id);
+    if ($user) {
+        // Ajouter les capacités nécessaires de manière permanente
+        $user->add_cap('publish_posts');
+        $user->add_cap('edit_posts');
+        $user->add_cap('edit_published_posts');
+        $user->add_cap('delete_posts');
     }
+    
+    // Utiliser wp_set_current_user pour que wp_insert_post reconnaisse les permissions
+    wp_set_current_user($user_id);
     
     $wp_post_data = array(
         'post_title'    => $wp_post_title,
@@ -1226,16 +1340,28 @@ function bebeats_handle_create_post() {
     );
     
     error_log('bebeats_create_post: Tentative de création du post WordPress');
-    error_log('bebeats_create_post: Données: ' . print_r($wp_post_data, true));
+    error_log('bebeats_create_post: User ID: ' . $user_id);
+    error_log('bebeats_create_post: Permissions: ' . (current_user_can('publish_posts') ? 'Oui' : 'Non'));
+    error_log('bebeats_create_post: Titre: ' . $wp_post_title);
+    
+    // Désactiver temporairement les filtres qui pourraient bloquer la création
+    remove_action('save_post', 'wp_save_post_revision', 10);
     
     $wp_post_id = wp_insert_post($wp_post_data, true);
     
+    // Réactiver les filtres
+    add_action('save_post', 'wp_save_post_revision', 10);
+    
     if ($wp_post_id && !is_wp_error($wp_post_id)) {
         // Sauvegarder les métadonnées du post BeBeats dans les meta du post WordPress
-        update_post_meta($wp_post_id, 'bebeats_post_id', $wpdb->insert_id);
+        update_post_meta($wp_post_id, 'bebeats_post_id', $bebeats_post_id);
         update_post_meta($wp_post_id, 'bebeats_post_type', $post_type);
-        update_post_meta($wp_post_id, 'bebeats_media_url', $media_url);
-        update_post_meta($wp_post_id, 'bebeats_media_type', $media_type);
+        if (!empty($media_url)) {
+            update_post_meta($wp_post_id, 'bebeats_media_url', $media_url);
+        }
+        if (!empty($media_type)) {
+            update_post_meta($wp_post_id, 'bebeats_media_type', $media_type);
+        }
         update_post_meta($wp_post_id, 'bebeats_allow_comments', $allow_comments);
         update_post_meta($wp_post_id, 'bebeats_allow_repost', $allow_repost);
         update_post_meta($wp_post_id, 'bebeats_show_likes', $show_likes);
@@ -1246,7 +1372,21 @@ function bebeats_handle_create_post() {
     } else {
         $error_msg = is_wp_error($wp_post_id) ? $wp_post_id->get_error_message() : 'Erreur inconnue';
         error_log('bebeats_create_post: Erreur lors de la création du post WordPress: ' . $error_msg);
-        error_log('bebeats_create_post: Données du post: ' . print_r($wp_post_data, true));
+        if (is_wp_error($wp_post_id)) {
+            error_log('bebeats_create_post: Erreurs détaillées: ' . print_r($wp_post_id->get_error_messages(), true));
+        }
+    }
+    
+    // Vérifier une dernière fois que le post existe dans la table
+    $final_check = $wpdb->get_var($wpdb->prepare(
+        "SELECT COUNT(*) FROM $table_name WHERE id = %d",
+        $bebeats_post_id
+    ));
+    
+    if ($final_check > 0) {
+        error_log('bebeats_create_post: ✅ Post confirmé dans la base de données avant redirection');
+    } else {
+        error_log('bebeats_create_post: ❌ ERREUR CRITIQUE - Post non trouvé avant redirection!');
     }
     
     // Rediriger vers la page contribuer avec un message de succès
@@ -1290,39 +1430,128 @@ function bebeats_handle_post_reaction() {
     $table_name = $wpdb->prefix . 'bebeats_post_reactions';
     
     // Pour les likes, republier et favoris : toggle (ajouter ou supprimer)
+    // IMPORTANT: Un utilisateur ne peut avoir qu'UNE SEULE réaction de chaque type par post
     if (in_array($reaction_type, array('like', 'repost', 'favorite')) && $action === 'toggle') {
         // Vérifier si la réaction existe déjà (sans parent_comment_id pour ces types)
+        // Utiliser COALESCE pour gérer NULL et 0 de manière uniforme
         $existing = $wpdb->get_row($wpdb->prepare(
-            "SELECT id FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND (parent_comment_id IS NULL OR parent_comment_id = 0)",
+            "SELECT id FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND COALESCE(parent_comment_id, 0) = 0",
             $post_id, $user_id, $reaction_type
         ));
         
         if ($existing) {
-            // Supprimer la réaction
-            $wpdb->delete(
+            // Supprimer la réaction existante
+            $deleted = $wpdb->delete(
                 $table_name,
                 array('id' => $existing->id),
                 array('%d')
             );
-            wp_send_json_success(array('action' => 'removed', 'reaction_type' => $reaction_type));
+            
+            if ($deleted !== false) {
+                // Récupérer le nouveau compteur
+                $new_count = (int) $wpdb->get_var($wpdb->prepare(
+                    "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE post_id = %d AND reaction_type = %s",
+                    $post_id, $reaction_type
+                ));
+                wp_send_json_success(array(
+                    'action' => 'removed', 
+                    'reaction_type' => $reaction_type,
+                    'count' => $new_count
+                ));
+            } else {
+                // Même en cas d'erreur, retourner le compteur actuel
+                $current_count = (int) $wpdb->get_var($wpdb->prepare(
+                    "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE post_id = %d AND reaction_type = %s",
+                    $post_id, $reaction_type
+                ));
+                wp_send_json_error(array(
+                    'message' => 'Erreur lors de la suppression',
+                    'count' => $current_count
+                ));
+            }
         } else {
-            // Ajouter la réaction
-            $wpdb->insert(
+            // Ajouter la réaction (un utilisateur ne peut avoir qu'une seule réaction de ce type)
+            // Utiliser 0 au lieu de NULL pour parent_comment_id pour éviter les problèmes avec la contrainte unique
+            $inserted = $wpdb->insert(
                 $table_name,
                 array(
                     'post_id' => $post_id,
                     'user_id' => $user_id,
                     'reaction_type' => $reaction_type,
-                    'parent_comment_id' => null
+                    'parent_comment_id' => 0
                 ),
                 array('%d', '%d', '%s', '%d')
             );
-            wp_send_json_success(array('action' => 'added', 'reaction_type' => $reaction_type));
+            
+            if ($inserted !== false) {
+                // Récupérer le nouveau compteur
+                $new_count = (int) $wpdb->get_var($wpdb->prepare(
+                    "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE post_id = %d AND reaction_type = %s",
+                    $post_id, $reaction_type
+                ));
+                wp_send_json_success(array(
+                    'action' => 'added', 
+                    'reaction_type' => $reaction_type,
+                    'count' => $new_count
+                ));
+            } else {
+                // Si l'insertion échoue, vérifier l'erreur
+                $error_message = $wpdb->last_error;
+                error_log('bebeats_post_reaction: Erreur insertion - ' . $error_message);
+                error_log('bebeats_post_reaction: Post ID: ' . $post_id . ', User ID: ' . $user_id . ', Reaction Type: ' . $reaction_type);
+                
+                // Vérifier si c'est à cause d'un doublon (contrainte unique)
+                $existing_check = $wpdb->get_row($wpdb->prepare(
+                    "SELECT id FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND COALESCE(parent_comment_id, 0) = 0",
+                    $post_id, $user_id, $reaction_type
+                ));
+                
+                if ($existing_check) {
+                    // La réaction existe déjà, la supprimer (toggle)
+                    $deleted = $wpdb->delete(
+                        $table_name,
+                        array('id' => $existing_check->id),
+                        array('%d')
+                    );
+                    
+                    if ($deleted !== false) {
+                        $new_count = (int) $wpdb->get_var($wpdb->prepare(
+                            "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE post_id = %d AND reaction_type = %s",
+                            $post_id, $reaction_type
+                        ));
+                        wp_send_json_success(array(
+                            'action' => 'removed', 
+                            'reaction_type' => $reaction_type,
+                            'count' => $new_count
+                        ));
+                    } else {
+                        // Récupérer le compteur actuel même en cas d'erreur
+                        $current_count = (int) $wpdb->get_var($wpdb->prepare(
+                            "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE post_id = %d AND reaction_type = %s",
+                            $post_id, $reaction_type
+                        ));
+                        wp_send_json_error(array(
+                            'message' => 'Erreur lors de la suppression: ' . $wpdb->last_error,
+                            'count' => $current_count
+                        ));
+                    }
+                } else {
+                    // Autre erreur - retourner le compteur actuel
+                    $current_count = (int) $wpdb->get_var($wpdb->prepare(
+                        "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE post_id = %d AND reaction_type = %s",
+                        $post_id, $reaction_type
+                    ));
+                    wp_send_json_error(array(
+                        'message' => 'Erreur lors de l\'ajout de la réaction: ' . ($error_message ?: 'Erreur inconnue'),
+                        'count' => $current_count
+                    ));
+                }
+            }
         }
     }
-    // Pour les commentaires : toujours ajouter
+    // Pour les commentaires : toujours ajouter (un utilisateur peut publier plusieurs commentaires)
     elseif ($reaction_type === 'comment' && !empty($comment_text)) {
-        $wpdb->insert(
+        $inserted = $wpdb->insert(
             $table_name,
             array(
                 'post_id' => $post_id,
@@ -1333,9 +1562,58 @@ function bebeats_handle_post_reaction() {
             ),
             array('%d', '%d', '%s', '%s', '%d')
         );
-        wp_send_json_success(array('action' => 'added', 'reaction_type' => 'comment'));
+        
+        if ($inserted !== false) {
+            $comment_id = $wpdb->insert_id;
+            
+            // Récupérer les données complètes du commentaire créé
+            $comment = $wpdb->get_row($wpdb->prepare(
+                "SELECT r.*, u.display_name, u.user_login,
+                        pm1.meta_value as profile_photo
+                 FROM $table_name r
+                 LEFT JOIN {$wpdb->users} u ON r.user_id = u.ID
+                 LEFT JOIN {$wpdb->usermeta} pm1 ON u.ID = pm1.user_id AND pm1.meta_key = 'bebeats_profile_photo'
+                 WHERE r.id = %d",
+                $comment_id
+            ));
+            
+            // Récupérer le nouveau compteur de commentaires
+            $new_count = (int) $wpdb->get_var($wpdb->prepare(
+                "SELECT COUNT(*) FROM $table_name WHERE post_id = %d AND reaction_type = 'comment' AND (parent_comment_id IS NULL OR parent_comment_id = 0)",
+                $post_id
+            ));
+            
+            // Préparer les données du commentaire pour le retour
+            $comment_data = null;
+            if ($comment) {
+                $comment_profile_photo = !empty($comment->profile_photo) ? $comment->profile_photo : get_avatar_url($comment->user_id, array('size' => 40));
+                $comment_time_ago = human_time_diff(strtotime($comment->created_at), current_time('timestamp'));
+                $comment_timestamp = strtotime($comment->created_at);
+                
+                $comment_data = array(
+                    'id' => $comment->id,
+                    'user_id' => $comment->user_id,
+                    'display_name' => $comment->display_name ?: $comment->user_login,
+                    'user_login' => $comment->user_login,
+                    'profile_photo' => $comment_profile_photo,
+                    'comment_text' => $comment->comment_text,
+                    'time_ago' => $comment_time_ago,
+                    'timestamp' => $comment_timestamp,
+                    'likes_count' => 0
+                );
+            }
+            
+            wp_send_json_success(array(
+                'action' => 'added', 
+                'reaction_type' => 'comment',
+                'count' => $new_count,
+                'comment' => $comment_data
+            ));
+        } else {
+            wp_send_json_error(array('message' => 'Erreur lors de l\'ajout du commentaire'));
+        }
     }
-    // Pour liker un commentaire
+    // Pour liker un commentaire : un utilisateur ne peut liker qu'une fois chaque commentaire
     elseif ($reaction_type === 'comment_like' && $parent_comment_id > 0) {
         $existing = $wpdb->get_row($wpdb->prepare(
             "SELECT id FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND parent_comment_id = %d",
@@ -1343,14 +1621,28 @@ function bebeats_handle_post_reaction() {
         ));
         
         if ($existing) {
-            $wpdb->delete(
+            $deleted = $wpdb->delete(
                 $table_name,
                 array('id' => $existing->id),
                 array('%d')
             );
-            wp_send_json_success(array('action' => 'removed', 'reaction_type' => 'comment_like'));
+            
+            if ($deleted !== false) {
+                // Récupérer le nouveau compteur
+                $new_count = (int) $wpdb->get_var($wpdb->prepare(
+                    "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE parent_comment_id = %d AND reaction_type = 'comment_like'",
+                    $parent_comment_id
+                ));
+                wp_send_json_success(array(
+                    'action' => 'removed', 
+                    'reaction_type' => 'comment_like',
+                    'count' => $new_count
+                ));
+            } else {
+                wp_send_json_error(array('message' => 'Erreur lors de la suppression'));
+            }
         } else {
-            $wpdb->insert(
+            $inserted = $wpdb->insert(
                 $table_name,
                 array(
                     'post_id' => $post_id,
@@ -1360,7 +1652,21 @@ function bebeats_handle_post_reaction() {
                 ),
                 array('%d', '%d', '%s', '%d')
             );
-            wp_send_json_success(array('action' => 'added', 'reaction_type' => 'comment_like'));
+            
+            if ($inserted !== false) {
+                // Récupérer le nouveau compteur
+                $new_count = (int) $wpdb->get_var($wpdb->prepare(
+                    "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE parent_comment_id = %d AND reaction_type = 'comment_like'",
+                    $parent_comment_id
+                ));
+                wp_send_json_success(array(
+                    'action' => 'added', 
+                    'reaction_type' => 'comment_like',
+                    'count' => $new_count
+                ));
+            } else {
+                wp_send_json_error(array('message' => 'Erreur lors de l\'ajout du like'));
+            }
         }
     } else {
         wp_send_json_error(array('message' => 'Action invalide'));
