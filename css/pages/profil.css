@@ -406,12 +406,7 @@
     margin-top: auto;
     position: relative;
     padding-bottom: 0.5rem;
-}
-
-.profile-post-actions-left {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
+    width: 100%;
 }
 
 /* Styles harmonisés avec la page feed */
@@ -523,7 +518,7 @@
         gap: 1rem;
     }
     
-    .profile-post-actions-left {
+    /* .profile-post-actions-left removed - no longer needed */
         gap: 1rem;
     }
     
@@ -534,6 +529,378 @@
     
     .profile-action-count {
         font-size: 0.8rem;
+    }
+}
+
+/* ========================================
+   Styles pour les carrousels
+   ======================================== */
+
+/* Container du carrousel */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* Track du carrousel */
+.carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+/* Boutons de navigation */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.carousel-nav-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.carousel-nav-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-prev {
+    left: -24px;
+}
+
+.carousel-next {
+    right: -24px;
+}
+
+/* Posts dans les carrousels (format compact) */
+.carousel-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex: 0 0 auto;
+    width: 280px;
+}
+
+.carousel-post-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: 100%;
+    cursor: pointer;
+}
+
+.carousel-post-link:hover .carousel-post-item {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.carousel-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.carousel-post-type {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 107, 53, 0.2);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 8px;
+    color: #FF6B35;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.carousel-post-content {
+    margin-bottom: 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: #fff;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carousel-post-media {
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.carousel-post-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-post-video {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-post-audio {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.carousel-post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+.carousel-post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.4rem 0.6rem;
+    border-radius: 90px;
+}
+
+.carousel-post-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.carousel-post-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carousel-post-action-btn.active {
+    color: #A855F7;
+}
+
+.carousel-post-action-btn.active .carousel-action-icon {
+    fill: #A855F7;
+}
+
+.carousel-action-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.carousel-action-count {
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* Carrousel Feed (format complet) */
+.carousel-feed-container {
+    margin: 1.5rem 0;
+}
+
+.carousel-feed-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.carousel-feed-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.carousel-feed-track {
+    display: flex;
+    gap: 2rem;
+    padding: 0.5rem;
+}
+
+.carousel-feed-post {
+    flex: 0 0 auto;
+    width: 600px;
+    max-width: 100%;
+}
+
+/* Responsive pour les carrousels */
+@media (max-width: 1200px) {
+    .carousel-prev {
+        left: -16px;
+    }
+    
+    .carousel-next {
+        right: -16px;
+    }
+    
+    .carousel-nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-nav-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .carousel-post-link {
+        width: 240px;
+    }
+    
+    .carousel-feed-post {
+        width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-prev {
+        left: -12px;
+    }
+    
+    .carousel-next {
+        right: -12px;
+    }
+    
+    .carousel-nav-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .carousel-nav-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .carousel-post-link {
+        width: 220px;
+    }
+    
+    .carousel-post-image,
+    .carousel-post-video {
+        height: 150px;
+    }
+    
+    .carousel-feed-post {
+        width: 450px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-container {
+        margin: 1rem -1rem;
+        padding: 0 2rem;
+    }
+    
+    .carousel-prev {
+        left: 0;
+    }
+    
+    .carousel-next {
+        right: 0;
+    }
+    
+    .carousel-nav-btn {
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .carousel-post-link {
+        width: 200px;
+    }
+    
+    .carousel-post-item {
+        padding: 0.875rem;
+    }
+    
+    .carousel-post-text {
+        font-size: 0.8125rem;
+    }
+    
+    .carousel-post-image,
+    .carousel-post-video {
+        height: 130px;
+    }
+    
+    .carousel-action-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .carousel-action-count {
+        font-size: 0.8rem;
+    }
+    
+    .carousel-feed-post {
+        width: 380px;
     }
 }
 

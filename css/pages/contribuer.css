@@ -671,6 +671,211 @@ body.mode-orange .menu-item-publish:hover {
     color: rgba(255, 255, 255, 0.6);
 }
 
+/* Styles pour le modal Catégorie */
+.category-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.category-modal-content {
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.category-modal-header h3 {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.category-modal-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.category-modal-close:hover {
+    color: #fff;
+}
+
+.category-modal-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+/* Styles pour les options de catégorie */
+.category-option {
+    padding: 0;
+}
+
+.category-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.category-radio-label:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.category-radio-input {
+    display: none;
+}
+
+.category-radio-custom {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.category-radio-input:checked + .category-radio-custom {
+    border-color: #A855F7;
+    background: #A855F7;
+}
+
+.category-radio-input:checked + .category-radio-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.category-radio-input:checked ~ .category-label-text .category-title {
+    color: #A855F7;
+}
+
+.category-label-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.category-title {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    transition: color 0.2s ease;
+}
+
+.category-description {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.4;
+}
+
+/* Mode Orange pour la catégorie sélectionnée */
+body.mode-orange .category-radio-input:checked + .category-radio-custom {
+    border-color: #FF6B35;
+    background: #FF6B35;
+}
+
+body.mode-orange .category-radio-input:checked ~ .category-label-text .category-title {
+    color: #FF6B35;
+}
+
+/* Responsive adjustments pour le modal Catégorie */
+@media (max-width: 768px) {
+    .category-modal-content {
+        width: 95%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-modal-header {
+        padding: 1.25rem;
+    }
+    
+    .category-modal-body {
+        padding: 1.25rem;
+        gap: 0.875rem;
+    }
+    
+    .category-radio-label {
+        padding: 0.875rem;
+    }
+    
+    .category-title {
+        font-size: 0.9375rem;
+    }
+    
+    .category-description {
+        font-size: 0.8125rem;
+    }
+    
+    .category-radio-custom {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .category-radio-input:checked + .category-radio-custom::after {
+        width: 8px;
+        height: 8px;
+    }
+}
+
 /* Styles pour le modal Options */
 .options-modal {
     position: fixed;

@@ -68,6 +68,50 @@ get_header(); ?>
                     </div>
                 </div>
                 
+                <!-- Modal pour sélectionner une catégorie -->
+                <div class="category-modal" id="category-modal" style="display: none;">
+                    <div class="category-modal-content">
+                        <div class="category-modal-header">
+                            <h3>Sélectionner une catégorie</h3>
+                            <button type="button" class="category-modal-close" id="category-modal-close">×</button>
+                        </div>
+                        <div class="category-modal-body">
+                            <div class="category-option">
+                                <label class="category-radio-label">
+                                    <input type="radio" name="post_category" value="fan-art" class="category-radio-input" checked>
+                                    <span class="category-radio-custom"></span>
+                                    <span class="category-label-text">
+                                        <span class="category-title">Fan-Art</span>
+                                        <span class="category-description">Création artistique visuelle</span>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="category-option">
+                                <label class="category-radio-label">
+                                    <input type="radio" name="post_category" value="audio" class="category-radio-input">
+                                    <span class="category-radio-custom"></span>
+                                    <span class="category-label-text">
+                                        <span class="category-title">Audio</span>
+                                        <span class="category-description">Contenu audio, musique</span>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="category-option">
+                                <label class="category-radio-label">
+                                    <input type="radio" name="post_category" value="post" class="category-radio-input">
+                                    <span class="category-radio-custom"></span>
+                                    <span class="category-label-text">
+                                        <span class="category-title">Article</span>
+                                        <span class="category-description">Post texte standard</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Modal pour les options -->
                 <div class="options-modal" id="options-modal" style="display: none;">
                     <div class="options-modal-content">
@@ -205,6 +249,13 @@ get_header(); ?>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
                     <span class="menu-label">Identifier une personne</span>
+                </button>
+                
+                <button type="button" class="menu-item" id="category-btn" aria-label="Ajouter une catégorie">
+                    <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                    <span class="menu-label">Ajouter une catégorie</span>
                 </button>
                 
                 <button type="button" class="menu-item" id="options-btn" aria-label="Options">

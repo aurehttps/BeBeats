@@ -413,3 +413,235 @@ body.mode-orange .category-btn-active:hover {
     }
 }
 
+/* Styles pour les résultats de recherche */
+.search-results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.search-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.search-post-item {
+    padding: 1.5rem;
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.search-post-link:hover .search-post-item {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.search-post-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-post-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.search-post-author-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.search-post-author-name {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.search-post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-post-type {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    background: rgba(255, 107, 53, 0.2);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 12px;
+    color: #FF6B35;
+    text-transform: uppercase;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.search-post-content {
+    margin-bottom: 1rem;
+}
+
+.search-post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    white-space: pre-wrap;
+}
+
+.search-post-media {
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.search-post-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    display: block;
+}
+
+.search-post-video {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    display: block;
+}
+
+.search-post-audio {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.search-post-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0.75rem;
+    border-radius: 90px;
+}
+
+.search-post-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.search-post-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.search-post-action-btn.active {
+    color: #A855F7;
+}
+
+.search-post-action-btn.active .search-action-icon {
+    fill: #A855F7;
+}
+
+.search-action-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.search-action-count {
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.search-no-results {
+    padding: 3rem;
+    text-align: center;
+    border-radius: 16px;
+    margin-top: 2rem;
+}
+
+.search-no-results p {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+/* Responsive pour les résultats de recherche */
+@media (max-width: 768px) {
+    .search-post-item {
+        padding: 1.25rem;
+    }
+    
+    .search-post-header {
+        flex-wrap: wrap;
+    }
+    
+    .search-post-type {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-post-item {
+        padding: 1rem;
+    }
+    
+    .search-post-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .search-post-author-name {
+        font-size: 0.9rem;
+    }
+    
+    .search-post-text {
+        font-size: 0.9rem;
+    }
+    
+    .search-post-actions {
+        gap: 1rem;
+    }
+    
+    .search-action-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+

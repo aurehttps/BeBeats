@@ -54,7 +54,8 @@ function bebeats_enqueue_styles() {
         wp_enqueue_script('bebeats-profil', get_template_directory_uri() . '/js/profil.js', array('jquery'), '1.0', true);
         wp_localize_script('bebeats-profil', 'bebeatsProfil', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('bebeats_reaction_action')
+            'nonce' => wp_create_nonce('bebeats_reaction_action'),
+            'homeUrl' => home_url('/')
         ));
     }
     
@@ -98,6 +99,20 @@ function bebeats_enqueue_scripts() {
     }
     
     if (is_page('profil')) {
+        wp_enqueue_script('bebeats-time-update', get_template_directory_uri() . '/js/time-update.js', array(), '1.0', true);
+    }
+    
+    if (is_page('recherche')) {
+        wp_enqueue_script('bebeats-recherche', get_template_directory_uri() . '/js/profil.js', array('jquery'), '1.0', true);
+        wp_localize_script('bebeats-recherche', 'bebeatsProfil', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('bebeats_reaction_action'),
+            'homeUrl' => home_url('/')
+        ));
+        wp_enqueue_script('bebeats-time-update', get_template_directory_uri() . '/js/time-update.js', array(), '1.0', true);
+    }
+    
+    if (is_page('resultats') || is_search()) {
         wp_enqueue_script('bebeats-time-update', get_template_directory_uri() . '/js/time-update.js', array(), '1.0', true);
     }
     

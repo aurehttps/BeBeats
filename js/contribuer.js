@@ -334,6 +334,60 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Gestion de la modal de catégorie
+    const categoryModal = document.getElementById('category-modal');
+    const categoryModalClose = document.getElementById('category-modal-close');
+    const categoryBtn = document.getElementById('category-btn');
+    const categoryRadioInputs = document.querySelectorAll('input[name="post_category"]');
+    const postTypeInput = document.getElementById('post-type-input');
+    
+    // Fonction pour mettre à jour le champ caché avec la catégorie sélectionnée
+    function updatePostType() {
+        const selectedCategory = document.querySelector('input[name="post_category"]:checked');
+        if (selectedCategory && postTypeInput) {
+            postTypeInput.value = selectedCategory.value;
+            console.log('Catégorie mise à jour:', selectedCategory.value);
+        }
+    }
+    
+    if (categoryBtn && categoryModal) {
+        categoryBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            categoryModal.style.display = 'flex';
+        });
+    }
+    
+    if (categoryModalClose) {
+        categoryModalClose.addEventListener('click', function() {
+            categoryModal.style.display = 'none';
+        });
+    }
+    
+    // Fermer le modal Catégorie en cliquant à l'extérieur
+    if (categoryModal) {
+        categoryModal.addEventListener('click', function(e) {
+            if (e.target === categoryModal) {
+                categoryModal.style.display = 'none';
+            }
+        });
+    }
+    
+    // Écouter les changements de catégorie
+    categoryRadioInputs.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            updatePostType();
+        });
+    });
+    
+    // Initialiser la valeur par défaut au chargement
+    if (categoryRadioInputs.length > 0 && postTypeInput) {
+        const defaultChecked = document.querySelector('input[name="post_category"]:checked');
+        if (defaultChecked) {
+            postTypeInput.value = defaultChecked.value;
+        }
+    }
+    
     // Gestion du bouton "Options"
     const optionsBtn = document.getElementById('options-btn');
     const optionsModal = document.getElementById('options-modal');
@@ -394,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Gestion des autres actions du menu latéral (exclure les boutons submit et le bouton Publier)
-    const menuItems = document.querySelectorAll('.menu-item:not(#tag-user-btn):not(#options-btn):not(.menu-item-media):not(.menu-item-publish):not([type="submit"])');
+    const menuItems = document.querySelectorAll('.menu-item:not(#tag-user-btn):not(#category-btn):not(#options-btn):not(.menu-item-media):not(.menu-item-publish):not([type="submit"])');
     
     menuItems.forEach(item => {
         item.addEventListener('click', function(e) {
