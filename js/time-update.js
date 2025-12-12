@@ -113,3 +113,4 @@
     // Mettre à jour toutes les minutes (60000 ms)
     setInterval(updateAllTimes, 60000);
 })();
+

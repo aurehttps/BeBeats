@@ -313,6 +313,7 @@
     gap: 0.75rem;
     position: relative;
     cursor: pointer;
+    min-height: 100%;
 }
 
 .profile-post-link:hover .profile-post-item {
@@ -351,6 +352,8 @@
 .profile-post-content {
     margin-bottom: 0.5rem;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-post-text {
@@ -396,25 +399,35 @@
 .profile-post-actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: flex-start;
+    gap: 1.25rem;
     padding-top: 0.75rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    flex-wrap: wrap;
+    margin-top: auto;
+    position: relative;
+    padding-bottom: 0.5rem;
 }
 
+.profile-post-actions-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+/* Styles harmonisés avec la page feed */
 .profile-post-action-btn {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.5rem;
     background: transparent;
     border: none;
     color: rgba(255, 255, 255, 0.7);
     font-family: 'URW Form', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 0.4rem 0.6rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 90px;
 }
 
@@ -436,16 +449,23 @@
     fill: #A855F7;
 }
 
+/* Pour l'icône repost, ne pas appliquer le fill pour éviter la déformation */
+.profile-post-action-btn.repost-btn.active .profile-action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
 .profile-action-icon {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     stroke-width: 2;
 }
 
 .profile-action-count {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    min-width: 16px;
+    min-width: 20px;
     text-align: center;
 }
 
@@ -475,8 +495,8 @@
     }
     
     .profile-action-icon {
-        width: 16px;
-        height: 16px;
+        width: 22px;
+        height: 22px;
     }
 }
 
@@ -500,17 +520,20 @@
     }
     
     .profile-post-actions {
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 1rem;
+    }
+    
+    .profile-post-actions-left {
+        gap: 1rem;
     }
     
     .profile-action-icon {
-        width: 14px;
-        height: 14px;
+        width: 20px;
+        height: 20px;
     }
     
     .profile-action-count {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
     }
 }
 

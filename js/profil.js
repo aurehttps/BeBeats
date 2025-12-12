@@ -68,3 +68,4 @@ function handleProfileReaction(postId, reactionType, button) {
         console.error('Erreur:', error);
     });
 }
+

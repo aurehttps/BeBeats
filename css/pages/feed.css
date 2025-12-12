@@ -166,6 +166,13 @@
     fill: #A855F7;
 }
 
+/* Pour l'icône repost, ne pas appliquer le fill pour éviter la déformation */
+.repost-btn.active .action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
 .action-icon {
     width: 24px;
     height: 24px;
