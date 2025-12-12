@@ -69,7 +69,7 @@ header * {
 .search-input {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     padding: 0.625rem 1rem 0.625rem 2.5rem;
     color: #fff;
     font-size: 0.875rem;
@@ -104,7 +104,7 @@ header * {
 .notification-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     width: 44px;
     height: 44px;
     display: flex;
@@ -128,7 +128,7 @@ header * {
 .login-btn {
     background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     padding: 0.625rem 1.5rem;
     color: #fff;
     font-size: 0.875rem;
@@ -147,7 +147,7 @@ header * {
 .settings-btn-header {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     width: 44px;
     height: 44px;
     display: none;
@@ -172,7 +172,7 @@ header * {
 .profile-btn-header {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     width: 44px;
     height: 44px;
     display: flex;
@@ -307,6 +307,130 @@ header * {
     color: rgba(255, 255, 255, 0.9);
     white-space: nowrap;
     display: block;
+}
+
+/* Styles pour l'élément actif du menu - Par défaut violet */
+.nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.nav-item.active .nav-label {
+    color: #fff;
+    font-weight: 500;
+}
+
+.nav-item.active .nav-icon-gradient-1,
+.nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+/* S'assurer que le mode violet est appliqué par défaut si aucune classe n'est présente */
+body:not(.mode-orange):not(.mode-violet) .nav-item.active .nav-icon,
+body:not(.mode-orange):not(.mode-violet) .nav-item.active .nav-icon-gradient-1,
+body:not(.mode-orange):not(.mode-violet) .nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+/* Mode Orange pour le sous-menu */
+html.mode-orange .nav-icon,
+body.mode-orange .nav-icon {
+    background: rgba(255, 107, 53, 0.2) !important;
+    border-color: rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-icon-gradient-1,
+html.mode-orange .nav-icon-gradient-2,
+body.mode-orange .nav-icon-gradient-1,
+body.mode-orange .nav-icon-gradient-2 {
+    background: rgba(255, 107, 53, 0.2) !important;
+    border-color: rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item:hover .nav-icon,
+html.mode-orange .nav-item:hover .nav-icon-gradient-1,
+html.mode-orange .nav-item:hover .nav-icon-gradient-2,
+body.mode-orange .nav-item:hover .nav-icon,
+body.mode-orange .nav-item:hover .nav-icon-gradient-1,
+body.mode-orange .nav-item:hover .nav-icon-gradient-2 {
+    background: rgba(255, 107, 53, 0.3) !important;
+    border-color: rgba(255, 107, 53, 0.5) !important;
+}
+
+/* Mode Orange pour l'élément actif du menu - Spécificité élevée */
+html.mode-orange .nav-item.active .nav-icon,
+body.mode-orange .nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item.active .nav-icon-gradient-1,
+html.mode-orange .nav-item.active .nav-icon-gradient-2,
+body.mode-orange .nav-item.active .nav-icon-gradient-1,
+body.mode-orange .nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item.active .nav-label,
+body.mode-orange .nav-item.active .nav-label {
+    color: #fff !important;
+    font-weight: 500 !important;
+}
+
+/* Mode Violet pour le sous-menu (par défaut) */
+html.mode-violet .nav-icon,
+body.mode-violet .nav-icon {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-icon-gradient-1,
+html.mode-violet .nav-icon-gradient-2,
+body.mode-violet .nav-icon-gradient-1,
+body.mode-violet .nav-icon-gradient-2 {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item:hover .nav-icon,
+html.mode-violet .nav-item:hover .nav-icon-gradient-1,
+html.mode-violet .nav-item:hover .nav-icon-gradient-2,
+body.mode-violet .nav-item:hover .nav-icon,
+body.mode-violet .nav-item:hover .nav-icon-gradient-1,
+body.mode-violet .nav-item:hover .nav-icon-gradient-2 {
+    background: rgba(139, 92, 246, 0.3) !important;
+    border-color: rgba(139, 92, 246, 0.5) !important;
+}
+
+/* Mode Violet pour l'élément actif du menu - Spécificité élevée */
+html.mode-violet .nav-item.active .nav-icon,
+body.mode-violet .nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item.active .nav-icon-gradient-1,
+html.mode-violet .nav-item.active .nav-icon-gradient-2,
+body.mode-violet .nav-item.active .nav-icon-gradient-1,
+body.mode-violet .nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item.active .nav-label,
+body.mode-violet .nav-item.active .nav-label {
+    color: #fff !important;
+    font-weight: 500 !important;
 }
 
 /* Masquer Connexion dans le menu principal par défaut (desktop) */
@@ -560,6 +684,10 @@ header * {
         max-width: 100%;
     }
 
+    .video-section {
+        width: 100%;
+    }
+
     .section-title {
         font-size: 2rem;
     }
@@ -579,6 +707,15 @@ header * {
         padding: 1rem;
         padding-top: calc(80px + 1rem);
         padding-bottom: calc(80px + 1rem);
+    }
+
+    .video-section {
+        width: 100%;
+    }
+
+    .video-container video {
+        min-height: 50vh;
+        max-height: 70vh;
     }
 
     .section-title {
@@ -612,5 +749,76 @@ header * {
     .content-subtitle {
         font-size: 0.8rem;
     }
+}
+
+/* Mode de couleur des boutons - Orange/Violet */
+/* Mode Orange (toggle à droite) */
+html.mode-orange .login-btn,
+html.mode-orange .category-btn,
+html.mode-orange .roll-btn,
+html.mode-orange .filter-btn-active,
+html.mode-orange .category-tab.active,
+html.mode-orange .nav-tab.active,
+html.mode-orange .genre-checkbox:checked + .genre-label,
+body.mode-orange .login-btn,
+body.mode-orange .category-btn,
+body.mode-orange .roll-btn,
+body.mode-orange .filter-btn-active,
+body.mode-orange .category-tab.active,
+body.mode-orange .nav-tab.active,
+body.mode-orange .genre-checkbox:checked + .genre-label {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+html.mode-orange .login-btn:hover,
+html.mode-orange .category-btn:hover,
+html.mode-orange .roll-btn:hover:not(:disabled),
+html.mode-orange .filter-btn-active:hover,
+html.mode-orange .category-tab.active:hover,
+html.mode-orange .nav-tab.active:hover,
+html.mode-orange .genre-checkbox:checked + .genre-label:hover,
+body.mode-orange .login-btn:hover,
+body.mode-orange .category-btn:hover,
+body.mode-orange .roll-btn:hover:not(:disabled),
+body.mode-orange .filter-btn-active:hover,
+body.mode-orange .category-tab.active:hover,
+body.mode-orange .nav-tab.active:hover,
+body.mode-orange .genre-checkbox:checked + .genre-label:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
+}
+
+/* Mode Violet (toggle à gauche - par défaut) */
+html.mode-violet .login-btn,
+html.mode-violet .category-btn,
+html.mode-violet .roll-btn,
+html.mode-violet .filter-btn-active,
+html.mode-violet .category-tab.active,
+html.mode-violet .nav-tab.active,
+html.mode-violet .genre-checkbox:checked + .genre-label,
+body.mode-violet .login-btn,
+body.mode-violet .category-btn,
+body.mode-violet .roll-btn,
+body.mode-violet .filter-btn-active,
+body.mode-violet .category-tab.active,
+body.mode-violet .nav-tab.active,
+body.mode-violet .genre-checkbox:checked + .genre-label {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+}
+
+html.mode-violet .login-btn:hover,
+html.mode-violet .category-btn:hover,
+html.mode-violet .roll-btn:hover:not(:disabled),
+html.mode-violet .filter-btn-active:hover,
+html.mode-violet .category-tab.active:hover,
+html.mode-violet .nav-tab.active:hover,
+html.mode-violet .genre-checkbox:checked + .genre-label:hover,
+body.mode-violet .login-btn:hover,
+body.mode-violet .category-btn:hover,
+body.mode-violet .roll-btn:hover:not(:disabled),
+body.mode-violet .filter-btn-active:hover,
+body.mode-violet .category-tab.active:hover,
+body.mode-violet .nav-tab.active:hover,
+body.mode-violet .genre-checkbox:checked + .genre-label:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%) !important;
 }
 

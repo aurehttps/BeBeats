@@ -72,9 +72,23 @@
     transition: all 0.3s ease;
 }
 
-.roll-btn:hover {
+.roll-btn:hover:not(:disabled) {
     background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
     transform: translateY(-2px);
+}
+
+.roll-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mode Orange pour roll-btn */
+body.mode-orange .roll-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .roll-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 .discovery-graphic {
@@ -101,7 +115,7 @@
 .category-btn {
     padding: 2rem;
     border: none;
-    border-radius: 16px;
+    border-radius: 90px;
     color: #fff;
     font-family: 'URW Form', sans-serif;
     font-size: 1.25rem;
@@ -109,11 +123,36 @@
     cursor: pointer;
     text-align: center;
     transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .category-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15) !important;
     transform: translateY(-2px);
+}
+
+/* Annuler les règles globales pour les category-btn de la page resultats */
+html.mode-orange .category-btn,
+body.mode-orange .category-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.mode-orange .category-btn:hover,
+body.mode-orange .category-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+html.mode-violet .category-btn,
+body.mode-violet .category-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.mode-violet .category-btn:hover,
+body.mode-violet .category-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Search Results Section */
@@ -137,6 +176,143 @@
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2rem;
+}
+
+/* Styles pour le résultat du Roll */
+.roll-result-section {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.roll-result-card {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.roll-result-header {
+    margin-bottom: 1.5rem;
+}
+
+.roll-result-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.roll-result-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.roll-result-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.roll-result-username {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.roll-result-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.roll-result-content {
+    margin-bottom: 1.5rem;
+}
+
+.roll-result-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    white-space: pre-wrap;
+}
+
+.roll-result-media {
+    margin-top: 1rem;
+}
+
+.roll-result-media-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.roll-result-media-video {
+    width: 100%;
+    max-height: 500px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.roll-result-media-audio {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.roll-result-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.roll-result-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+}
+
+.roll-stat-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.category-btn-active {
+    transform: scale(1.05);
+}
+
+/* Mode Violet pour category-btn-active (toggle à gauche - par défaut) */
+html.mode-violet .category-btn-active,
+body.mode-violet .category-btn-active {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+html.mode-violet .category-btn-active:hover,
+body.mode-violet .category-btn-active:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%) !important;
+}
+
+/* Mode Orange pour category-btn-active (toggle à droite) */
+html.mode-orange .category-btn-active,
+body.mode-orange .category-btn-active {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+html.mode-orange .category-btn-active:hover,
+body.mode-orange .category-btn-active:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 /* Responsive adjustments */
@@ -214,6 +390,26 @@
 
     .results-title {
         font-size: 1.75rem;
+    }
+
+    .roll-result-card {
+        padding: 1.5rem;
+    }
+
+    .roll-result-actions {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+}
+
+/* Responsive adjustments - Tablet pour Roll Result */
+@media (max-width: 768px) {
+    .roll-result-card {
+        padding: 1.5rem;
+    }
+
+    .roll-result-actions {
+        gap: 1.5rem;
     }
 }
 

@@ -43,7 +43,7 @@ if ($current_user_id > 0) {
             <?php elseif (empty($favorites)): ?>
                 <div class="recherche-empty glassmorphism">
                     <p>Vous n'avez pas encore de favoris.</p>
-                    <p>Explorez le <a href="<?php echo esc_url(home_url('/feed')); ?>" style="color: #A855F7;">Feed</a> pour découvrir des posts et les ajouter à vos favoris !</p>
+                    <p>Explorez le <a href="<?php echo esc_url(home_url('/feed-page')); ?>" style="color: #A855F7;">Feed</a> pour découvrir des posts et les ajouter à vos favoris !</p>
                 </div>
             <?php else: ?>
                 <div class="favorites-list">
@@ -80,7 +80,7 @@ if ($current_user_id > 0) {
                             </div>
                             
                             <div class="favorite-post-actions">
-                                <a href="<?php echo esc_url(home_url('/feed')); ?>" class="view-post-link">Voir le post</a>
+                                <a href="<?php echo esc_url(home_url('/feed-page')); ?>" class="view-post-link">Voir le post</a>
                             </div>
                         </article>
                     <?php endforeach; ?>

@@ -27,7 +27,7 @@
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
     background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
-    border-radius: 8px;
+    border-radius: 90px;
     color: #fff;
     text-decoration: none;
     font-family: 'URW Form', sans-serif;
@@ -38,6 +38,15 @@
     background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
     text-decoration: none;
     color: #fff;
+}
+
+/* Mode Orange pour recherche-login-link */
+body.mode-orange .recherche-login-link {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .recherche-login-link:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 .favorites-list {
@@ -126,7 +135,7 @@
     padding: 0.5rem 1.5rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     color: #fff;
     font-family: 'URW Form', sans-serif;
     font-size: 0.875rem;
@@ -138,6 +147,15 @@
     background: rgba(255, 255, 255, 0.15);
     text-decoration: none;
     color: #fff;
+}
+
+/* Mode Orange pour category-btn dans recherche */
+body.mode-orange .category-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .category-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 .search-content {
@@ -217,6 +235,15 @@
     transform: translateY(-2px);
 }
 
+/* Mode Orange pour roll-btn */
+body.mode-orange .roll-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .roll-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
+}
+
 .discovery-graphic {
     flex: 1;
     display: flex;
@@ -241,7 +268,7 @@
 .category-btn {
     padding: 2rem;
     border: none;
-    border-radius: 16px;
+    border-radius: 90px;
     color: #fff;
     font-family: 'URW Form', sans-serif;
     font-size: 1.25rem;

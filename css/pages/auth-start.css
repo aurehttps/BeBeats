@@ -76,7 +76,7 @@
     width: 100%;
     max-width: 280px;
     padding: 1.125rem 2rem;
-    border-radius: 50px;
+    border-radius: 90px;
     font-family: 'URW Form', sans-serif;
     font-size: 1rem;
     font-weight: 400;
@@ -99,6 +99,15 @@
     transform: translateY(-2px);
     color: #fff;
     text-decoration: none;
+}
+
+/* Mode Orange pour auth-start-btn */
+body.mode-orange .auth-start-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .auth-start-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 .auth-start-btn:active {

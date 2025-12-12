@@ -17,6 +17,17 @@ get_header(); ?>
             </div>
         <?php else: ?>
         <div class="contribuer-panel glassmorphism">
+            <?php 
+            // Afficher le message de succès
+            if (isset($_GET['success']) && $_GET['success'] == '1'): ?>
+                <div class="contribuer-success-message">
+                    <svg style="width: 20px; height: 20px; margin-right: 0.5rem; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Votre post a été publié avec succès !</span>
+                </div>
+            <?php endif; ?>
+            
             <?php if (isset($_GET['error'])): ?>
                 <div class="contribuer-error-message">
                     <?php 

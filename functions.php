@@ -53,7 +53,7 @@ function bebeats_enqueue_styles() {
         wp_enqueue_style('bebeats-profil-style', get_template_directory_uri() . '/css/pages/profil.css', array('bebeats-style'), '1.0');
     }
     
-    if (is_page('feed')) {
+    if (is_page('feed-page')) {
         wp_enqueue_style('bebeats-feed-style', get_template_directory_uri() . '/css/pages/feed.css', array('bebeats-style'), '1.0');
     }
     
@@ -76,12 +76,14 @@ function bebeats_enqueue_scripts() {
     
     // Page-specific scripts
     
+    // Charger toggles.js sur toutes les pages pour le mode de couleur
+    wp_enqueue_script('bebeats-toggles', get_template_directory_uri() . '/js/toggles.js', array('jquery'), '1.0', true);
+    
     if (is_page('reglages')) {
-        wp_enqueue_script('bebeats-toggles', get_template_directory_uri() . '/js/toggles.js', array('jquery'), '1.0', true);
         wp_enqueue_script('bebeats-file-preview', get_template_directory_uri() . '/js/file-preview.js', array(), '1.0', true);
     }
     
-    if (is_page('feed')) {
+    if (is_page('feed-page')) {
         wp_enqueue_script('bebeats-feed', get_template_directory_uri() . '/js/feed.js', array('jquery'), '1.0', true);
         wp_localize_script('bebeats-feed', 'bebeatsFeed', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -102,6 +104,28 @@ function bebeats_enqueue_scripts() {
         wp_enqueue_script('bebeats-file-preview', get_template_directory_uri() . '/js/file-preview.js', array(), '1.0', true);
     }
 }
+
+// Empêcher la redirection RSS pour la page feed
+function bebeats_disable_feed_redirect() {
+    global $wp_query, $wp;
+    
+    // Vérifier si l'URL demandée est /feed-page/
+    $requested_url = trim($wp->request, '/');
+    
+    if ($requested_url === 'feed-page') {
+        // Vérifier si c'est une page WordPress
+        $page = get_page_by_path($requested_url);
+        if ($page) {
+            $wp_query->is_feed = false;
+            $wp_query->is_404 = false;
+            $wp_query->is_page = true;
+            $wp_query->queried_object = $page;
+            $wp_query->queried_object_id = $page->ID;
+        }
+    }
+}
+add_action('parse_request', 'bebeats_disable_feed_redirect', 1);
+add_action('parse_query', 'bebeats_disable_feed_redirect', 1);
 
 // Hook into WordPress
 add_action('wp_enqueue_scripts', 'bebeats_enqueue_styles');
@@ -236,6 +260,9 @@ function bebeats_create_posts_table() {
         content text,
         media_url varchar(500),
         media_type varchar(20),
+        allow_comments tinyint(1) DEFAULT 1,
+        allow_repost tinyint(1) DEFAULT 1,
+        show_likes tinyint(1) DEFAULT 1,
         created_at datetime DEFAULT CURRENT_TIMESTAMP,
         updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY (id),
@@ -245,6 +272,24 @@ function bebeats_create_posts_table() {
     ) $charset_collate;";
     
     dbDelta($sql);
+    
+    // Ajouter les colonnes pour les options si elles n'existent pas déjà (pour les mises à jour)
+    $columns_to_add = array(
+        'allow_comments' => "ALTER TABLE $table_name ADD COLUMN allow_comments tinyint(1) DEFAULT 1 AFTER media_type",
+        'allow_repost' => "ALTER TABLE $table_name ADD COLUMN allow_repost tinyint(1) DEFAULT 1 AFTER allow_comments",
+        'show_likes' => "ALTER TABLE $table_name ADD COLUMN show_likes tinyint(1) DEFAULT 1 AFTER allow_repost"
+    );
+    
+    foreach ($columns_to_add as $column => $alter_sql) {
+        $column_exists = $wpdb->get_results($wpdb->prepare(
+            "SHOW COLUMNS FROM $table_name LIKE %s",
+            $column
+        ));
+        
+        if (empty($column_exists)) {
+            $wpdb->query($alter_sql);
+        }
+    }
 }
 
 /**
@@ -1015,10 +1060,28 @@ function bebeats_handle_create_post() {
     }
     
     // Vérifier le nonce
-    if (!isset($_POST['bebeats_create_post_nonce']) || !wp_verify_nonce($_POST['bebeats_create_post_nonce'], 'bebeats_create_post_action')) {
+    error_log('bebeats_create_post: Vérification du nonce');
+    error_log('bebeats_create_post: POST keys: ' . print_r(array_keys($_POST), true));
+    error_log('bebeats_create_post: Nonce reçu: ' . (isset($_POST['bebeats_create_post_nonce']) ? $_POST['bebeats_create_post_nonce'] : 'NON DÉFINI'));
+    
+    if (!isset($_POST['bebeats_create_post_nonce'])) {
+        error_log('bebeats_create_post: ERREUR - Nonce non présent dans POST');
         wp_redirect(home_url('/contribuer?error=1'));
         exit;
     }
+    
+    $nonce_verified = wp_verify_nonce($_POST['bebeats_create_post_nonce'], 'bebeats_create_post_action');
+    error_log('bebeats_create_post: Résultat vérification nonce: ' . ($nonce_verified ? 'VALIDE' : 'INVALIDE'));
+    
+    if (!$nonce_verified) {
+        error_log('bebeats_create_post: ERREUR - Nonce invalide');
+        wp_redirect(home_url('/contribuer?error=1'));
+        exit;
+    }
+    
+    // Debug : vérifier que les données sont bien reçues
+    error_log('bebeats_create_post: Données reçues - POST: ' . print_r($_POST, true));
+    error_log('bebeats_create_post: Fichiers reçus - FILES: ' . print_r($_FILES, true));
     
     $current_user = wp_get_current_user();
     $user_id = $current_user->ID;
@@ -1078,6 +1141,11 @@ function bebeats_handle_create_post() {
         exit;
     }
     
+    // Récupérer les options
+    $allow_comments = isset($_POST['allow_comments']) ? intval($_POST['allow_comments']) : 1;
+    $allow_repost = isset($_POST['allow_repost']) ? intval($_POST['allow_repost']) : 1;
+    $show_likes = isset($_POST['show_likes']) ? intval($_POST['show_likes']) : 1;
+    
     // Insérer le post dans la base de données
     global $wpdb;
     $table_name = $wpdb->prefix . 'bebeats_posts';
@@ -1089,21 +1157,104 @@ function bebeats_handle_create_post() {
             'post_type' => $post_type,
             'content' => $content,
             'media_url' => $media_url,
-            'media_type' => $media_type
+            'media_type' => $media_type,
+            'allow_comments' => $allow_comments,
+            'allow_repost' => $allow_repost,
+            'show_likes' => $show_likes
         ),
-        array('%d', '%s', '%s', '%s', '%s')
+        array('%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d')
     );
     
     if ($result === false) {
+        error_log('bebeats_create_post: Erreur lors de l\'insertion dans la base de données');
+        error_log('bebeats_create_post: Erreur WP: ' . $wpdb->last_error);
+        error_log('bebeats_create_post: Données à insérer: ' . print_r(array(
+            'user_id' => $user_id,
+            'post_type' => $post_type,
+            'content' => substr($content, 0, 100) . '...',
+            'media_url' => $media_url,
+            'media_type' => $media_type
+        ), true));
         wp_redirect(home_url('/contribuer?error=1'));
         exit;
     }
     
-    // Rediriger vers le feed avec un message de succès
-    wp_redirect(home_url('/feed?success=1'));
+    $bebeats_post_id = $wpdb->insert_id;
+    error_log('bebeats_create_post: Post créé avec succès dans la table personnalisée, ID: ' . $bebeats_post_id);
+    error_log('bebeats_create_post: User ID: ' . $user_id);
+    error_log('bebeats_create_post: Post Type: ' . $post_type);
+    error_log('bebeats_create_post: Content: ' . (!empty($content) ? 'Oui' : 'Non'));
+    error_log('bebeats_create_post: Media URL: ' . (!empty($media_url) ? $media_url : 'Non'));
+    
+    // Créer aussi un post WordPress pour qu'il apparaisse dans le menu Posts
+    $wp_post_title = !empty($content) ? wp_trim_words($content, 10, '...') : 'Post BeBeats - ' . ucfirst($post_type);
+    if (empty($wp_post_title)) {
+        $wp_post_title = 'Post BeBeats - ' . date('Y-m-d H:i:s');
+    }
+    
+    $wp_post_content = '';
+    if (!empty($content)) {
+        $wp_post_content .= '<p>' . nl2br(esc_html($content)) . '</p>';
+    }
+    if (!empty($media_url)) {
+        if ($media_type === 'image') {
+            $wp_post_content .= '<p><img src="' . esc_url($media_url) . '" alt="Média du post" style="max-width: 100%; height: auto;" /></p>';
+        } elseif ($media_type === 'video') {
+            $wp_post_content .= '<p><video src="' . esc_url($media_url) . '" controls style="max-width: 100%; height: auto;"></video></p>';
+        } elseif ($media_type === 'audio') {
+            $wp_post_content .= '<p><audio src="' . esc_url($media_url) . '" controls style="width: 100%;"></audio></p>';
+        }
+    }
+    
+    // Vérifier que l'utilisateur a les permissions pour publier
+    if (!current_user_can('publish_posts')) {
+        // Donner temporairement les permissions à l'utilisateur
+        $user = get_userdata($user_id);
+        if ($user) {
+            $user->add_cap('publish_posts');
+            $user->add_cap('edit_posts');
+        }
+    }
+    
+    $wp_post_data = array(
+        'post_title'    => $wp_post_title,
+        'post_content'  => $wp_post_content,
+        'post_status'   => 'publish',
+        'post_author'   => $user_id,
+        'post_type'     => 'post',
+        'post_date'     => current_time('mysql')
+    );
+    
+    error_log('bebeats_create_post: Tentative de création du post WordPress');
+    error_log('bebeats_create_post: Données: ' . print_r($wp_post_data, true));
+    
+    $wp_post_id = wp_insert_post($wp_post_data, true);
+    
+    if ($wp_post_id && !is_wp_error($wp_post_id)) {
+        // Sauvegarder les métadonnées du post BeBeats dans les meta du post WordPress
+        update_post_meta($wp_post_id, 'bebeats_post_id', $wpdb->insert_id);
+        update_post_meta($wp_post_id, 'bebeats_post_type', $post_type);
+        update_post_meta($wp_post_id, 'bebeats_media_url', $media_url);
+        update_post_meta($wp_post_id, 'bebeats_media_type', $media_type);
+        update_post_meta($wp_post_id, 'bebeats_allow_comments', $allow_comments);
+        update_post_meta($wp_post_id, 'bebeats_allow_repost', $allow_repost);
+        update_post_meta($wp_post_id, 'bebeats_show_likes', $show_likes);
+        
+        error_log('bebeats_create_post: Post WordPress créé avec succès, ID: ' . $wp_post_id);
+        error_log('bebeats_create_post: Titre du post: ' . $wp_post_title);
+        error_log('bebeats_create_post: Auteur: ' . $user_id);
+    } else {
+        $error_msg = is_wp_error($wp_post_id) ? $wp_post_id->get_error_message() : 'Erreur inconnue';
+        error_log('bebeats_create_post: Erreur lors de la création du post WordPress: ' . $error_msg);
+        error_log('bebeats_create_post: Données du post: ' . print_r($wp_post_data, true));
+    }
+    
+    // Rediriger vers la page contribuer avec un message de succès
+    wp_redirect(home_url('/contribuer?success=1'));
     exit;
 }
 add_action('admin_post_bebeats_create_post', 'bebeats_handle_create_post');
+add_action('admin_post_nopriv_bebeats_create_post', 'bebeats_handle_create_post');
 
 /**
  * Traitement des réactions aux posts (like, commentaire, republier, favoris)
@@ -1253,4 +1404,157 @@ function bebeats_search_users() {
 }
 add_action('wp_ajax_bebeats_search_users', 'bebeats_search_users');
 add_action('wp_ajax_nopriv_bebeats_search_users', 'bebeats_search_users');
+
+/**
+ * Fonction AJAX pour récupérer un post aléatoire selon la catégorie (Roll)
+ */
+function bebeats_roll_random_post() {
+    $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
+    
+    if (empty($category)) {
+        wp_send_json_error(array('message' => 'Catégorie manquante'));
+        exit;
+    }
+    
+    global $wpdb;
+    $posts_table = $wpdb->prefix . 'bebeats_posts';
+    $users_table = $wpdb->users;
+    
+    $post = null;
+    
+    // Déterminer le post_type et les conditions selon la catégorie
+    switch ($category) {
+        case 'Musique':
+            // Récupérer un audio d'un utilisateur de type "artiste"
+            $query = "
+                SELECT p.*, u.ID as user_id, u.display_name, u.user_login
+                FROM $posts_table p
+                INNER JOIN $users_table u ON p.user_id = u.ID
+                INNER JOIN {$wpdb->usermeta} um ON u.ID = um.user_id
+                WHERE p.post_type = 'audio'
+                AND p.media_type = 'audio'
+                AND um.meta_key = 'bebeats_user_type'
+                AND um.meta_value = 'artiste'
+                ORDER BY RAND()
+                LIMIT 1
+            ";
+            $post = $wpdb->get_row($query);
+            break;
+            
+        case 'Fan Arts':
+            // Récupérer un fan-art
+            $query = "
+                SELECT p.*, u.ID as user_id, u.display_name, u.user_login
+                FROM $posts_table p
+                INNER JOIN $users_table u ON p.user_id = u.ID
+                WHERE p.post_type = 'fan-art'
+                ORDER BY RAND()
+                LIMIT 1
+            ";
+            $post = $wpdb->get_row($query);
+            break;
+            
+        case 'Evènement':
+        case 'Événement':
+            // Récupérer un événement (post_type = 'event')
+            $query = "
+                SELECT p.*, u.ID as user_id, u.display_name, u.user_login
+                FROM $posts_table p
+                INNER JOIN $users_table u ON p.user_id = u.ID
+                WHERE p.post_type = 'event'
+                ORDER BY RAND()
+                LIMIT 1
+            ";
+            $post = $wpdb->get_row($query);
+            break;
+            
+        case 'Article':
+            // Récupérer un article (post_type = 'post')
+            $query = "
+                SELECT p.*, u.ID as user_id, u.display_name, u.user_login
+                FROM $posts_table p
+                INNER JOIN $users_table u ON p.user_id = u.ID
+                WHERE p.post_type = 'post'
+                ORDER BY RAND()
+                LIMIT 1
+            ";
+            $post = $wpdb->get_row($query);
+            break;
+            
+        default:
+            wp_send_json_error(array('message' => 'Catégorie invalide'));
+            exit;
+    }
+    
+    if (!$post) {
+        wp_send_json_error(array('message' => 'Aucun contenu trouvé pour cette catégorie'));
+        exit;
+    }
+    
+    // Récupérer les informations de l'utilisateur
+    $user_id = $post->user_id;
+    $profile_photo = get_user_meta($user_id, 'bebeats_profile_photo', true);
+    if (empty($profile_photo)) {
+        $profile_photo = get_avatar_url($user_id, array('size' => 60));
+    }
+    
+    // Récupérer les statistiques du post
+    $reactions_table = $wpdb->prefix . 'bebeats_post_reactions';
+    $likes_count = $wpdb->get_var($wpdb->prepare(
+        "SELECT COUNT(*) FROM $reactions_table WHERE post_id = %d AND reaction_type = 'like'",
+        $post->id
+    ));
+    $comments_count = $wpdb->get_var($wpdb->prepare(
+        "SELECT COUNT(*) FROM $reactions_table WHERE post_id = %d AND reaction_type = 'comment'",
+        $post->id
+    ));
+    $reposts_count = $wpdb->get_var($wpdb->prepare(
+        "SELECT COUNT(*) FROM $reactions_table WHERE post_id = %d AND reaction_type = 'repost'",
+        $post->id
+    ));
+    $favorites_count = $wpdb->get_var($wpdb->prepare(
+        "SELECT COUNT(*) FROM $reactions_table WHERE post_id = %d AND reaction_type = 'favorite'",
+        $post->id
+    ));
+    
+    // Formater la date
+    $created_at = new DateTime($post->created_at);
+    $now = new DateTime();
+    $diff = $now->diff($created_at);
+    
+    $time_ago = '';
+    if ($diff->y > 0) {
+        $time_ago = $diff->y . ' an' . ($diff->y > 1 ? 's' : '');
+    } elseif ($diff->m > 0) {
+        $time_ago = $diff->m . ' mois';
+    } elseif ($diff->d > 0) {
+        $time_ago = $diff->d . ' jour' . ($diff->d > 1 ? 's' : '');
+    } elseif ($diff->h > 0) {
+        $time_ago = $diff->h . ' heure' . ($diff->h > 1 ? 's' : '');
+    } elseif ($diff->i > 0) {
+        $time_ago = $diff->i . ' min';
+    } else {
+        $time_ago = 'À l\'instant';
+    }
+    
+    $result = array(
+        'id' => $post->id,
+        'user_id' => $user_id,
+        'username' => $post->display_name ?: $post->user_login,
+        'profile_photo' => $profile_photo,
+        'content' => $post->content,
+        'media_url' => $post->media_url,
+        'media_type' => $post->media_type,
+        'post_type' => $post->post_type,
+        'time_ago' => $time_ago,
+        'likes' => intval($likes_count),
+        'comments' => intval($comments_count),
+        'reposts' => intval($reposts_count),
+        'favorites' => intval($favorites_count)
+    );
+    
+    wp_send_json_success($result);
+}
+add_action('wp_ajax_bebeats_roll_random_post', 'bebeats_roll_random_post');
+add_action('wp_ajax_nopriv_bebeats_roll_random_post', 'bebeats_roll_random_post');
 

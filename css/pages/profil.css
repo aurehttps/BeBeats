@@ -289,3 +289,151 @@
     }
 }
 
+/* Styles pour les posts dans le profil */
+.profile-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.profile-post-item {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.profile-post-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.profile-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.profile-post-type {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 107, 53, 0.2);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 12px;
+    color: #FF6B35;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.profile-post-content {
+    margin-bottom: 1rem;
+}
+
+.profile-post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+}
+
+.profile-post-media {
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.profile-post-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.profile-post-video {
+    width: 100%;
+    max-height: 400px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.profile-post-audio {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.profile-post-stats {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-post-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.stat-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+}
+
+/* Responsive pour les posts du profil */
+@media (max-width: 768px) {
+    .profile-posts-list {
+        gap: 1.25rem;
+    }
+    
+    .profile-post-item {
+        padding: 1.25rem;
+    }
+    
+    .profile-post-image,
+    .profile-post-video {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-posts-list {
+        gap: 1rem;
+    }
+    
+    .profile-post-item {
+        padding: 1rem;
+    }
+    
+    .profile-post-text {
+        font-size: 0.9375rem;
+    }
+    
+    .profile-post-image,
+    .profile-post-video {
+        max-height: 250px;
+    }
+    
+    .profile-post-stats {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+

@@ -1,4 +1,5 @@
 // Gestion de la page Contribuer
+console.log('Script contribuer.js chargé');
 
 // Variables globales pour les utilisateurs identifiés
 let taggedUsers = [];
@@ -38,9 +39,72 @@ function updateTaggedUsersDisplay() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded - Initialisation de la page Contribuer');
+    
+    // Faire disparaître automatiquement le message de succès après 5 secondes
+    const successMessage = document.querySelector('.contribuer-success-message');
+    if (successMessage) {
+        console.log('Message de succès trouvé, affichage...');
+        
+        // S'assurer que le message est visible
+        successMessage.style.display = 'flex';
+        successMessage.style.visibility = 'visible';
+        successMessage.style.opacity = '1';
+        
+        // Scroller vers le message pour s'assurer qu'il est visible
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        // Réinitialiser le formulaire après publication réussie
+        const contribuerForm = document.getElementById('contribuer-form');
+        if (contribuerForm) {
+            contribuerForm.reset();
+            // Réinitialiser l'aperçu du média
+            const mediaPreview = document.getElementById('media-preview');
+            if (mediaPreview) {
+                mediaPreview.innerHTML = `
+                    <div class="media-placeholder">
+                        <svg class="media-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <p class="media-placeholder-text">Ajoutez une image ou une vidéo</p>
+                    </div>
+                `;
+                mediaPreview.classList.remove('has-media');
+            }
+            // Réinitialiser les utilisateurs identifiés
+            taggedUsers = [];
+            updateTaggedUsersDisplay();
+        }
+        
+        // Faire disparaître le message après 5 secondes
+        setTimeout(function() {
+            successMessage.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            successMessage.style.opacity = '0';
+            successMessage.style.transform = 'translateY(-10px)';
+            setTimeout(function() {
+                successMessage.remove();
+            }, 500);
+        }, 5000);
+    } else {
+        console.log('Aucun message de succès trouvé');
+    }
+    
     const mediaInput = document.getElementById('media-input');
     const contribuerForm = document.getElementById('contribuer-form');
     const mediaPreview = document.getElementById('media-preview');
+    
+    console.log('Éléments trouvés:', {
+        mediaInput: !!mediaInput,
+        contribuerForm: !!contribuerForm,
+        mediaPreview: !!mediaPreview
+    });
+    
+    // Vérifier aussi le textarea
+    const postContentCheck = document.getElementById('post-content');
+    console.log('Textarea post-content trouvé:', !!postContentCheck);
+    if (postContentCheck) {
+        console.log('Textarea value au chargement:', postContentCheck.value);
+    }
     
     // Réinitialiser les utilisateurs identifiés au chargement
     taggedUsers = [];
@@ -329,18 +393,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Gestion des autres actions du menu latéral
-    const menuItems = document.querySelectorAll('.menu-item:not(#tag-user-btn):not(#options-btn):not(.menu-item-media)');
+    // Gestion des autres actions du menu latéral (exclure les boutons submit et le bouton Publier)
+    const menuItems = document.querySelectorAll('.menu-item:not(#tag-user-btn):not(#options-btn):not(.menu-item-media):not(.menu-item-publish):not([type="submit"])');
     
     menuItems.forEach(item => {
         item.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Ne pas déclencher si c'est un bouton submit
-            if (this.type === 'submit') {
+            // Ne pas bloquer si c'est un bouton submit
+            if (this.type === 'submit' || this.classList.contains('menu-item-publish')) {
                 return;
             }
+            
+            e.preventDefault();
+            e.stopPropagation();
             
             const label = this.querySelector('.menu-label')?.textContent || this.getAttribute('aria-label');
             if (label) {
@@ -349,21 +413,168 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // S'assurer que le bouton "Publier" soumet bien le formulaire
+    const publishBtn = document.querySelector('.menu-item-publish[type="submit"]');
+    console.log('Bouton Publier trouvé:', !!publishBtn);
+    console.log('Formulaire trouvé:', !!contribuerForm);
+    
+    // Ajouter aussi un écouteur sur le bouton pour forcer la synchronisation des options
+    // Utiliser plusieurs méthodes pour s'assurer que le clic est capturé
+    if (publishBtn) {
+        // Méthode 1: Écouteur avec capture (phase de capture)
+        publishBtn.addEventListener('click', function(e) {
+            console.log('=== CLIC SUR BOUTON PUBLIER (CAPTURE) ===');
+            // Synchroniser les options
+            syncOptions();
+        }, true);
+        
+        // Méthode 2: Écouteur normal (phase de bubbling)
+        publishBtn.addEventListener('click', function(e) {
+            console.log('=== CLIC SUR BOUTON PUBLIER (BUBBLING) ===');
+            // Synchroniser les options
+            syncOptions();
+        }, false);
+        
+        // Fonction pour synchroniser les options
+        function syncOptions() {
+            const allowCommentsInput = document.getElementById('allow-comments-input');
+            const allowRepostInput = document.getElementById('allow-repost-input');
+            const showLikesInput = document.getElementById('show-likes-input');
+            
+            if (allowCommentsInput) {
+                const toggleComments = document.getElementById('toggle-comments');
+                if (toggleComments) {
+                    allowCommentsInput.value = toggleComments.checked ? '1' : '0';
+                    console.log('Comments synchronisé:', allowCommentsInput.value);
+                }
+            }
+            
+            if (allowRepostInput) {
+                const toggleRepost = document.getElementById('toggle-repost');
+                if (toggleRepost) {
+                    allowRepostInput.value = toggleRepost.checked ? '1' : '0';
+                    console.log('Repost synchronisé:', allowRepostInput.value);
+                }
+            }
+            
+            if (showLikesInput) {
+                const toggleLikes = document.getElementById('toggle-likes');
+                if (toggleLikes) {
+                    showLikesInput.value = toggleLikes.checked ? '1' : '0';
+                    console.log('Likes synchronisé:', showLikesInput.value);
+                }
+            }
+        }
+    }
+    
     // Gestion de la soumission du formulaire
     if (contribuerForm) {
+        console.log('Ajout de l\'écouteur d\'événement submit sur le formulaire');
+        
+        // Ajouter l'écouteur en phase de capture ET en phase de bubbling
         contribuerForm.addEventListener('submit', function(e) {
+            console.log('=== ÉVÉNEMENT SUBMIT DÉCLENCHÉ (CAPTURE) ===');
+            handleFormSubmit(e);
+        }, true);
+        
+        contribuerForm.addEventListener('submit', function(e) {
+            console.log('=== ÉVÉNEMENT SUBMIT DÉCLENCHÉ (BUBBLING) ===');
+            handleFormSubmit(e);
+        }, false);
+        
+        function handleFormSubmit(e) {
+            console.log('=== TRAITEMENT DE LA SOUMISSION ===');
+            
             const postContent = document.getElementById('post-content');
             const content = postContent ? postContent.value : '';
             
             // Vérifier qu'il y a du contenu ou un média
             const hasMedia = mediaInput && mediaInput.files && mediaInput.files.length > 0;
+            
+            console.log('=== DEBUG VALIDATION ===');
+            console.log('postContent élément:', postContent);
+            console.log('postContent.value:', content);
+            console.log('content.length:', content ? content.length : 0);
+            console.log('mediaInput:', mediaInput);
+            console.log('mediaInput.files:', mediaInput ? mediaInput.files : 'N/A');
+            console.log('mediaInput.files.length:', mediaInput && mediaInput.files ? mediaInput.files.length : 0);
+            console.log('hasMedia:', hasMedia);
+            console.log('Validation:', { contentLength: content ? content.length : 0, hasMedia });
+            
             if (!content.trim() && !hasMedia) {
+                console.log('ERREUR: Pas de contenu ni de média');
                 e.preventDefault();
+                e.stopPropagation();
                 alert('Veuillez ajouter du contenu ou un média.');
                 return false;
             }
-        });
+            
+            console.log('✅ Validation réussie, soumission du formulaire...');
+            
+            // S'assurer que les champs cachés sont bien remplis
+            const allowCommentsInput = document.getElementById('allow-comments-input');
+            const allowRepostInput = document.getElementById('allow-repost-input');
+            const showLikesInput = document.getElementById('show-likes-input');
+            
+            if (allowCommentsInput) {
+                const toggleComments = document.getElementById('toggle-comments');
+                if (toggleComments) {
+                    allowCommentsInput.value = toggleComments.checked ? '1' : '0';
+                }
+            }
+            
+            if (allowRepostInput) {
+                const toggleRepost = document.getElementById('toggle-repost');
+                if (toggleRepost) {
+                    allowRepostInput.value = toggleRepost.checked ? '1' : '0';
+                }
+            }
+            
+            if (showLikesInput) {
+                const toggleLikes = document.getElementById('toggle-likes');
+                if (toggleLikes) {
+                    showLikesInput.value = toggleLikes.checked ? '1' : '0';
+                }
+            }
+            
+            console.log('=== DONNÉES DU FORMULAIRE ===');
+            console.log('Contenu:', content.substring(0, 50) + '...');
+            console.log('Média:', hasMedia ? mediaInput.files[0].name : 'Aucun');
+            console.log('Options:', {
+                comments: allowCommentsInput ? allowCommentsInput.value : 'N/A',
+                repost: allowRepostInput ? allowRepostInput.value : 'N/A',
+                likes: showLikesInput ? showLikesInput.value : 'N/A'
+            });
+            console.log('Action du formulaire:', contribuerForm.action);
+            console.log('Méthode:', contribuerForm.method);
+            
+            // Vérifier que le nonce est présent
+            const nonceInput = contribuerForm.querySelector('input[name="bebeats_create_post_nonce"]');
+            console.log('Nonce présent:', !!nonceInput);
+            if (nonceInput) {
+                console.log('Valeur du nonce:', nonceInput.value ? nonceInput.value.substring(0, 10) + '...' : 'VIDE');
+            }
+            
+            // Vérifier tous les champs cachés
+            const allHiddenInputs = contribuerForm.querySelectorAll('input[type="hidden"]');
+            console.log('Champs cachés trouvés:', allHiddenInputs.length);
+            allHiddenInputs.forEach(input => {
+                console.log(`  - ${input.name}: ${input.value ? input.value.substring(0, 20) + '...' : 'VIDE'}`);
+            });
+            
+            console.log('=== SOUMISSION DU FORMULAIRE EN COURS ===');
+            
+            // Ne pas empêcher la soumission si tout est OK
+            // Le formulaire va se soumettre normalement
+        }
+    } else {
+        console.error('ERREUR: Formulaire non trouvé pour ajouter l\'écouteur submit!');
     }
+    
+    // Vérification finale
+    console.log('=== INITIALISATION TERMINÉE ===');
+    console.log('Formulaire:', contribuerForm ? 'Trouvé' : 'Non trouvé');
+    console.log('Bouton Publier:', publishBtn ? 'Trouvé' : 'Non trouvé');
     
 });
 

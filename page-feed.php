@@ -10,6 +10,16 @@ $current_user_id = is_user_logged_in() ? get_current_user_id() : 0;
 ?>
 
 <main class="feed-page">
+    <!-- Navigation Accueil/Feed -->
+    <nav class="home-feed-nav">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="nav-tab <?php echo is_front_page() ? 'active' : ''; ?>">
+            Accueil
+        </a>
+        <a href="<?php echo esc_url(home_url('/feed-page')); ?>" class="nav-tab <?php echo is_page('feed-page') ? 'active' : ''; ?>">
+            Feed
+        </a>
+    </nav>
+    
     <div class="feed-container">
         <?php
         global $wpdb;

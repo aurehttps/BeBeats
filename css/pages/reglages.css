@@ -101,6 +101,24 @@
     background: linear-gradient(135deg, #FF6B35 0%, #8B5CF6 100%);
 }
 
+/* Mode Orange : toggle à droite = orange */
+body.mode-orange .toggle-input:checked + .toggle-slider {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+}
+
+body.mode-orange .toggle-input:checked + .toggle-slider .toggle-knob {
+    background: #fff;
+}
+
+/* Mode Violet : toggle à gauche = violet (par défaut) */
+body.mode-violet .toggle-input:checked + .toggle-slider {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+}
+
+body.mode-violet .toggle-input:checked + .toggle-slider .toggle-knob {
+    background: #fff;
+}
+
 /* Responsive adjustments */
 /* Responsive adjustments - Tablet */
 @media (max-width: 768px) {
@@ -261,7 +279,7 @@
     padding: 0.5rem 1rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     color: #fff;
     font-family: 'URW Form', sans-serif;
     font-size: 0.875rem;
@@ -274,6 +292,16 @@
 
 .profile-file-btn:hover {
     background: rgba(255, 255, 255, 0.15);
+}
+
+/* Mode Orange pour profile-file-btn */
+body.mode-orange .profile-file-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+body.mode-orange .profile-file-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 .profile-file-input {
@@ -310,7 +338,7 @@
     padding: 0.75rem 1.5rem;
     background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     color: #fff;
     font-family: 'URW Form', sans-serif;
     font-size: 1rem;
@@ -321,6 +349,15 @@
 
 .profile-save-btn:hover {
     background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+}
+
+/* Mode Orange pour profile-save-btn */
+body.mode-orange .profile-save-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .profile-save-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 /* Messages de succès/erreur */
@@ -356,7 +393,7 @@
     padding: 0.75rem 1.5rem;
     background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     color: #fff;
     font-family: 'URW Form', sans-serif;
     font-size: 1rem;
@@ -367,6 +404,15 @@
 
 .logout-btn:hover {
     background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+}
+
+/* Mode Orange pour logout-btn */
+body.mode-orange .logout-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .logout-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 /* Responsive pour la section profil */

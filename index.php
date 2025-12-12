@@ -7,7 +7,7 @@
             <a href="<?php echo esc_url(home_url('/')); ?>" class="nav-tab <?php echo is_front_page() ? 'active' : ''; ?>">
                 Accueil
             </a>
-            <a href="<?php echo esc_url(home_url('/feed')); ?>" class="nav-tab <?php echo is_page('feed') ? 'active' : ''; ?>">
+            <a href="<?php echo esc_url(home_url('/feed-page')); ?>" class="nav-tab <?php echo is_page('feed-page') ? 'active' : ''; ?>">
                 Feed
             </a>
         </nav>

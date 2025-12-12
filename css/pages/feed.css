@@ -1,9 +1,11 @@
 /* Styles pour la page Feed */
 
 .feed-page {
+    margin-left: 320px;
+    margin-right: 320px;
     padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
+    padding-top: calc(80px + 2rem);
+    max-width: 1680px;
 }
 
 .feed-container {
@@ -119,7 +121,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 0.5rem;
-    border-radius: 8px;
+    border-radius: 90px;
 }
 
 .post-action-btn:hover:not(:disabled) {
@@ -192,7 +194,7 @@
     padding: 0.5rem 1.5rem;
     background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     color: #fff;
     font-family: 'URW Form', sans-serif;
     font-size: 0.875rem;
@@ -202,6 +204,15 @@
 
 .comment-submit-btn:hover {
     background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+}
+
+/* Mode Orange pour comment-submit-btn */
+body.mode-orange .comment-submit-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .comment-submit-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 .comments-list {
@@ -269,7 +280,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 0.25rem 0.5rem;
-    border-radius: 6px;
+    border-radius: 90px;
 }
 
 .comment-like-btn:hover {
@@ -292,9 +303,22 @@
 }
 
 /* Responsive */
+@media (max-width: 991.98px) {
+    .feed-page {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1.5rem;
+        padding-top: calc(80px + 1.5rem);
+        padding-bottom: calc(80px + 1.5rem);
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .feed-page {
         padding: 1rem;
+        padding-top: calc(80px + 1rem);
+        padding-bottom: calc(80px + 1rem);
     }
 
     .feed-post {

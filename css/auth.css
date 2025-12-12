@@ -122,7 +122,7 @@
     width: 100%;
     max-width: 280px;
     padding: 1.125rem 2rem;
-    border-radius: 50px;
+    border-radius: 90px;
     font-family: 'URW Form', sans-serif;
     font-size: 1rem;
     font-weight: 400;
@@ -141,6 +141,15 @@
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
     color: #fff;
+}
+
+/* Mode Orange pour auth-submit-btn */
+body.mode-orange .auth-submit-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .auth-submit-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 .auth-submit-btn:active {
@@ -227,7 +236,7 @@
     width: 100%;
     max-width: 280px;
     padding: 1.125rem 2rem;
-    border-radius: 50px;
+    border-radius: 90px;
     font-family: 'URW Form', sans-serif;
     font-size: 1rem;
     font-weight: 400;
@@ -250,6 +259,15 @@
     transform: translateY(-2px);
     color: #fff;
     text-decoration: none;
+}
+
+/* Mode Orange pour welcome-btn */
+body.mode-orange .welcome-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .welcome-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
 }
 
 .welcome-btn:active {
@@ -376,7 +394,7 @@
     color: #fff;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     text-decoration: none;
     transition: all 0.3s ease;
     z-index: 10;
@@ -400,7 +418,7 @@
     padding: 0.5rem 1rem;
     background: rgba(60, 60, 60, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
+    border-radius: 90px;
     color: rgba(255, 255, 255, 0.9);
     font-family: 'URW Form', sans-serif;
     font-size: 0.875rem;
@@ -500,7 +518,7 @@
     padding: 0.75rem 1rem;
     background: rgba(60, 60, 60, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
+    border-radius: 90px;
     color: rgba(255, 255, 255, 0.9);
     font-family: 'URW Form', sans-serif;
     font-size: 0.875rem;
@@ -547,7 +565,7 @@
     padding: 1.5rem;
     background: rgba(60, 60, 60, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
+    border-radius: 90px;
     display: flex;
     align-items: center;
     gap: 1rem;

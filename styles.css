@@ -56,7 +56,7 @@ header * {
 .search-input {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     padding: 0.625rem 1rem 0.625rem 2.5rem;
     color: #fff;
     font-size: 0.875rem;
@@ -91,7 +91,7 @@ header * {
 .notification-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     width: 44px;
     height: 44px;
     display: flex;
@@ -115,7 +115,7 @@ header * {
 .login-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     padding: 0.625rem 1.5rem;
     color: #fff;
     font-size: 0.875rem;
@@ -134,7 +134,7 @@ header * {
 .settings-btn-header {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 90px;
     width: 44px;
     height: 44px;
     display: none;
@@ -231,6 +231,120 @@ header * {
     color: rgba(255, 255, 255, 0.9);
     white-space: nowrap;
     display: block;
+}
+
+/* Styles pour l'élément actif du menu */
+.nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.nav-item.active .nav-label {
+    color: #fff;
+    font-weight: 500;
+}
+
+.nav-item.active .nav-icon-gradient-1,
+.nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+/* Mode Orange pour le sous-menu */
+html.mode-orange .nav-icon,
+body.mode-orange .nav-icon {
+    background: rgba(255, 107, 53, 0.2) !important;
+    border-color: rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-icon-gradient-1,
+html.mode-orange .nav-icon-gradient-2,
+body.mode-orange .nav-icon-gradient-1,
+body.mode-orange .nav-icon-gradient-2 {
+    background: rgba(255, 107, 53, 0.2) !important;
+    border-color: rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item:hover .nav-icon,
+html.mode-orange .nav-item:hover .nav-icon-gradient-1,
+html.mode-orange .nav-item:hover .nav-icon-gradient-2,
+body.mode-orange .nav-item:hover .nav-icon,
+body.mode-orange .nav-item:hover .nav-icon-gradient-1,
+body.mode-orange .nav-item:hover .nav-icon-gradient-2 {
+    background: rgba(255, 107, 53, 0.3) !important;
+    border-color: rgba(255, 107, 53, 0.5) !important;
+}
+
+/* Mode Orange pour l'élément actif du menu */
+html.mode-orange .nav-item.active .nav-icon,
+body.mode-orange .nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item.active .nav-icon-gradient-1,
+html.mode-orange .nav-item.active .nav-icon-gradient-2,
+body.mode-orange .nav-item.active .nav-icon-gradient-1,
+body.mode-orange .nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item.active .nav-label,
+body.mode-orange .nav-item.active .nav-label {
+    color: #fff !important;
+    font-weight: 500 !important;
+}
+
+/* Mode Violet pour le sous-menu (par défaut) */
+html.mode-violet .nav-icon,
+body.mode-violet .nav-icon {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-icon-gradient-1,
+html.mode-violet .nav-icon-gradient-2,
+body.mode-violet .nav-icon-gradient-1,
+body.mode-violet .nav-icon-gradient-2 {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item:hover .nav-icon,
+html.mode-violet .nav-item:hover .nav-icon-gradient-1,
+html.mode-violet .nav-item:hover .nav-icon-gradient-2,
+body.mode-violet .nav-item:hover .nav-icon,
+body.mode-violet .nav-item:hover .nav-icon-gradient-1,
+body.mode-violet .nav-item:hover .nav-icon-gradient-2 {
+    background: rgba(139, 92, 246, 0.3) !important;
+    border-color: rgba(139, 92, 246, 0.5) !important;
+}
+
+html.mode-violet .nav-item.active .nav-icon,
+body.mode-violet .nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item.active .nav-icon-gradient-1,
+html.mode-violet .nav-item.active .nav-icon-gradient-2,
+body.mode-violet .nav-item.active .nav-icon-gradient-1,
+body.mode-violet .nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item.active .nav-label,
+body.mode-violet .nav-item.active .nav-label {
+    color: #fff !important;
+    font-weight: 500 !important;
 }
 
 /* Masquer Connexion dans le menu principal par défaut (desktop) */
