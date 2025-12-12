@@ -574,6 +574,28 @@ body.mode-orange .category-btn-active:hover {
     fill: #A855F7;
 }
 
+/* Mode Violet pour les réactions actives des résultats de recherche */
+body.mode-violet .search-post-action-btn.active,
+html.mode-violet .search-post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .search-post-action-btn.active .search-action-icon,
+html.mode-violet .search-post-action-btn.active .search-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Orange pour les réactions actives des résultats de recherche */
+body.mode-orange .search-post-action-btn.active,
+html.mode-orange .search-post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .search-post-action-btn.active .search-action-icon,
+html.mode-orange .search-post-action-btn.active .search-action-icon {
+    fill: #FF6B35;
+}
+
 .search-action-icon {
     width: 20px;
     height: 20px;

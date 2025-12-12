@@ -1186,9 +1186,27 @@ function bebeats_handle_create_post() {
     // Récupérer les données
     $post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : 'post';
     
+    // Valider le type de post
+    $allowed_types = array('fan-art', 'audio', 'post', 'event');
+    if (!in_array($post_type, $allowed_types)) {
+        wp_redirect(home_url('/contribuer?error=1'));
+        exit;
+    }
+    
+    // Vérifier que seuls les admins et artistes peuvent créer des posts "event"
+    if ($post_type === 'event') {
+        $user_type_meta = get_user_meta($current_user->ID, 'bebeats_user_type', true);
+        $can_create_event = ($user_type_meta === 'artiste' || current_user_can('administrator'));
+        
+        if (!$can_create_event) {
+            wp_redirect(home_url('/contribuer?error=1'));
+            exit;
+        }
+    }
+    
     // Récupérer le contenu selon le type de post
     $content = '';
-    if ($post_type === 'post') {
+    if ($post_type === 'post' || $post_type === 'event') {
         $content = isset($_POST['content']) ? sanitize_textarea_field($_POST['content']) : '';
     } elseif ($post_type === 'fan-art') {
         // Pour fan-art, le contenu peut venir de 'content' (description)
@@ -1202,7 +1220,7 @@ function bebeats_handle_create_post() {
     $media_url = '';
     
     // Gérer l'upload du média selon le type
-    if ($post_type === 'fan-art' && !empty($_FILES['media']['name'])) {
+    if (($post_type === 'fan-art' || $post_type === 'event') && !empty($_FILES['media']['name'])) {
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');

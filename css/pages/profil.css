@@ -451,6 +451,42 @@
     stroke-width: 2;
 }
 
+/* Mode Violet pour les réactions actives */
+body.mode-violet .profile-post-action-btn.active,
+html.mode-violet .profile-post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .profile-post-action-btn.active .profile-action-icon,
+html.mode-violet .profile-post-action-btn.active .profile-action-icon {
+    fill: #A855F7;
+}
+
+body.mode-violet .profile-post-action-btn.repost-btn.active .profile-action-icon,
+html.mode-violet .profile-post-action-btn.repost-btn.active .profile-action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
+/* Mode Orange pour les réactions actives */
+body.mode-orange .profile-post-action-btn.active,
+html.mode-orange .profile-post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .profile-post-action-btn.active .profile-action-icon,
+html.mode-orange .profile-post-action-btn.active .profile-action-icon {
+    fill: #FF6B35;
+}
+
+body.mode-orange .profile-post-action-btn.repost-btn.active .profile-action-icon,
+html.mode-orange .profile-post-action-btn.repost-btn.active .profile-action-icon {
+    fill: none;
+    stroke: #FF6B35;
+    stroke-width: 2;
+}
+
 .profile-action-icon {
     width: 24px;
     height: 24px;
@@ -470,7 +506,6 @@
 
 .profile-post-action-btn.favorite-btn.active .profile-action-icon {
     fill: #FFD700;
-    stroke: #FFD700;
 }
 
 /* Responsive pour les posts du profil */
@@ -747,6 +782,28 @@
 
 .carousel-post-action-btn.active .carousel-action-icon {
     fill: #A855F7;
+}
+
+/* Mode Violet pour les réactions actives des carrousels */
+body.mode-violet .carousel-post-action-btn.active,
+html.mode-violet .carousel-post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .carousel-post-action-btn.active .carousel-action-icon,
+html.mode-violet .carousel-post-action-btn.active .carousel-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Orange pour les réactions actives des carrousels */
+body.mode-orange .carousel-post-action-btn.active,
+html.mode-orange .carousel-post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .carousel-post-action-btn.active .carousel-action-icon,
+html.mode-orange .carousel-post-action-btn.active .carousel-action-icon {
+    fill: #FF6B35;
 }
 
 .carousel-action-icon {

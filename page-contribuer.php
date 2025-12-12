@@ -4,7 +4,20 @@
  * Template pour la page Contribuer
  */
 
-get_header(); ?>
+get_header(); 
+
+// Récupérer le type d'utilisateur pour déterminer si on peut créer des posts "event"
+$current_user_id = is_user_logged_in() ? get_current_user_id() : 0;
+$user_type = '';
+if (is_user_logged_in()) {
+    $current_user = wp_get_current_user();
+    $user_type = get_user_meta($current_user->ID, 'bebeats_user_type', true);
+    // Les admins WordPress peuvent aussi créer des events
+    $can_create_event = ($user_type === 'artiste' || current_user_can('administrator'));
+} else {
+    $can_create_event = false;
+}
+?>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -108,6 +121,19 @@ get_header(); ?>
                                     </span>
                                 </label>
                             </div>
+                            
+                            <?php if ($can_create_event): ?>
+                            <div class="category-option">
+                                <label class="category-radio-label">
+                                    <input type="radio" name="post_category" value="event" class="category-radio-input">
+                                    <span class="category-radio-custom"></span>
+                                    <span class="category-label-text">
+                                        <span class="category-title">Événement</span>
+                                        <span class="category-description">Événement musical ou culturel</span>
+                                    </span>
+                                </label>
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

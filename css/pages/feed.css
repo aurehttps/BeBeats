@@ -173,6 +173,42 @@
     stroke-width: 2;
 }
 
+/* Mode Violet pour les réactions actives */
+body.mode-violet .post-action-btn.active,
+html.mode-violet .post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .post-action-btn.active .action-icon,
+html.mode-violet .post-action-btn.active .action-icon {
+    fill: #A855F7;
+}
+
+body.mode-violet .repost-btn.active .action-icon,
+html.mode-violet .repost-btn.active .action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
+/* Mode Orange pour les réactions actives */
+body.mode-orange .post-action-btn.active,
+html.mode-orange .post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .post-action-btn.active .action-icon,
+html.mode-orange .post-action-btn.active .action-icon {
+    fill: #FF6B35;
+}
+
+body.mode-orange .repost-btn.active .action-icon,
+html.mode-orange .repost-btn.active .action-icon {
+    fill: none;
+    stroke: #FF6B35;
+    stroke-width: 2;
+}
+
 .action-icon {
     width: 24px;
     height: 24px;
@@ -208,7 +244,6 @@
 
 .favorite-btn.active .action-icon {
     fill: #FFD700;
-    stroke: #FFD700;
 }
 
 /* Zone de commentaires */
@@ -367,6 +402,28 @@ body.mode-orange .comment-submit-btn:hover {
 
 .comment-like-btn.active .comment-like-icon {
     fill: #A855F7;
+}
+
+/* Mode Violet pour les likes de commentaires actifs */
+body.mode-violet .comment-like-btn.active,
+html.mode-violet .comment-like-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .comment-like-btn.active .comment-like-icon,
+html.mode-violet .comment-like-btn.active .comment-like-icon {
+    fill: #A855F7;
+}
+
+/* Mode Orange pour les likes de commentaires actifs */
+body.mode-orange .comment-like-btn.active,
+html.mode-orange .comment-like-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .comment-like-btn.active .comment-like-icon,
+html.mode-orange .comment-like-btn.active .comment-like-icon {
+    fill: #FF6B35;
 }
 
 .comment-like-icon {

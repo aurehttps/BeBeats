@@ -647,6 +647,28 @@ body.mode-orange .roll-btn:hover {
     fill: #A855F7;
 }
 
+/* Mode Violet pour les réactions actives des carrousels */
+body.mode-violet .carousel-post-action-btn.active,
+html.mode-violet .carousel-post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .carousel-post-action-btn.active .carousel-action-icon,
+html.mode-violet .carousel-post-action-btn.active .carousel-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Orange pour les réactions actives des carrousels */
+body.mode-orange .carousel-post-action-btn.active,
+html.mode-orange .carousel-post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .carousel-post-action-btn.active .carousel-action-icon,
+html.mode-orange .carousel-post-action-btn.active .carousel-action-icon {
+    fill: #FF6B35;
+}
+
 .carousel-action-icon {
     width: 20px;
     height: 20px;
@@ -821,6 +843,42 @@ body.mode-orange .roll-btn:hover {
     stroke-width: 2;
 }
 
+/* Mode Violet pour les réactions actives du carrousel feed */
+body.mode-violet .carousel-feed-post .post-action-btn.active,
+html.mode-violet .carousel-feed-post .post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .carousel-feed-post .post-action-btn.active .action-icon,
+html.mode-violet .carousel-feed-post .post-action-btn.active .action-icon {
+    fill: #A855F7;
+}
+
+body.mode-violet .carousel-feed-post .post-action-btn.repost-btn.active .action-icon,
+html.mode-violet .carousel-feed-post .post-action-btn.repost-btn.active .action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
+/* Mode Orange pour les réactions actives du carrousel feed */
+body.mode-orange .carousel-feed-post .post-action-btn.active,
+html.mode-orange .carousel-feed-post .post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .carousel-feed-post .post-action-btn.active .action-icon,
+html.mode-orange .carousel-feed-post .post-action-btn.active .action-icon {
+    fill: #FF6B35;
+}
+
+body.mode-orange .carousel-feed-post .post-action-btn.repost-btn.active .action-icon,
+html.mode-orange .carousel-feed-post .post-action-btn.repost-btn.active .action-icon {
+    fill: none;
+    stroke: #FF6B35;
+    stroke-width: 2;
+}
+
 .carousel-feed-post .action-icon {
     width: 24px;
     height: 24px;
@@ -840,7 +898,6 @@ body.mode-orange .roll-btn:hover {
 
 .carousel-feed-post .post-action-btn.favorite-btn.active .action-icon {
     fill: #FFD700;
-    stroke: #FFD700;
 }
 
 /* Responsive pour les carrousels */
