@@ -17,7 +17,7 @@ get_header(); ?>
                 <p class="auth-subtitle">Comment souhaites-tu utiliser BeBeats ?</p>
                 
                 <div class="inscription-choices">
-                    <a href="<?php echo esc_url(home_url('/inscription-fan')); ?>" class="inscription-choice-btn">
+                    <a href="<?php echo esc_url(home_url('/inscription-fan-step1')); ?>" class="inscription-choice-btn">
                         <div class="choice-icon">👤</div>
                         <div class="choice-content">
                             <h2 class="choice-title">Fan</h2>
@@ -25,7 +25,7 @@ get_header(); ?>
                         </div>
                     </a>
                     
-                    <a href="<?php echo esc_url(home_url('/inscription-artiste')); ?>" class="inscription-choice-btn">
+                    <a href="<?php echo esc_url(home_url('/inscription-artiste-step1')); ?>" class="inscription-choice-btn">
                         <div class="choice-icon">🎵</div>
                         <div class="choice-content">
                             <h2 class="choice-title">Artiste</h2>

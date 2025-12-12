@@ -14,7 +14,7 @@ get_header(); ?>
                     <div class="auth-progress-bar-fill" style="width: 50%;"></div>
                 </div>
                 
-                <a href="<?php echo esc_url(home_url('/inscription-fan')); ?>" class="auth-back-btn" aria-label="Retour">
+                <a href="<?php echo esc_url(home_url('/inscription-fan-step1')); ?>" class="auth-back-btn" aria-label="Retour">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>

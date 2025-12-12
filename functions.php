@@ -20,9 +20,9 @@ function bebeats_enqueue_styles() {
     
     // Enqueue page-specific styles
     if (is_page('connexion') || is_page('inscription') || is_page('welcome') || 
-        is_page('inscription-fan') || is_page('inscription-fan-step1') || 
+        is_page('inscription-fan-step1') || 
         is_page('inscription-fan-step2') || is_page('inscription-fan-step3') || 
-        is_page('inscription-fan-step4') || is_page('inscription-artiste') ||
+        is_page('inscription-fan-step4') ||
         is_page('inscription-artiste-step1') || is_page('inscription-artiste-step2') ||
         is_page('inscription-artiste-step3') || is_page('inscription-artiste-step4') ||
         is_page('inscription-artiste-step5')) {
