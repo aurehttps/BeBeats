@@ -198,6 +198,9 @@ function handleReaction(postId, reactionType, button) {
                 countElement.textContent = data.data.count;
             }
             console.error('Erreur serveur:', data.data?.message || 'Erreur inconnue');
+            if (data.data?.debug) {
+                console.error('Détails de l\'erreur:', data.data.debug);
+            }
         }
     })
     .catch(error => {

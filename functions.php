@@ -348,46 +348,41 @@ function bebeats_create_post_reactions_table() {
         KEY post_id (post_id),
         KEY user_id (user_id),
         KEY reaction_type (reaction_type),
-        KEY parent_comment_id (parent_comment_id)
+        KEY parent_comment_id (parent_comment_id),
+        KEY user_post_reaction (user_id, post_id, reaction_type, parent_comment_id)
     ) $charset_collate;";
     
     dbDelta($sql);
     
-    // Ajouter la contrainte unique si elle n'existe pas déjà (pour les mises à jour)
-    // Utiliser un index unique sur (user_id, post_id, reaction_type, parent_comment_id)
-    // mais seulement pour les réactions qui n'ont pas de parent_comment_id (like, repost, favorite)
+    // Supprimer la contrainte unique si elle existe (pour éviter les problèmes)
     $index_exists = $wpdb->get_results($wpdb->prepare(
         "SHOW INDEX FROM $table_name WHERE Key_name = %s",
         'unique_user_post_reaction'
     ));
     
-    if (empty($index_exists)) {
-        // Mettre à jour les NULL en 0 pour les réactions sans parent
-        $wpdb->query("
-            UPDATE $table_name 
-            SET parent_comment_id = 0 
-            WHERE parent_comment_id IS NULL 
-            AND reaction_type IN ('like', 'repost', 'favorite')
-        ");
-        
-        // Supprimer les doublons potentiels avant d'ajouter la contrainte
-        $wpdb->query("
-            DELETE r1 FROM $table_name r1
-            INNER JOIN $table_name r2 
-            WHERE r1.id > r2.id 
-            AND r1.user_id = r2.user_id 
-            AND r1.post_id = r2.post_id 
-            AND r1.reaction_type = r2.reaction_type 
-            AND COALESCE(r1.parent_comment_id, 0) = COALESCE(r2.parent_comment_id, 0)
-            AND r1.reaction_type IN ('like', 'repost', 'favorite', 'comment_like')
-        ");
-        
-        // Ajouter la contrainte unique (maintenant que parent_comment_id utilise 0 au lieu de NULL)
-        $wpdb->query("
-            ALTER TABLE $table_name 
-            ADD UNIQUE KEY unique_user_post_reaction (user_id, post_id, reaction_type, parent_comment_id)
-        ");
+    if (!empty($index_exists)) {
+        $wpdb->query("ALTER TABLE $table_name DROP INDEX unique_user_post_reaction");
     }
+    
+    // Mettre à jour les NULL en 0 pour les réactions sans parent
+    $wpdb->query("
+        UPDATE $table_name 
+        SET parent_comment_id = 0 
+        WHERE parent_comment_id IS NULL 
+        AND reaction_type IN ('like', 'repost', 'favorite')
+    ");
+    
+    // Supprimer les doublons potentiels (garder le plus ancien)
+    $wpdb->query("
+        DELETE r1 FROM $table_name r1
+        INNER JOIN $table_name r2 
+        WHERE r1.id > r2.id 
+        AND r1.user_id = r2.user_id 
+        AND r1.post_id = r2.post_id 
+        AND r1.reaction_type = r2.reaction_type 
+        AND COALESCE(r1.parent_comment_id, 0) = COALESCE(r2.parent_comment_id, 0)
+        AND r1.reaction_type IN ('like', 'repost', 'favorite', 'comment_like')
+    ");
 }
 
 /**
@@ -1429,6 +1424,13 @@ function bebeats_handle_post_reaction() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'bebeats_post_reactions';
     
+    // Vérifier que la table existe
+    $table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'");
+    if (!$table_exists) {
+        error_log('bebeats_post_reaction: La table n\'existe pas, création...');
+        bebeats_create_post_reactions_table();
+    }
+    
     // Pour les likes, republier et favoris : toggle (ajouter ou supprimer)
     // IMPORTANT: Un utilisateur ne peut avoir qu'UNE SEULE réaction de chaque type par post
     if (in_array($reaction_type, array('like', 'repost', 'favorite')) && $action === 'toggle') {
@@ -1471,7 +1473,43 @@ function bebeats_handle_post_reaction() {
             }
         } else {
             // Ajouter la réaction (un utilisateur ne peut avoir qu'une seule réaction de ce type)
-            // Utiliser 0 au lieu de NULL pour parent_comment_id pour éviter les problèmes avec la contrainte unique
+            // Utiliser 0 au lieu de NULL pour parent_comment_id pour éviter les problèmes
+            // Vérifier une dernière fois qu'elle n'existe pas (race condition)
+            $double_check = $wpdb->get_var($wpdb->prepare(
+                "SELECT COUNT(*) FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND COALESCE(parent_comment_id, 0) = 0",
+                $post_id, $user_id, $reaction_type
+            ));
+            
+            if ($double_check > 0) {
+                // La réaction existe déjà, la supprimer (toggle)
+                $existing = $wpdb->get_row($wpdb->prepare(
+                    "SELECT id FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND COALESCE(parent_comment_id, 0) = 0",
+                    $post_id, $user_id, $reaction_type
+                ));
+                
+                if ($existing) {
+                    $deleted = $wpdb->delete(
+                        $table_name,
+                        array('id' => $existing->id),
+                        array('%d')
+                    );
+                    
+                    if ($deleted !== false) {
+                        $new_count = (int) $wpdb->get_var($wpdb->prepare(
+                            "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE post_id = %d AND reaction_type = %s",
+                            $post_id, $reaction_type
+                        ));
+                        wp_send_json_success(array(
+                            'action' => 'removed', 
+                            'reaction_type' => $reaction_type,
+                            'count' => $new_count
+                        ));
+                        return;
+                    }
+                }
+            }
+            
+            // Insérer la nouvelle réaction
             $inserted = $wpdb->insert(
                 $table_name,
                 array(
@@ -1495,12 +1533,12 @@ function bebeats_handle_post_reaction() {
                     'count' => $new_count
                 ));
             } else {
-                // Si l'insertion échoue, vérifier l'erreur
+                // Si l'insertion échoue, vérifier l'erreur et réessayer avec une vérification
                 $error_message = $wpdb->last_error;
                 error_log('bebeats_post_reaction: Erreur insertion - ' . $error_message);
                 error_log('bebeats_post_reaction: Post ID: ' . $post_id . ', User ID: ' . $user_id . ', Reaction Type: ' . $reaction_type);
                 
-                // Vérifier si c'est à cause d'un doublon (contrainte unique)
+                // Vérifier à nouveau si la réaction existe (au cas où elle aurait été créée entre-temps)
                 $existing_check = $wpdb->get_row($wpdb->prepare(
                     "SELECT id FROM $table_name WHERE post_id = %d AND user_id = %d AND reaction_type = %s AND COALESCE(parent_comment_id, 0) = 0",
                     $post_id, $user_id, $reaction_type
@@ -1536,14 +1574,20 @@ function bebeats_handle_post_reaction() {
                         ));
                     }
                 } else {
-                    // Autre erreur - retourner le compteur actuel
+                    // Autre erreur - retourner le compteur actuel et le message d'erreur détaillé
                     $current_count = (int) $wpdb->get_var($wpdb->prepare(
                         "SELECT COUNT(DISTINCT user_id) FROM $table_name WHERE post_id = %d AND reaction_type = %s",
                         $post_id, $reaction_type
                     ));
                     wp_send_json_error(array(
                         'message' => 'Erreur lors de l\'ajout de la réaction: ' . ($error_message ?: 'Erreur inconnue'),
-                        'count' => $current_count
+                        'count' => $current_count,
+                        'debug' => array(
+                            'post_id' => $post_id,
+                            'user_id' => $user_id,
+                            'reaction_type' => $reaction_type,
+                            'last_error' => $wpdb->last_error
+                        )
                     ));
                 }
             }
