@@ -27,31 +27,31 @@
                 <div class="content-scroll">
                     <!-- Album 1 -->
                     <div class="content-item">
-                        <img src="bloostone.jpeg" alt="Bloostone" class="content-image">
+                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/Bloodstone.jpeg" alt="Bloostone" class="content-image">
                         <h3 class="content-title">Bloostone</h3>
                         <p class="content-subtitle">Thomas Frank Hopper</p>
                     </div>
                     <!-- Album 2 -->
                     <div class="content-item">
-                        <img src="RAKETHANON.jpeg" alt="RKTKN#1" class="content-image">
+                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/RAKETKANON.jpeg" alt="RKTKN#1" class="content-image">
                         <h3 class="content-title">RKTKN#1</h3>
                         <p class="content-subtitle">Rakethanon</p>
                     </div>
                     <!-- Album 3 -->
                     <div class="content-item">
-                        <img src="crackhouse.jpeg" alt="Crackhouse" class="content-image">
+                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/crackhouse.jpeg" alt="Crackhouse" class="content-image">
                         <h3 class="content-title">Crackhouse</h3>
                         <p class="content-subtitle">Highbloo</p>
                     </div>
                     <!-- Album 4 -->
                     <div class="content-item">
-                        <img src="soldout.jpeg" alt="Forever" class="content-image">
+                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/Sold_Out.jpeg" alt="Forever" class="content-image">
                         <h3 class="content-title">Forever</h3>
                         <p class="content-subtitle">Sold Out</p>
                     </div>
                     <!-- Album 5 -->
                     <div class="content-item">
-                        <img src="kapitan-korsakov.jpeg" alt="Well Hunger" class="content-image">
+                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/kapitankorsakov.jpeg" alt="Well Hunger" class="content-image">
                         <h3 class="content-title">Well Hunger</h3>
                         <p class="content-subtitle">Kapitan Korsakov</p>
                     </div>
@@ -67,19 +67,19 @@
                 <div class="content-scroll">
                     <!-- Article 1 -->
                     <div class="content-item">
-                        <img src="" alt="Les Nuits" class="content-image">
+                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/Botanique.jpeg" alt="Les Nuits" class="content-image">
                         <h3 class="content-title">Les Nuits</h3>
                         <p class="content-subtitle">Botanique</p>
                     </div>
                     <!-- Article 2 -->
                     <div class="content-item">
-                        <img src="" alt="Le Festival des Libertés" class="content-image">
+                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/Liberté.jpeg" alt="Le Festival des Libertés" class="content-image">
                         <h3 class="content-title">Le Festival des Libertés</h3>
                         <p class="content-subtitle">Théâtre National</p>
                     </div>
                     <!-- Article 3 -->
                     <div class="content-item">
-                        <img src="" alt="FKNYE" class="content-image">
+                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/FKNY.jpeg" alt="FKNYE" class="content-image">
                         <h3 class="content-title">FKNYE</h3>
                         <p class="content-subtitle">Théâtre National</p>
                     </div>
