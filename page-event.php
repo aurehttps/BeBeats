@@ -32,7 +32,7 @@ $events = $wpdb->get_results("
         <!-- Événements éditoriaux fixes -->
         <article class="event-card">
             <div class="event-image">
-                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/event-firewood.jpg" alt="Firew00d">
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/firewood logo.jpg" alt="Firew00d">
             </div>
             <div class="event-details">
                 <h2 class="event-title">Firew00d</h2>
@@ -63,7 +63,7 @@ $events = $wpdb->get_results("
 
         <article class="event-card">
             <div class="event-image">
-                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/event-bobby-watson.jpg" alt="Bobby Watson">
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/bobby watson.jpg" alt="Bobby Watson">
             </div>
             <div class="event-details">
                 <h2 class="event-title">Bobby Watson</h2>
@@ -94,7 +94,7 @@ $events = $wpdb->get_results("
 
         <article class="event-card">
             <div class="event-image">
-                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/event-pretty-much-average.jpg" alt="Pretty Much Average">
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/pretty much average.jpg" alt="Pretty Much Average">
             </div>
             <div class="event-details">
                 <h2 class="event-title">Pretty Much Average</h2>
@@ -125,7 +125,7 @@ $events = $wpdb->get_results("
 
         <article class="event-card">
             <div class="event-image">
-                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/event-iamwill.jpg" alt="IAMWILL">
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/iamwill.jpg" alt="IAMWILL">
             </div>
             <div class="event-details">
                 <h2 class="event-title">IAMWILL</h2>
