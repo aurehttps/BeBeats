@@ -36,7 +36,7 @@
     font-family: 'Brevia', sans-serif;
     font-weight: 700;
     font-size: 3rem;
-    color: #fff;
+    color: rgb(240, 238, 233);
     margin: 0;
 }
 
@@ -44,7 +44,7 @@
     font-family: 'Brevia', sans-serif;
     font-weight: 400;
     font-size: 1.25rem;
-    color: #fff;
+    color: rgb(240, 238, 233);
     list-style: decimal;
     list-style-position: inside;
     padding: 0;
@@ -63,7 +63,7 @@
     border: none;
     border-radius: 90px;
     padding: 1rem 3rem;
-    color: #fff;
+    color: rgb(240, 238, 233);
     font-family: 'URW Form', sans-serif;
     font-size: 1.25rem;
     font-weight: 400;
@@ -116,7 +116,7 @@ body.mode-orange .roll-btn:hover:not(:disabled) {
     padding: 2rem;
     border: none;
     border-radius: 90px;
-    color: #fff;
+    color: rgb(240, 238, 233);
     font-family: 'URW Form', sans-serif;
     font-size: 1.25rem;
     font-weight: 400;
@@ -166,7 +166,7 @@ body.mode-violet .category-btn:hover {
     font-family: 'Brevia', sans-serif;
     font-weight: 700;
     font-size: 2rem;
-    color: #fff;
+    color: rgb(240, 238, 233);
     margin-bottom: 1rem;
 }
 
@@ -218,7 +218,7 @@ body.mode-violet .category-btn:hover {
     font-family: 'Brevia', sans-serif;
     font-size: 1rem;
     font-weight: 700;
-    color: #fff;
+    color: rgb(240, 238, 233);
 }
 
 .roll-result-time {
@@ -234,7 +234,7 @@ body.mode-violet .category-btn:hover {
 .roll-result-text {
     font-family: 'URW Form', sans-serif;
     font-size: 1rem;
-    color: #fff;
+    color: rgb(240, 238, 233);
     line-height: 1.6;
     margin: 0 0 1rem 0;
     white-space: pre-wrap;
@@ -349,8 +349,16 @@ body.mode-orange .category-btn-active:hover {
         max-width: 80%;
     }
 
+    /* Sur tablette & téléphone : 2 colonnes pour les 4 boutons Roll */
     .categories-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .category-btn {
+        padding: 1.25rem;
+        font-size: 1.1rem;
+        border-radius: 40px;
     }
 }
 
@@ -365,27 +373,35 @@ body.mode-orange .category-btn-active:hover {
     .discovery-card {
         padding: 1.5rem 1rem;
     }
-
+    
     .discovery-title {
         font-size: 2rem;
     }
-
+    
     .discovery-steps {
         font-size: 1rem;
     }
-
+    
     .roll-btn {
         padding: 0.875rem 2rem;
         font-size: 1.125rem;
     }
-
+    
+    /* Réduire l'image de la carte Roll sur mobile */
     .discovery-image {
-        max-width: 70%;
+        max-width: 55%;
     }
-
+    
+    /* 4 boutons Roll plus petits en 2 colonnes x 2 lignes */
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
     .category-btn {
-        padding: 1.5rem;
-        font-size: 1.125rem;
+        padding: 1.1rem;
+        font-size: 1rem;
+        border-radius: 32px;
     }
 
     .results-title {
@@ -399,6 +415,13 @@ body.mode-orange .category-btn-active:hover {
     .roll-result-actions {
         gap: 1rem;
         flex-wrap: wrap;
+    }
+    
+    /* Limiter la hauteur du média du Roll sur mobile */
+    .roll-result-media-image,
+    .roll-result-media-video {
+        max-height: 320px;
+        object-fit: cover;
     }
 }
 
@@ -467,7 +490,7 @@ body.mode-orange .category-btn-active:hover {
     font-family: 'Brevia', sans-serif;
     font-size: 1rem;
     font-weight: 700;
-    color: #fff;
+    color: rgb(240, 238, 233);
     margin: 0;
 }
 
@@ -497,7 +520,7 @@ body.mode-orange .category-btn-active:hover {
 .search-post-text {
     font-family: 'URW Form', sans-serif;
     font-size: 1rem;
-    color: #fff;
+    color: rgb(240, 238, 233);
     line-height: 1.6;
     margin: 0 0 1rem 0;
     white-space: pre-wrap;

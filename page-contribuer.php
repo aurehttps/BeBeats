@@ -223,6 +223,15 @@ if (is_user_logged_in()) {
                             
                             <!-- Champ description -->
                             <div class="description-container">
+                                <!-- Champ titre d'artiste pour les évènements (affiché seulement si catégorie "Événement" choisie) -->
+                                <input 
+                                    type="text"
+                                    name="event_title"
+                                    id="event-title-input"
+                                    class="post-content-textarea post-content-event-title"
+                                    placeholder="Nom de l’artiste (titre de l’évènement)"
+                                    style="display: none; margin-bottom: 0.75rem;"
+                                />
                                 <textarea 
                                     name="content" 
                                     id="post-content"

@@ -16,7 +16,7 @@
             <div class="container-fluid">
                 <!-- Logo -->
                 <a class="navbar-brand" href="../index.php">
-                    <img src="../Images/Logo_BeBeats_Deskstop.png" alt="BeBeats Logo" class="logo-img" />
+                    <img src="../Images/Logo_BeBeats_mobile.svg" alt="BeBeats Logo" class="logo-img" />
                 </a>
 
                 <!-- Navigation Section -->

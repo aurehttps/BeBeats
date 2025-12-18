@@ -340,13 +340,63 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryBtn = document.getElementById('category-btn');
     const categoryRadioInputs = document.querySelectorAll('input[name="post_category"]');
     const postTypeInput = document.getElementById('post-type-input');
+    const eventTitleInput = document.getElementById('event-title-input');
     
     // Fonction pour mettre à jour le champ caché avec la catégorie sélectionnée
     function updatePostType() {
         const selectedCategory = document.querySelector('input[name="post_category"]:checked');
         if (selectedCategory && postTypeInput) {
-            postTypeInput.value = selectedCategory.value;
-            console.log('Catégorie mise à jour:', selectedCategory.value);
+            const value = selectedCategory.value;
+            postTypeInput.value = value;
+            console.log('Catégorie mise à jour:', value);
+
+            // Afficher le champ titre d'artiste uniquement pour les évènements
+            if (eventTitleInput) {
+                if (value === 'event') {
+                    eventTitleInput.style.display = 'block';
+                } else {
+                    eventTitleInput.style.display = 'none';
+                    eventTitleInput.value = '';
+                }
+            }
+
+            // Gérer la possibilité d'ajouter du média :
+            // - pour "post" (article texte), on masque le bouton et l'aperçu média
+            // - pour les autres catégories, on les réaffiche
+            const mediaBtn = document.querySelector('.menu-item-media');
+            if (mediaBtn && mediaPreview) {
+                if (value === 'post') {
+                    // Masquer le bouton média
+                    mediaBtn.style.display = 'none';
+
+                    // Vider le fichier sélectionné
+                    if (mediaInput) {
+                        mediaInput.value = '';
+                    }
+
+                    // Réinitialiser l'aperçu média et le masquer
+                    mediaPreview.innerHTML = '';
+                    mediaPreview.classList.remove('has-media');
+                    mediaPreview.style.display = 'none';
+                } else {
+                    // Réafficher le bouton média
+                    mediaBtn.style.display = 'flex';
+
+                    // Réafficher le conteneur d'aperçu (avec placeholder si vide)
+                    if (mediaPreview.innerHTML.trim() === '') {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'media-placeholder';
+                        placeholder.innerHTML = `
+                            <svg class="media-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <p class="media-placeholder-text">Ajoutez une image ou une vidéo</p>
+                        `;
+                        mediaPreview.appendChild(placeholder);
+                    }
+                    mediaPreview.style.display = 'block';
+                }
+            }
         }
     }
     

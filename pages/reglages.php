@@ -16,7 +16,7 @@
             <div class="container-fluid">
                 <!-- Logo -->
                 <a class="navbar-brand" href="../index.php">
-                    <img src="../Images/Logo_BeBeats_Deskstop.png" alt="BeBeats Logo" class="logo-img" />
+                    <img src="../Images/Logo_BeBeats_mobile.svg" alt="BeBeats Logo" class="logo-img" />
                 </a>
 
                 <!-- Navigation Section -->
@@ -120,7 +120,7 @@
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle-cookies" class="toggle-input">
                         <span class="toggle-slider">
-                            <span class="toggle-checkmark">✓</span>
+                            <span class="toggle-checkmark"></span>
                             <span class="toggle-knob"></span>
                         </span>
                     </label>
@@ -131,7 +131,7 @@
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle-langues" class="toggle-input">
                         <span class="toggle-slider">
-                            <span class="toggle-checkmark">✓</span>
+                            <span class="toggle-checkmark"></span>
                             <span class="toggle-knob"></span>
                         </span>
                     </label>
@@ -142,7 +142,7 @@
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle-mode" class="toggle-input">
                         <span class="toggle-slider">
-                            <span class="toggle-checkmark">✓</span>
+                            <span class="toggle-checkmark"></span>
                             <span class="toggle-knob"></span>
                         </span>
                     </label>
@@ -153,7 +153,7 @@
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle-repost" class="toggle-input">
                         <span class="toggle-slider">
-                            <span class="toggle-checkmark">✓</span>
+                            <span class="toggle-checkmark"></span>
                             <span class="toggle-knob"></span>
                         </span>
                     </label>
@@ -172,4 +172,3 @@
     <script src="../js/toggles.js"></script>
 </body>
 </html>
-

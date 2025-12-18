@@ -308,6 +308,7 @@ function bebeats_create_posts_table() {
         user_id bigint(20) NOT NULL,
         post_type varchar(20) NOT NULL DEFAULT 'post',
         content text,
+        event_title varchar(255),
         media_url varchar(500),
         media_type varchar(20),
         allow_comments tinyint(1) DEFAULT 1,
@@ -318,7 +319,8 @@ function bebeats_create_posts_table() {
         PRIMARY KEY (id),
         KEY user_id (user_id),
         KEY created_at (created_at),
-        KEY post_type (post_type)
+        KEY post_type (post_type),
+        KEY event_title (event_title)
     ) $charset_collate;";
     
     dbDelta($sql);
@@ -327,7 +329,8 @@ function bebeats_create_posts_table() {
     $columns_to_add = array(
         'allow_comments' => "ALTER TABLE $table_name ADD COLUMN allow_comments tinyint(1) DEFAULT 1 AFTER media_type",
         'allow_repost' => "ALTER TABLE $table_name ADD COLUMN allow_repost tinyint(1) DEFAULT 1 AFTER allow_comments",
-        'show_likes' => "ALTER TABLE $table_name ADD COLUMN show_likes tinyint(1) DEFAULT 1 AFTER allow_repost"
+        'show_likes' => "ALTER TABLE $table_name ADD COLUMN show_likes tinyint(1) DEFAULT 1 AFTER allow_repost",
+        'event_title' => "ALTER TABLE $table_name ADD COLUMN event_title varchar(255) NULL AFTER content"
     );
     
     foreach ($columns_to_add as $column => $alter_sql) {
@@ -1208,8 +1211,13 @@ function bebeats_handle_create_post() {
     
     // Récupérer le contenu selon le type de post
     $content = '';
+    $event_title = '';
     if ($post_type === 'post' || $post_type === 'event') {
         $content = isset($_POST['content']) ? sanitize_textarea_field($_POST['content']) : '';
+        // Pour les évènements, on peut avoir un titre d'artiste dédié
+        if ($post_type === 'event') {
+            $event_title = isset($_POST['event_title']) ? sanitize_text_field($_POST['event_title']) : '';
+        }
     } elseif ($post_type === 'fan-art') {
         // Pour fan-art, le contenu peut venir de 'content' (description)
         $content = isset($_POST['content']) ? sanitize_textarea_field($_POST['content']) : '';
@@ -1252,8 +1260,8 @@ function bebeats_handle_create_post() {
         }
     }
     
-    // Validation : au moins du contenu ou un média
-    if (empty($content) && empty($media_url)) {
+    // Validation : au moins du contenu, un média, ou un titre d'évènement
+    if (empty($content) && empty($media_url) && empty($event_title)) {
         wp_redirect(home_url('/contribuer?error=2'));
         exit;
     }
@@ -1286,13 +1294,21 @@ function bebeats_handle_create_post() {
         'allow_repost' => $allow_repost,
         'show_likes' => $show_likes
     );
+
+    $insert_formats = array('%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d');
+
+    // Enregistrer le titre d'évènement séparément si fourni
+    if (!empty($event_title)) {
+        $insert_data['event_title'] = $event_title;
+        $insert_formats[] = '%s';
+    }
     
     error_log('bebeats_create_post: Données à insérer: ' . print_r($insert_data, true));
     
     $result = $wpdb->insert(
         $table_name,
         $insert_data,
-        array('%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d')
+        $insert_formats
     );
     
     if ($result === false) {
@@ -1328,7 +1344,12 @@ function bebeats_handle_create_post() {
     }
     
     // Créer aussi un post WordPress pour qu'il apparaisse dans le menu Posts
-    $wp_post_title = !empty($content) ? wp_trim_words($content, 10, '...') : 'Post BeBeats - ' . ucfirst($post_type);
+    // Utiliser le titre d'évènement dédié pour les posts de type "event" si disponible
+    if ($post_type === 'event' && !empty($event_title)) {
+        $wp_post_title = $event_title;
+    } else {
+        $wp_post_title = !empty($content) ? wp_trim_words($content, 10, '...') : 'Post BeBeats - ' . ucfirst($post_type);
+    }
     if (empty($wp_post_title)) {
         $wp_post_title = 'Post BeBeats - ' . date('Y-m-d H:i:s');
     }

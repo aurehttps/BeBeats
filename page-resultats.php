@@ -255,6 +255,9 @@ if (!empty($search_term)) {
                         <span id="roll-result-favorites">0</span>
                     </div>
                 </div>
+                <a href="#" id="roll-result-event-link" class="roll-result-event-link" style="display:none; margin-top:1rem; text-decoration:none;">
+                    Voir cet évènement dans la page Event
+                </a>
             </div>
         </section>
     </main>
@@ -447,6 +450,15 @@ if (!empty($search_term)) {
                 document.getElementById('roll-result-comments').textContent = post.comments;
                 document.getElementById('roll-result-reposts').textContent = post.reposts;
                 document.getElementById('roll-result-favorites').textContent = post.favorites;
+
+                // Si c'est un évènement, afficher un lien direct vers la page Event avec ancre
+                const eventLink = document.getElementById('roll-result-event-link');
+                if (post.post_type === 'event') {
+                    eventLink.style.display = 'inline-flex';
+                    eventLink.href = '<?php echo esc_url( home_url('/event') ); ?>' + '#event-' + post.id;
+                } else if (eventLink) {
+                    eventLink.style.display = 'none';
+                }
             }
         });
     </script>

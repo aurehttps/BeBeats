@@ -22,36 +22,36 @@
         <!-- New Releases Section -->
         <section class="content-section">
             <h2 class="section-title">Les nouveautés</h2>
-            <p class="section-description">Sur BeBeats vous allez trouver le meilleur du son belge! Commencez par les nouveautés :</p>
+            <p class="section-description">Sur BeBeats vous allez trouver le meilleur du son belge! Commencez par les nouveautés</p>
             <div class="content-container glassmorphism">
                 <div class="content-scroll">
                     <!-- Album 1 -->
                     <div class="content-item">
-                        <img src="" alt="Bloostone" class="content-image">
+                        <img src="bloostone.jpeg" alt="Bloostone" class="content-image">
                         <h3 class="content-title">Bloostone</h3>
                         <p class="content-subtitle">Thomas Frank Hopper</p>
                     </div>
                     <!-- Album 2 -->
                     <div class="content-item">
-                        <img src="" alt="RKTKN#1" class="content-image">
+                        <img src="RAKETHANON.jpeg" alt="RKTKN#1" class="content-image">
                         <h3 class="content-title">RKTKN#1</h3>
                         <p class="content-subtitle">Rakethanon</p>
                     </div>
                     <!-- Album 3 -->
                     <div class="content-item">
-                        <img src="" alt="Crackhouse" class="content-image">
+                        <img src="crackhouse.jpeg" alt="Crackhouse" class="content-image">
                         <h3 class="content-title">Crackhouse</h3>
                         <p class="content-subtitle">Highbloo</p>
                     </div>
                     <!-- Album 4 -->
                     <div class="content-item">
-                        <img src="" alt="Forever" class="content-image">
+                        <img src="soldout.jpeg" alt="Forever" class="content-image">
                         <h3 class="content-title">Forever</h3>
                         <p class="content-subtitle">Sold Out</p>
                     </div>
                     <!-- Album 5 -->
                     <div class="content-item">
-                        <img src="" alt="Well Hunger" class="content-image">
+                        <img src="kapitan-korsakov.jpeg" alt="Well Hunger" class="content-image">
                         <h3 class="content-title">Well Hunger</h3>
                         <p class="content-subtitle">Kapitan Korsakov</p>
                     </div>
