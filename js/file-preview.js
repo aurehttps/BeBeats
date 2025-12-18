@@ -62,8 +62,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const label = input.closest('label');
                 
                 reader.onload = function(e) {
+                    if (!label) {
+                        return;
+                    }
+
                     // Supprimer l'aperçu précédent s'il existe
                     let oldPreview = label.querySelector('.file-preview');
+                    if (!oldPreview) {
+                        oldPreview = label.parentNode.querySelector('.file-preview');
+                    }
                     if (oldPreview) {
                         oldPreview.remove();
                     }
@@ -78,14 +85,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     img.alt = 'Aperçu';
                     preview.appendChild(img);
                     
-                    // Afficher le nom du fichier
-                    let fileName = document.createElement('span');
-                    fileName.className = 'file-name';
-                    fileName.textContent = file.name;
-                    preview.appendChild(fileName);
-                    
-                    // Ajouter l'aperçu après le label
-                    label.parentNode.insertBefore(preview, label.nextSibling);
+                    // Si on est dans un bouton de type "champ" (inscription / profil),
+                    // on affiche l'aperçu à l'intérieur du champ et on masque le texte
+                    if (label.classList.contains('profile-action-btn')) {
+                        const textSpan = label.querySelector('.profile-action-text');
+                        if (textSpan) {
+                            textSpan.style.display = 'none';
+                        }
+                        const iconSpan = label.querySelector('.profile-action-icon');
+                        if (iconSpan) {
+                            iconSpan.style.display = 'none';
+                        }
+                        label.appendChild(preview);
+                    } else {
+                        // Sinon, on garde le comportement existant : apercu sous le label
+                        label.parentNode.insertBefore(preview, label.nextSibling);
+                    }
                     
                     // Ajouter une classe pour indiquer qu'un fichier est sélectionné
                     label.classList.add('file-selected');

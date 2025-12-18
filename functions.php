@@ -51,6 +51,8 @@ function bebeats_enqueue_styles() {
     
     if (is_page('profil')) {
         wp_enqueue_style('bebeats-profil-style', get_template_directory_uri() . '/css/pages/profil.css', array('bebeats-style'), '1.0');
+        // Charger aussi les styles du feed pour harmoniser l'affichage des posts et interactions
+        wp_enqueue_style('bebeats-feed-style', get_template_directory_uri() . '/css/pages/feed.css', array('bebeats-style'), '1.0');
         wp_enqueue_script('bebeats-profil', get_template_directory_uri() . '/js/profil.js', array('jquery'), '1.0', true);
         wp_localize_script('bebeats-profil', 'bebeatsProfil', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),

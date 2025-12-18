@@ -44,8 +44,6 @@ if (!empty($genres) && is_array($genres)) {
         <div class="profile-banner">
             <?php if (!empty($banner)): ?>
                 <img src="<?php echo esc_url($banner); ?>" alt="Bannière de profil" class="banner-image">
-            <?php else: ?>
-                <div class="banner-placeholder"></div>
             <?php endif; ?>
             
             <!-- Photo de profil en bas à droite -->

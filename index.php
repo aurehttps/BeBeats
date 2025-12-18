@@ -15,7 +15,7 @@
         <!-- Video Section -->
         <section class="video-section">
             <div class="video-container glassmorphism">
-                <video src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/BeBeats MD.mov" autoplay loop muted playsinline></video>
+                <video src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/BeBeats-MD.mp4" autoplay loop muted playsinline></video>
             </div>
         </section>
 
