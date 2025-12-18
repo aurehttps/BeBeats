@@ -223,6 +223,15 @@ body.mode-violet .category-btn:hover {
     color: rgb(240, 238, 233);
 }
 
+.roll-result-username-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.roll-result-username-link:hover {
+    text-decoration: underline;
+}
+
 .roll-result-time {
     font-family: 'URW Form', sans-serif;
     font-size: 0.875rem;
@@ -494,6 +503,15 @@ body.mode-orange .category-btn-active:hover {
     font-weight: 700;
     color: rgb(240, 238, 233);
     margin: 0;
+}
+
+.search-post-author-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.search-post-author-link:hover {
+    text-decoration: underline;
 }
 
 .search-post-time {

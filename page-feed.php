@@ -130,10 +130,14 @@ $current_user_id = is_user_logged_in() ? get_current_user_id() : 0;
                     <!-- En-tête du post -->
                     <div class="post-header">
                         <img src="<?php echo esc_url($profile_photo); ?>" alt="<?php echo esc_attr($post->display_name ?: $post->user_login); ?>" class="post-author-avatar">
-                        <div class="post-author-info">
-                            <h3 class="post-author-name"><?php echo esc_html($post->display_name ?: $post->user_login); ?></h3>
-                            <span class="post-time" data-timestamp="<?php echo esc_attr($post_timestamp); ?>">Il y a <?php echo esc_html($time_ago); ?></span>
-                        </div>
+                    <div class="post-author-info">
+                        <h3 class="post-author-name">
+                            <a href="<?php echo esc_url( home_url( '/profil?user=' . $post->user_id ) ); ?>" class="post-author-name-link">
+                                <?php echo esc_html($post->display_name ?: $post->user_login); ?>
+                            </a>
+                        </h3>
+                        <span class="post-time" data-timestamp="<?php echo esc_attr($post_timestamp); ?>">Il y a <?php echo esc_html($time_ago); ?></span>
+                    </div>
                     </div>
                     
                     <!-- Contenu du post -->
@@ -236,10 +240,12 @@ $current_user_id = is_user_logged_in() ? get_current_user_id() : 0;
                                 <div class="comment-item" data-comment-id="<?php echo esc_attr($comment->id); ?>">
                                     <img src="<?php echo esc_url($comment_profile_photo); ?>" alt="<?php echo esc_attr($comment->display_name ?: $comment->user_login); ?>" class="comment-avatar">
                                     <div class="comment-content">
-                                        <div class="comment-header">
+                                    <div class="comment-header">
+                                        <a href="<?php echo esc_url( home_url( '/profil?user=' . $comment->user_id ) ); ?>" class="comment-author-link">
                                             <span class="comment-author"><?php echo esc_html($comment->display_name ?: $comment->user_login); ?></span>
-                                            <span class="comment-time" data-timestamp="<?php echo esc_attr($comment_timestamp); ?>">Il y a <?php echo esc_html($comment_time_ago); ?></span>
-                                        </div>
+                                        </a>
+                                        <span class="comment-time" data-timestamp="<?php echo esc_attr($comment_timestamp); ?>">Il y a <?php echo esc_html($comment_time_ago); ?></span>
+                                    </div>
                                         <p class="comment-text"><?php echo nl2br(esc_html($comment->comment_text)); ?></p>
                                     </div>
                                     <button class="comment-like-btn <?php echo $user_liked_comment ? 'active' : ''; ?>" 

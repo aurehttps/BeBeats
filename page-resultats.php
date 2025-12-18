@@ -75,7 +75,11 @@ function bebeats_render_search_post($post, $stats, $current_user_id) {
             <div class="search-post-header">
                 <img src="<?php echo esc_url($post->profile_photo); ?>" alt="<?php echo esc_attr($post->display_name ?: $post->user_login); ?>" class="search-post-avatar">
                 <div class="search-post-author-info">
-                    <h3 class="search-post-author-name"><?php echo esc_html($post->display_name ?: $post->user_login); ?></h3>
+                    <h3 class="search-post-author-name">
+                        <a href="<?php echo esc_url( home_url('/profil?user=' . $post->user_id ) ); ?>" class="search-post-author-link">
+                            <?php echo esc_html($post->display_name ?: $post->user_login); ?>
+                        </a>
+                    </h3>
                     <span class="search-post-time" data-timestamp="<?php echo esc_attr($post_timestamp); ?>">Il y a <?php echo esc_html($time_ago); ?></span>
                 </div>
                 <span class="search-post-type"><?php 
@@ -220,7 +224,7 @@ if (!empty($search_term)) {
                     <div class="roll-result-user">
                         <img src="" alt="" class="roll-result-avatar" id="roll-result-avatar">
                         <div class="roll-result-user-info">
-                            <span class="roll-result-username" id="roll-result-username"></span>
+                            <a href="#" class="roll-result-username-link" id="roll-result-username"></a>
                             <span class="roll-result-time" id="roll-result-time"></span>
                         </div>
                     </div>
@@ -407,7 +411,11 @@ if (!empty($search_term)) {
 
                 // Remplir les informations
                 document.getElementById('roll-result-avatar').src = post.profile_photo;
-                document.getElementById('roll-result-username').textContent = post.username;
+                const usernameEl = document.getElementById('roll-result-username');
+                if (usernameEl) {
+                    usernameEl.textContent = post.username;
+                    usernameEl.href = '<?php echo esc_url( home_url('/profil?user=') ); ?>' + post.user_id;
+                }
                 document.getElementById('roll-result-time').textContent = post.time_ago;
 
                 // Contenu texte
