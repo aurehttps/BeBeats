@@ -30,9 +30,11 @@
                 <!-- Navigation Section -->
                 <div class="d-flex align-items-center gap-3 flex-wrap">
                     <form class="search-container" role="search">
-                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+                        <button class="search-icon-button" type="submit" aria-label="Rechercher">
+                            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
                         <input 
                             type="search" 
                             class="search-input"
@@ -94,13 +96,13 @@
             <span class="nav-label">Accueil</span>
         </a>
         
-        <a href="<?php echo esc_url(home_url('/recherche')); ?>" class="nav-item <?php echo $is_recherche ? 'active' : ''; ?>" aria-label="Recherche">
+        <a href="<?php echo esc_url(home_url('/recherche')); ?>" class="nav-item <?php echo $is_recherche ? 'active' : ''; ?>" aria-label="Saves">
             <div class="nav-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
             </div>
-            <span class="nav-label">Recherche</span>
+            <span class="nav-label">Saves</span>
         </a>
         
         <a href="<?php echo esc_url(home_url('/contribuer')); ?>" class="nav-item <?php echo $is_contribuer ? 'active' : ''; ?>" aria-label="Contribuer">

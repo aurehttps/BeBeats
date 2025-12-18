@@ -95,14 +95,35 @@ header * {
     color: rgb(240, 238, 233);
 }
 
-.search-icon {
+.search-icon-button {
     position: absolute;
     left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+}
+
+.search-icon-button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+    border-radius: 999px;
+}
+
+.search-icon {
     width: 18px;
     height: 18px;
     pointer-events: none;
-    color: rgba(255, 255, 255, 0.8);
-    z-index: 1;
+    color: inherit;
 }
 
 .notification-btn {

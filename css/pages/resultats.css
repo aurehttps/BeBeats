@@ -103,6 +103,8 @@ body.mode-orange .roll-btn:hover:not(:disabled) {
     max-width: 100%;
     height: auto;
     object-fit: contain;
+    transform: scale(1.02);
+    transform-origin: center center;
 }
 
 /* Categories Grid */

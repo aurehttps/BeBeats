@@ -200,7 +200,7 @@ if (!empty($search_term)) {
                     <button class="roll-btn">Roll !</button>
                 </div>
                 <div class="discovery-graphic">
-                    <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/discovery-image.png" alt="Découvrez" class="discovery-image">
+                    <img src="<?php echo esc_url(get_template_directory_uri()); ?>/Images/image_roll.jpeg" alt="Découvrez" class="discovery-image">
                 </div>
             </div>
         </section>

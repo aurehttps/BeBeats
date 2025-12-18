@@ -3,20 +3,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour rediriger vers la page de résultats
     function redirectToResults(searchTerm) {
         const trimmedTerm = searchTerm.trim();
-        if (!trimmedTerm) {
-            console.log('Recherche vide, redirection annulée');
-            return;
-        }
         
         // Utiliser l'URL WordPress pour la page résultats
         // Si la variable WordPress est disponible, l'utiliser, sinon construire l'URL
         let resultsUrl;
         if (typeof bebeatsAjax !== 'undefined' && bebeatsAjax.homeUrl) {
-            resultsUrl = bebeatsAjax.homeUrl + '/resultats?q=' + encodeURIComponent(trimmedTerm);
+            resultsUrl = bebeatsAjax.homeUrl + '/resultats';
         } else {
             // Fallback : utiliser la structure WordPress standard
             const homeUrl = window.location.origin;
-            resultsUrl = homeUrl + '/resultats?q=' + encodeURIComponent(trimmedTerm);
+            resultsUrl = homeUrl + '/resultats';
+        }
+
+        // Ajouter le paramètre q seulement si un terme est saisi
+        if (trimmedTerm) {
+            const separator = resultsUrl.includes('?') ? '&' : '?';
+            resultsUrl += separator + 'q=' + encodeURIComponent(trimmedTerm);
         }
         
         console.log('Redirection vers:', resultsUrl);
