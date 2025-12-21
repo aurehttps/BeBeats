@@ -43,6 +43,26 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Style glassmorphism pour le filtre actif sur la page Event (remplace le fond mauve global) */
+.event-filters .filter-btn.filter-btn-active {
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #fff !important;
+    box-shadow: 0 6px 20px rgba(11, 15, 20, 0.35);
+}
+
+/* Garantir l'override des modes (violet/orange) pour ce composant */
+html.mode-violet .event-filters .filter-btn.filter-btn-active,
+body.mode-violet .event-filters .filter-btn.filter-btn-active,
+html.mode-orange .event-filters .filter-btn.filter-btn-active,
+body.mode-orange .event-filters .filter-btn.filter-btn-active {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 0 6px 20px rgba(11, 15, 20, 0.35) !important;
+}
+
 /* Events List */
 .events-list {
     flex: 1;
