@@ -573,18 +573,24 @@ body.mode-violet .nav-item.active .nav-label {
         height: 40px;
     }
 
-    .d-flex {
-        flex-direction: column;
-        width: 100%;
-        gap: 0.75rem !important;
+    /* Garder le layout en ligne pour le header */
+    .navbar .d-flex {
+        flex-direction: row !important;
+        flex-wrap: nowrap;
+        width: auto;
+        gap: 0.5rem !important;
     }
 
+    /* Réduire la largeur de la barre de recherche pour laisser de la place aux boutons */
     .search-container {
-        width: 100%;
+        flex: 1;
+        min-width: 120px;
+        max-width: calc(100% - 120px); /* Réserve de l'espace pour les boutons (44px + 44px + gap) */
     }
 
     .search-input {
-        max-width: none;
+        max-width: 100%;
+        min-width: 120px;
     }
 }
 
