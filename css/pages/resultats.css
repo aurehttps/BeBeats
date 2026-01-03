@@ -1,0 +1,712 @@
+/* Styles spécifiques à la page Résultats */
+
+.search-content {
+    margin-left: 320px;
+    margin-right: 320px;
+    padding: 2rem;
+    padding-top: calc(80px + 2rem);
+    max-width: 1680px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Discovery Card */
+.discovery-card {
+    padding: 3rem 2rem;
+    min-height: 400px;
+}
+
+.discovery-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    height: 100%;
+}
+
+.discovery-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.discovery-title {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    color: rgb(240, 238, 233);
+    margin: 0;
+}
+
+.discovery-steps {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: rgb(240, 238, 233);
+    list-style: decimal;
+    list-style-position: inside;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.discovery-steps li {
+    margin: 0;
+}
+
+.roll-btn {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border: none;
+    border-radius: 90px;
+    padding: 1rem 3rem;
+    color: rgb(240, 238, 233);
+    font-family: 'URW Form', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: all 0.3s ease;
+}
+
+.roll-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+    transform: translateY(-2px);
+}
+
+.roll-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mode Orange pour roll-btn */
+body.mode-orange .roll-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .roll-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
+}
+
+.discovery-graphic {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.discovery-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform: scale(1.02);
+    transform-origin: center center;
+}
+
+/* Categories Grid */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.category-btn {
+    padding: 2rem;
+    border: none;
+    border-radius: 90px;
+    color: rgb(240, 238, 233);
+    font-family: 'URW Form', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.category-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-2px);
+}
+
+/* Annuler les règles globales pour les category-btn de la page resultats */
+html.mode-orange .category-btn,
+body.mode-orange .category-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.mode-orange .category-btn:hover,
+body.mode-orange .category-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+html.mode-violet .category-btn,
+body.mode-violet .category-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.mode-violet .category-btn:hover,
+body.mode-violet .category-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Search Results Section */
+.search-results {
+    width: 100%;
+    margin-bottom: 2rem;
+    display: none; /* Masqué par défaut, affiché par JavaScript si recherche présente */
+}
+
+.results-title {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: rgb(240, 238, 233);
+    margin-bottom: 1rem;
+}
+
+.results-query {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+}
+
+/* Styles pour le résultat du Roll */
+.roll-result-section {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.roll-result-card {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.roll-result-header {
+    margin-bottom: 1.5rem;
+}
+
+.roll-result-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.roll-result-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.roll-result-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.roll-result-username {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgb(240, 238, 233);
+}
+
+.roll-result-username-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.roll-result-username-link:hover {
+    text-decoration: underline;
+}
+
+.roll-result-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.roll-result-content {
+    margin-bottom: 1.5rem;
+}
+
+.roll-result-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    color: rgb(240, 238, 233);
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    white-space: pre-wrap;
+}
+
+.roll-result-media {
+    margin-top: 1rem;
+}
+
+.roll-result-media-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.roll-result-media-video {
+    width: 100%;
+    max-height: 500px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.roll-result-media-audio {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.roll-result-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.roll-result-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+}
+
+.roll-stat-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.category-btn-active {
+    transform: scale(1.05);
+}
+
+/* Mode Violet pour category-btn-active (toggle à gauche - par défaut) */
+html.mode-violet .category-btn-active,
+body.mode-violet .category-btn-active {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+html.mode-violet .category-btn-active:hover,
+body.mode-violet .category-btn-active:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%) !important;
+}
+
+/* Mode Orange pour category-btn-active (toggle à droite) */
+html.mode-orange .category-btn-active,
+body.mode-orange .category-btn-active {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+html.mode-orange .category-btn-active:hover,
+body.mode-orange .category-btn-active:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
+}
+
+/* Responsive adjustments */
+/* Responsive adjustments - Tablet */
+@media (max-width: 768px) {
+    .search-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1.5rem;
+        padding-top: calc(80px + 1.5rem);
+        padding-bottom: calc(80px + 1.5rem);
+        max-width: 100%;
+    }
+
+    .discovery-card {
+        padding: 2rem 1.5rem;
+        min-height: auto;
+    }
+
+    .discovery-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .discovery-title {
+        font-size: 2.5rem;
+    }
+
+    .discovery-steps {
+        font-size: 1.125rem;
+    }
+
+    .discovery-image {
+        max-width: 80%;
+    }
+
+    /* Sur tablette & téléphone : 2 colonnes pour les 4 boutons Roll */
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .category-btn {
+        padding: 1.25rem;
+        font-size: 1.1rem;
+        border-radius: 40px;
+    }
+}
+
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
+    .search-content {
+        padding: 1rem;
+        padding-top: calc(80px + 1rem);
+        padding-bottom: calc(80px + 1rem);
+    }
+
+    .discovery-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .discovery-title {
+        font-size: 2rem;
+    }
+    
+    .discovery-steps {
+        font-size: 1rem;
+    }
+    
+    .roll-btn {
+        padding: 0.875rem 2rem;
+        font-size: 1.125rem;
+    }
+    
+    /* Réduire l'image de la carte Roll sur mobile */
+    .discovery-image {
+        max-width: 55%;
+    }
+    
+    /* 4 boutons Roll plus petits en 2 colonnes x 2 lignes */
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .category-btn {
+        padding: 1.1rem;
+        font-size: 1rem;
+        border-radius: 32px;
+    }
+
+    .results-title {
+        font-size: 1.75rem;
+    }
+
+    .roll-result-card {
+        padding: 1.5rem;
+    }
+
+    .roll-result-actions {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    /* Limiter la hauteur du média du Roll sur mobile */
+    .roll-result-media-image,
+    .roll-result-media-video {
+        max-height: 320px;
+        object-fit: cover;
+    }
+}
+
+/* Responsive adjustments - Tablet pour Roll Result */
+@media (max-width: 768px) {
+    .roll-result-card {
+        padding: 1.5rem;
+    }
+
+    .roll-result-actions {
+        gap: 1.5rem;
+    }
+}
+
+/* Styles pour les résultats de recherche */
+.search-results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.search-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.search-post-item {
+    padding: 1.5rem;
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.search-post-link:hover .search-post-item {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.search-post-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-post-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.search-post-author-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.search-post-author-name {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgb(240, 238, 233);
+    margin: 0;
+}
+
+.search-post-author-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.search-post-author-link:hover {
+    text-decoration: underline;
+}
+
+.search-post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-post-type {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    background: rgba(255, 107, 53, 0.2);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 12px;
+    color: #FF6B35;
+    text-transform: uppercase;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.search-post-content {
+    margin-bottom: 1rem;
+}
+
+.search-post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    color: rgb(240, 238, 233);
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    white-space: pre-wrap;
+}
+
+.search-post-media {
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.search-post-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    display: block;
+}
+
+.search-post-video {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    display: block;
+}
+
+.search-post-audio {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.search-post-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0.75rem;
+    border-radius: 90px;
+}
+
+.search-post-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.search-post-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.search-post-action-btn.active {
+    color: #A855F7;
+}
+
+.search-post-action-btn.active .search-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Violet pour les réactions actives des résultats de recherche */
+body.mode-violet .search-post-action-btn.active,
+html.mode-violet .search-post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .search-post-action-btn.active .search-action-icon,
+html.mode-violet .search-post-action-btn.active .search-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Orange pour les réactions actives des résultats de recherche */
+body.mode-orange .search-post-action-btn.active,
+html.mode-orange .search-post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .search-post-action-btn.active .search-action-icon,
+html.mode-orange .search-post-action-btn.active .search-action-icon {
+    fill: #FF6B35;
+}
+
+.search-action-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.search-action-count {
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.search-no-results {
+    padding: 3rem;
+    text-align: center;
+    border-radius: 16px;
+    margin-top: 2rem;
+}
+
+.search-no-results p {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+/* Responsive pour les résultats de recherche */
+@media (max-width: 768px) {
+    .search-post-item {
+        padding: 1.25rem;
+    }
+    
+    .search-post-header {
+        flex-wrap: wrap;
+    }
+    
+    .search-post-type {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-post-item {
+        padding: 1rem;
+    }
+    
+    .search-post-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .search-post-author-name {
+        font-size: 0.9rem;
+    }
+    
+    .search-post-text {
+        font-size: 0.9rem;
+    }
+    
+    .search-post-actions {
+        gap: 1rem;
+    }
+    
+    .search-action-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+

@@ -1,0 +1,1034 @@
+/* Styles spécifiques à la page Recherche */
+
+.recherche-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.recherche-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Sections */
+.profile-section {
+    padding: 2rem;
+    border-radius: 16px;
+}
+
+.section-title {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 1.5rem 0;
+}
+
+.recherche-title {
+    font-family: 'Brevia', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+.recherche-empty {
+    padding: 3rem;
+    text-align: center;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1.125rem;
+}
+
+.recherche-login-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-radius: 90px;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'URW Form', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.recherche-login-link:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Mode Orange pour recherche-login-link */
+body.mode-orange .recherche-login-link {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .recherche-login-link:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
+}
+
+.favorites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.favorite-post {
+    padding: 1.5rem;
+    border-radius: 16px;
+}
+
+.favorite-post .post-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.favorite-post .post-author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.favorite-post .post-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.favorite-post .post-author-name {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.favorite-post .post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.favorite-post .post-content {
+    margin-bottom: 1rem;
+}
+
+.favorite-post .post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    white-space: pre-wrap;
+}
+
+.favorite-post .post-media {
+    margin-top: 1rem;
+}
+
+.favorite-post .post-media-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.favorite-post .post-media-audio {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.favorite-post-actions {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-post-link {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 90px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.view-post-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Mode Orange pour category-btn dans recherche */
+body.mode-orange .category-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .category-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
+}
+
+.search-content {
+    margin-left: 320px;
+    margin-right: 320px;
+    padding: 2rem;
+    padding-top: calc(80px + 2rem);
+    max-width: 1680px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Discovery Card */
+.discovery-card {
+    padding: 3rem 2rem;
+    min-height: 400px;
+}
+
+.discovery-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    height: 100%;
+}
+
+.discovery-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.discovery-title {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    color: #fff;
+    margin: 0;
+}
+
+.discovery-steps {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #fff;
+    list-style: decimal;
+    list-style-position: inside;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.discovery-steps li {
+    margin: 0;
+}
+
+.roll-btn {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border: none;
+    border-radius: 90px;
+    padding: 1rem 3rem;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: all 0.3s ease;
+}
+
+.roll-btn:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+    transform: translateY(-2px);
+}
+
+/* Mode Orange pour roll-btn */
+body.mode-orange .roll-btn {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+body.mode-orange .roll-btn:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
+}
+
+.discovery-graphic {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.discovery-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Categories Grid */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.category-btn {
+    padding: 2rem;
+    border: none;
+    border-radius: 90px;
+    color: #fff;
+    font-family: 'URW Form', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Search Results Section */
+.search-results-content {
+    margin-left: 320px;
+    margin-right: 320px;
+    padding: 2rem;
+    padding-top: calc(80px + 2rem);
+    max-width: 1680px;
+}
+
+.search-results {
+    width: 100%;
+}
+
+.results-title {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.results-query {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+}
+
+/* Responsive adjustments for search results - Tablet */
+@media (max-width: 768px) {
+    .search-results-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1.5rem;
+        padding-top: calc(80px + 1.5rem);
+        padding-bottom: calc(80px + 1.5rem);
+        max-width: 100%;
+    }
+}
+
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
+    .search-results-content {
+        padding: 1rem;
+        padding-top: calc(80px + 1rem);
+        padding-bottom: calc(80px + 1rem);
+    }
+
+    .results-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* Responsive adjustments - Tablet */
+@media (max-width: 768px) {
+    .search-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1.5rem;
+        padding-top: calc(80px + 1.5rem);
+        padding-bottom: calc(80px + 1.5rem);
+        max-width: 100%;
+    }
+
+    .discovery-card {
+        padding: 2rem 1.5rem;
+        min-height: auto;
+    }
+
+    .discovery-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .discovery-title {
+        font-size: 2.5rem;
+    }
+
+    .discovery-steps {
+        font-size: 1.125rem;
+    }
+
+    .discovery-image {
+        max-width: 80%;
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
+    .search-content {
+        padding: 1rem;
+        padding-top: calc(80px + 1rem);
+        padding-bottom: calc(80px + 1rem);
+    }
+
+    .discovery-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .discovery-title {
+        font-size: 2rem;
+    }
+
+    .discovery-steps {
+        font-size: 1rem;
+    }
+
+    .roll-btn {
+        padding: 0.875rem 2rem;
+        font-size: 1.125rem;
+    }
+
+    .discovery-image {
+        max-width: 70%;
+    }
+
+    .category-btn {
+        padding: 1.5rem;
+        font-size: 1.125rem;
+    }
+}
+
+/* ========================================
+   Styles pour les carrousels
+   ======================================== */
+
+/* Container du carrousel */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* Track du carrousel */
+.carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+/* Boutons de navigation */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.carousel-nav-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.carousel-nav-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-prev {
+    left: -24px;
+}
+
+.carousel-next {
+    right: -24px;
+}
+
+/* Posts dans les carrousels (format compact) */
+.carousel-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex: 0 0 auto;
+    width: 280px;
+}
+
+.carousel-post-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: 100%;
+    cursor: pointer;
+}
+
+.carousel-post-link:hover .carousel-post-item {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.carousel-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.carousel-post-type {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 107, 53, 0.2);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 8px;
+    color: #FF6B35;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.carousel-post-content {
+    margin-bottom: 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: #fff;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carousel-post-media {
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.carousel-post-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-post-video {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-post-audio {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.carousel-post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+.carousel-post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.4rem 0.6rem;
+    border-radius: 90px;
+}
+
+.carousel-post-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.carousel-post-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carousel-post-action-btn.active {
+    color: #A855F7;
+}
+
+.carousel-post-action-btn.active .carousel-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Violet pour les réactions actives des carrousels */
+body.mode-violet .carousel-post-action-btn.active,
+html.mode-violet .carousel-post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .carousel-post-action-btn.active .carousel-action-icon,
+html.mode-violet .carousel-post-action-btn.active .carousel-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Orange pour les réactions actives des carrousels */
+body.mode-orange .carousel-post-action-btn.active,
+html.mode-orange .carousel-post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .carousel-post-action-btn.active .carousel-action-icon,
+html.mode-orange .carousel-post-action-btn.active .carousel-action-icon {
+    fill: #FF6B35;
+}
+
+.carousel-action-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.carousel-action-count {
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* Carrousel Feed (format complet) */
+.carousel-feed-container {
+    margin: 1.5rem 0;
+}
+
+.carousel-feed-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.carousel-feed-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.carousel-feed-track {
+    display: flex;
+    gap: 2rem;
+    padding: 0.5rem;
+}
+
+.carousel-feed-post {
+    flex: 0 0 auto;
+    width: 600px;
+    max-width: 100%;
+}
+
+/* Styles pour les posts Feed dans le carrousel */
+.carousel-feed-post .post-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.carousel-feed-post .post-author-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.carousel-feed-post .post-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.carousel-feed-post .post-author-name {
+    font-family: 'Brevia', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.carousel-feed-post .post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.carousel-feed-post .post-content {
+    margin-bottom: 0.75rem;
+}
+
+.carousel-feed-post .post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.9rem;
+    color: #fff;
+    line-height: 1.5;
+    margin: 0 0 0.75rem 0;
+    white-space: pre-wrap;
+}
+
+.carousel-feed-post .post-media {
+    margin-top: 0.75rem;
+}
+
+.carousel-feed-post .post-media-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    display: block;
+}
+
+.carousel-feed-post .post-media-audio {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.carousel-feed-post .post-media-video {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.carousel-feed-post .post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-feed-post .post-actions-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carousel-feed-post .post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0.75rem;
+    border-radius: 90px;
+}
+
+.carousel-feed-post .post-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.carousel-feed-post .post-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carousel-feed-post .post-action-btn.active {
+    color: #A855F7;
+}
+
+.carousel-feed-post .post-action-btn.active .action-icon {
+    fill: #A855F7;
+}
+
+.carousel-feed-post .post-action-btn.repost-btn.active .action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
+/* Mode Violet pour les réactions actives du carrousel feed */
+body.mode-violet .carousel-feed-post .post-action-btn.active,
+html.mode-violet .carousel-feed-post .post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .carousel-feed-post .post-action-btn.active .action-icon,
+html.mode-violet .carousel-feed-post .post-action-btn.active .action-icon {
+    fill: #A855F7;
+}
+
+body.mode-violet .carousel-feed-post .post-action-btn.repost-btn.active .action-icon,
+html.mode-violet .carousel-feed-post .post-action-btn.repost-btn.active .action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
+/* Mode Orange pour les réactions actives du carrousel feed */
+body.mode-orange .carousel-feed-post .post-action-btn.active,
+html.mode-orange .carousel-feed-post .post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .carousel-feed-post .post-action-btn.active .action-icon,
+html.mode-orange .carousel-feed-post .post-action-btn.active .action-icon {
+    fill: #FF6B35;
+}
+
+body.mode-orange .carousel-feed-post .post-action-btn.repost-btn.active .action-icon,
+html.mode-orange .carousel-feed-post .post-action-btn.repost-btn.active .action-icon {
+    fill: none;
+    stroke: #FF6B35;
+    stroke-width: 2;
+}
+
+.carousel-feed-post .action-icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+}
+
+.carousel-feed-post .action-count {
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.carousel-feed-post .post-action-btn.favorite-btn.active {
+    color: #FFD700;
+}
+
+.carousel-feed-post .post-action-btn.favorite-btn.active .action-icon {
+    fill: #FFD700;
+}
+
+/* Responsive pour les carrousels */
+@media (max-width: 1200px) {
+    .carousel-prev {
+        left: -16px;
+    }
+    
+    .carousel-next {
+        right: -16px;
+    }
+    
+    .carousel-nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-nav-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .carousel-post-link {
+        width: 240px;
+    }
+    
+    .carousel-feed-post {
+        width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .recherche-page {
+        padding: 1.5rem;
+    }
+    
+    .profile-section {
+        padding: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
+    }
+    
+    .carousel-prev {
+        left: -12px;
+    }
+    
+    .carousel-next {
+        right: -12px;
+    }
+    
+    .carousel-nav-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .carousel-nav-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .carousel-post-link {
+        width: 220px;
+    }
+    
+    .carousel-post-image,
+    .carousel-post-video {
+        height: 150px;
+    }
+    
+    .carousel-feed-post {
+        width: 450px;
+    }
+}
+
+@media (max-width: 480px) {
+    .recherche-page {
+        padding: 1rem;
+    }
+    
+    .profile-section {
+        padding: 1rem;
+    }
+    
+    .carousel-container {
+        margin: 1rem -1rem;
+        padding: 0 2rem;
+    }
+    
+    .carousel-prev {
+        left: 0;
+    }
+    
+    .carousel-next {
+        right: 0;
+    }
+    
+    .carousel-nav-btn {
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .carousel-post-link {
+        width: 200px;
+    }
+    
+    .carousel-post-item {
+        padding: 0.875rem;
+    }
+    
+    .carousel-post-text {
+        font-size: 0.8125rem;
+    }
+    
+    .carousel-post-image,
+    .carousel-post-video {
+        height: 130px;
+    }
+    
+    .carousel-action-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .carousel-action-count {
+        font-size: 0.8rem;
+    }
+    
+    .carousel-feed-post {
+        width: 380px;
+    }
+}

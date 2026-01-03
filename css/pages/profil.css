@@ -1,0 +1,965 @@
+/* Styles spécifiques à la page Profil */
+
+.profile-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Bannière de profil */
+.profile-banner {
+    position: relative;
+    height: 400px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-placeholder {
+    width: 100%;
+    height: 100%;
+    /* Utiliser le fond glassmorphism de .profile-banner comme défaut :
+       pas de couleur pleine pour laisser apparaître l'effet blur */
+    background: transparent;
+}
+
+/* Photo de profil */
+.profile-photo-container {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 2rem;
+    width: 160px;
+    height: 160px;
+    z-index: 2;
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(60, 60, 60, 0.6);
+}
+
+/* Titre "Super Admin" au-dessus de la photo - centré */
+.profile-badge-title {
+    position: absolute;
+    bottom: calc(0.5rem + 160px + 0.75rem);
+    right: 2rem;
+    left: calc(100% - 2rem - 160px);
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+    text-align: center;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    width: 160px;
+}
+
+/* Pseudo à gauche de la photo, aligné avec le titre */
+.profile-username {
+    position: absolute;
+    bottom: calc(0.5rem + 160px + 0.75rem);
+    left: 2rem;
+    font-family: 'Brevia', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    text-align: left;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    max-width: 400px;
+    width: fit-content;
+}
+
+/* Description en dessous du pseudo, alignée avec la photo */
+.profile-description {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 2rem;
+    right: calc(2rem + 160px + 2rem);
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin: 0;
+    text-align: left;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+}
+
+/* Contenu principal */
+.profile-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Sections de profil */
+.profile-section {
+    padding: 2rem;
+    border-radius: 16px;
+}
+
+.section-title {
+    font-family: 'Brevia', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 1.5rem 0;
+}
+
+/* Genres musicaux */
+.genres-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.genre-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: #fff;
+}
+
+/* Sons (pour les artistes) */
+.sounds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.sound-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+
+.sound-icon {
+    font-size: 2rem;
+}
+
+.sound-info {
+    flex: 1;
+}
+
+.sound-name {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 0.5rem 0;
+}
+
+.sound-player {
+    width: 100%;
+    height: 32px;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+    .profile-page {
+        padding: 1.5rem;
+    }
+
+    .profile-banner {
+        height: 350px;
+    }
+
+    .profile-photo-container {
+        width: 120px;
+        height: 120px;
+        right: 1.5rem;
+        bottom: 0.5rem;
+    }
+
+    .profile-badge-title {
+        bottom: calc(0.5rem + 120px + 0.75rem);
+        right: 1.5rem;
+        left: calc(100% - 1.5rem - 120px);
+        width: 120px;
+        font-size: 0.9rem;
+    }
+
+    .profile-username {
+        bottom: calc(0.5rem + 120px + 0.75rem);
+        left: 1.5rem;
+        font-size: 1.25rem;
+        max-width: 300px;
+    }
+
+    .profile-description {
+        left: 1.5rem;
+        right: calc(1.5rem + 120px + 1.5rem);
+        font-size: 0.9rem;
+    }
+
+    .sounds-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+    .profile-page {
+        padding: 1rem;
+    }
+
+    .profile-banner {
+        height: 300px;
+    }
+
+    .profile-photo-container {
+        width: 100px;
+        height: 100px;
+        right: 1rem;
+        bottom: 0.5rem;
+    }
+
+    .profile-badge-title {
+        bottom: calc(0.5rem + 100px + 0.5rem);
+        right: 1rem;
+        left: calc(100% - 1rem - 100px);
+        width: 100px;
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .profile-username {
+        bottom: calc(0.5rem + 100px + 0.5rem);
+        left: 1rem;
+        font-size: 1.125rem;
+        max-width: calc(100% - 2rem - 100px - 1rem);
+        padding: 0.5rem 0.75rem;
+    }
+
+    .profile-description {
+        left: 1rem;
+        right: calc(1rem + 100px + 1rem);
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .profile-section {
+        padding: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+}
+
+/* Styles pour les posts dans le profil - Format compact comme la page d'accueil */
+.profile-posts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.profile-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.profile-post-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    cursor: pointer;
+    min-height: 100%;
+}
+
+.profile-post-link:hover .profile-post-item {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.profile-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.profile-post-type {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 107, 53, 0.2);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 8px;
+    color: #FF6B35;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.profile-post-content {
+    margin-bottom: 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: #fff;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-post-media {
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.profile-post-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.profile-post-video {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.profile-post-audio {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.profile-post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    position: relative;
+    padding-bottom: 0.5rem;
+    width: 100%;
+}
+
+/* Styles harmonisés avec la page feed */
+.profile-post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0.75rem;
+    border-radius: 90px;
+}
+
+.profile-post-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.profile-post-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.profile-post-action-btn.active {
+    color: #A855F7;
+}
+
+.profile-post-action-btn.active .profile-action-icon {
+    fill: #A855F7;
+}
+
+/* Pour l'icône repost, ne pas appliquer le fill pour éviter la déformation */
+.profile-post-action-btn.repost-btn.active .profile-action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
+/* Mode Violet pour les réactions actives */
+body.mode-violet .profile-post-action-btn.active,
+html.mode-violet .profile-post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .profile-post-action-btn.active .profile-action-icon,
+html.mode-violet .profile-post-action-btn.active .profile-action-icon {
+    fill: #A855F7;
+}
+
+body.mode-violet .profile-post-action-btn.repost-btn.active .profile-action-icon,
+html.mode-violet .profile-post-action-btn.repost-btn.active .profile-action-icon {
+    fill: none;
+    stroke: #A855F7;
+    stroke-width: 2;
+}
+
+/* Mode Orange pour les réactions actives */
+body.mode-orange .profile-post-action-btn.active,
+html.mode-orange .profile-post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .profile-post-action-btn.active .profile-action-icon,
+html.mode-orange .profile-post-action-btn.active .profile-action-icon {
+    fill: #FF6B35;
+}
+
+body.mode-orange .profile-post-action-btn.repost-btn.active .profile-action-icon,
+html.mode-orange .profile-post-action-btn.repost-btn.active .profile-action-icon {
+    fill: none;
+    stroke: #FF6B35;
+    stroke-width: 2;
+}
+
+.profile-action-icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+}
+
+.profile-action-count {
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.profile-post-action-btn.favorite-btn.active {
+    color: #FFD700;
+}
+
+.profile-post-action-btn.favorite-btn.active .profile-action-icon {
+    fill: #FFD700;
+}
+
+/* Responsive pour les posts du profil */
+@media (max-width: 768px) {
+    .profile-posts-list {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1.25rem;
+    }
+    
+    .profile-post-item {
+        padding: 1rem;
+    }
+    
+    .profile-post-image,
+    .profile-post-video {
+        height: 180px;
+    }
+    
+    .profile-action-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-posts-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .profile-post-item {
+        padding: 0.875rem;
+    }
+    
+    .profile-post-text {
+        font-size: 0.8125rem;
+    }
+    
+    .profile-post-image,
+    .profile-post-video {
+        height: 150px;
+    }
+    
+    .profile-post-actions {
+        gap: 1rem;
+    }
+    
+    /* .profile-post-actions-left removed - no longer needed */
+        gap: 1rem;
+    }
+    
+    .profile-action-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .profile-action-count {
+        font-size: 0.8rem;
+    }
+}
+
+/* ========================================
+   Styles pour les carrousels
+   ======================================== */
+
+/* Container du carrousel */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* Track du carrousel */
+.carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+/* Boutons de navigation */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.carousel-nav-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.carousel-nav-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-prev {
+    left: -24px;
+}
+
+.carousel-next {
+    right: -24px;
+}
+
+/* Posts dans les carrousels (format compact) */
+.carousel-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex: 0 0 auto;
+    width: 280px;
+}
+
+.carousel-post-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: 100%;
+    cursor: pointer;
+}
+
+.carousel-post-link:hover .carousel-post-item {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.carousel-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-post-time {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.carousel-post-type {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 107, 53, 0.2);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 8px;
+    color: #FF6B35;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.carousel-post-content {
+    margin-bottom: 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-post-text {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: #fff;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carousel-post-media {
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.carousel-post-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-post-video {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-post-audio {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.carousel-post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+.carousel-post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.4rem 0.6rem;
+    border-radius: 90px;
+}
+
+.carousel-post-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.carousel-post-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carousel-post-action-btn.active {
+    color: #A855F7;
+}
+
+.carousel-post-action-btn.active .carousel-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Violet pour les réactions actives des carrousels */
+body.mode-violet .carousel-post-action-btn.active,
+html.mode-violet .carousel-post-action-btn.active {
+    color: #A855F7;
+}
+
+body.mode-violet .carousel-post-action-btn.active .carousel-action-icon,
+html.mode-violet .carousel-post-action-btn.active .carousel-action-icon {
+    fill: #A855F7;
+}
+
+/* Mode Orange pour les réactions actives des carrousels */
+body.mode-orange .carousel-post-action-btn.active,
+html.mode-orange .carousel-post-action-btn.active {
+    color: #FF6B35;
+}
+
+body.mode-orange .carousel-post-action-btn.active .carousel-action-icon,
+html.mode-orange .carousel-post-action-btn.active .carousel-action-icon {
+    fill: #FF6B35;
+}
+
+.carousel-action-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.carousel-action-count {
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* Carrousel Feed (format complet) */
+.carousel-feed-container {
+    margin: 1.5rem 0;
+}
+
+.carousel-feed-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.carousel-feed-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.carousel-feed-track {
+    display: flex;
+    gap: 2rem;
+    padding: 0.5rem;
+}
+
+.carousel-feed-post {
+    flex: 0 0 auto;
+    width: 600px;
+    max-width: 100%;
+}
+
+/* Responsive pour les carrousels */
+@media (max-width: 1200px) {
+    .carousel-prev {
+        left: -16px;
+    }
+    
+    .carousel-next {
+        right: -16px;
+    }
+    
+    .carousel-nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-nav-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .carousel-post-link {
+        width: 240px;
+    }
+    
+    .carousel-feed-post {
+        width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-prev {
+        left: -12px;
+    }
+    
+    .carousel-next {
+        right: -12px;
+    }
+    
+    .carousel-nav-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .carousel-nav-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .carousel-post-link {
+        width: 220px;
+    }
+    
+    .carousel-post-image,
+    .carousel-post-video {
+        height: 150px;
+    }
+    
+    .carousel-feed-post {
+        width: 450px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-container {
+        margin: 1rem -1rem;
+        padding: 0 2rem;
+    }
+    
+    .carousel-prev {
+        left: 0;
+    }
+    
+    .carousel-next {
+        right: 0;
+    }
+    
+    .carousel-nav-btn {
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .carousel-post-link {
+        width: 200px;
+    }
+    
+    .carousel-post-item {
+        padding: 0.875rem;
+    }
+    
+    .carousel-post-text {
+        font-size: 0.8125rem;
+    }
+    
+    .carousel-post-image,
+    .carousel-post-video {
+        height: 130px;
+    }
+    
+    .carousel-action-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .carousel-action-count {
+        font-size: 0.8rem;
+    }
+    
+    .carousel-feed-post {
+        width: 380px;
+    }
+}
+

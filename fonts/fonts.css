@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'URW Form';
+    src: url('fonts/URWForm-Regular.woff2') format('woff2'),
+         url('fonts/URWForm-Regular.woff') format('woff'),
+         url('fonts/URWForm-Regular.ttf') format('truetype'),
+         url('fonts/URWForm-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brevia';
+    src: url('fonts/Brevia-Regular.woff2') format('woff2'),
+         url('fonts/Brevia-Regular.woff') format('woff'),
+         url('fonts/Brevia-Regular.ttf') format('truetype'),
+         url('fonts/Brevia-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brevia';
+    src: url('fonts/Brevia-Bold.woff2') format('woff2'),
+         url('fonts/Brevia-Bold.woff') format('woff'),
+         url('fonts/Brevia-Bold.ttf') format('truetype'),
+         url('fonts/Brevia-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
