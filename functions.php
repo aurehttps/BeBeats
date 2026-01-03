@@ -1831,13 +1831,16 @@ function bebeats_roll_random_post() {
     // Déterminer le post_type et les conditions selon la catégorie
     switch ($category) {
         case 'Musique':
-            // Récupérer un audio (post_type = 'audio')
+            // Récupérer un audio d'un utilisateur de type "artiste"
             $query = "
                 SELECT p.*, u.ID as user_id, u.display_name, u.user_login
                 FROM $posts_table p
                 INNER JOIN $users_table u ON p.user_id = u.ID
+                INNER JOIN {$wpdb->usermeta} um ON u.ID = um.user_id
                 WHERE p.post_type = 'audio'
                 AND p.media_type = 'audio'
+                AND um.meta_key = 'bebeats_user_type'
+                AND um.meta_value = 'artiste'
                 ORDER BY RAND()
                 LIMIT 1
             ";
