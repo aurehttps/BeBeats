@@ -183,10 +183,12 @@ body.mode-orange .category-btn:hover {
     margin-right: 320px;
     padding: 2rem;
     padding-top: calc(80px + 2rem);
+    padding-bottom: 2rem;
     max-width: 1680px;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    flex: 1;
 }
 
 /* Discovery Card */
