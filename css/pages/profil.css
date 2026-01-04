@@ -2,8 +2,13 @@
 
 .profile-page {
     padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding-top: calc(80px + 2rem);
+    padding-bottom: 2rem;
+    margin-left: 320px;
+    margin-right: 320px;
+    max-width: 1680px;
+    flex: 1;
+    box-sizing: border-box;
 }
 
 .profile-wrapper {
@@ -199,9 +204,21 @@
 }
 
 /* Responsive - Tablet */
+@media (max-width: 991.98px) {
+    .profile-page {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1.5rem;
+        padding-top: calc(80px + 1.5rem);
+        padding-bottom: calc(80px + 1.5rem);
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .profile-page {
         padding: 1.5rem;
+        padding-top: calc(80px + 1.5rem);
     }
 
     .profile-banner {
@@ -245,6 +262,7 @@
 @media (max-width: 480px) {
     .profile-page {
         padding: 1rem;
+        padding-top: calc(80px + 1rem);
     }
 
     .profile-banner {
@@ -552,10 +570,6 @@ html.mode-orange .profile-post-action-btn.repost-btn.active .profile-action-icon
     }
     
     .profile-post-actions {
-        gap: 1rem;
-    }
-    
-    /* .profile-post-actions-left removed - no longer needed */
         gap: 1rem;
     }
     
