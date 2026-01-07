@@ -6,10 +6,12 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    padding-bottom: 2rem;
     position: relative;
     margin-left: 320px;
     margin-right: 320px;
     padding-top: calc(80px + 2rem);
+    flex: 1;
 }
 
 .auth-container {

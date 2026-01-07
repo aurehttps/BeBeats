@@ -5,7 +5,9 @@
     margin-right: 320px;
     padding: 2rem;
     padding-top: calc(80px + 2rem);
+    padding-bottom: 2rem;
     max-width: 1680px;
+    flex: 1;
 }
 
 .feed-container {

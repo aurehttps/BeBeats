@@ -1,33 +1,1055 @@
-footer {
-  margin: 20px auto;
-  max-width: 90%;
+/*
+Theme Name: BeBeats
+Theme URI: 
+Description: Thème BeBeats pour la promotion de la musique belge
+Author: BeBeats Team
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: bebeats
+*/
+
+/* Font Face Declarations */
+/* Les polices sont définies dans fonts/fonts.css si les fichiers existent */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-footer div {
-  background: transparent;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(241, 242, 238, 0.2);
-  border-radius: 10px;
-  padding: 0;
-  text-align: center;
-  color: #F1F2EE;
-  font-family: "URW Form", sans-serif;
-  font-weight: bold;
-  font-size: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 265px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+html {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-@media (min-width: 769px) {
-  footer div {
-    width: 379px;
-    height: 36px;
-  }
+body {
+    font-family: 'Brevia', sans-serif;
+    background-color: #000;
+    background-image: url('./Images/BG_BeBeats.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    z-index: 1001;
+}
+
+header * {
+    font-family: 'URW Form', sans-serif;
+}
+
+.navbar {
+    /* Align logo horizontally with left menu icons (no left padding) */
+    padding: 1rem 2rem 1rem 0;
+}
+
+.navbar-brand {
+    padding: 0;
+    margin: 0;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-img {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 90px;
+    padding: 0.625rem 1rem 0.625rem 2.5rem;
+    color: rgb(240, 238, 233);
+    font-size: 0.875rem;
+    font-family: 'URW Form', sans-serif;
+    width: 100%;
+    min-width: 200px;
+    max-width: 300px;
+    transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    color: rgb(240, 238, 233);
+}
+
+.search-icon-button {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+}
+
+.search-icon-button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+    border-radius: 999px;
+}
+
+.search-icon {
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    color: inherit;
+}
+
+.notification-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 90px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.notification-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.notification-icon {
+    width: 20px;
+    height: 20px;
+    color: rgb(240, 238, 233);
+}
+
+.login-btn {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 90px;
+    padding: 0.625rem 1.5rem;
+    color: rgb(240, 238, 233);
+    font-size: 0.875rem;
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.login-btn:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+    color: rgb(240, 238, 233);
+}
+
+.settings-btn-header {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 90px;
+    width: 44px;
+    height: 44px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    color: rgb(240, 238, 233);
+}
+
+.settings-btn-header:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.settings-btn-header svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.profile-btn-header {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 90px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    overflow: hidden;
+}
+
+.profile-btn-header:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.profile-btn-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Navigation Accueil/Feed */
+.home-feed-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.nav-tab {
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 90px;
+    color: rgb(240, 238, 233);
+    font-family: 'URW Form', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-tab:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-tab.active {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    color: rgb(240, 238, 233);
+}
+
+/* Typography utilities for content */
+.text-bold {
+    font-weight: 700;
+    font-family: 'Brevia', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Main Navigation Menu */
+.main-nav {
+    position: fixed;
+    left: 0;
+    top: 80px;
+    height: calc(100vh - 80px);
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0;
+    gap: 0;
+    z-index: 1000;
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: transparent;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: rgb(240, 238, 233);
+    width: 80px;
+    padding: 0.5rem 0;
+    flex-shrink: 0;
+}
+
+.nav-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: rgb(240, 238, 233);
+}
+
+.nav-icon.nav-icon-profile {
+    padding: 0;
+    overflow: hidden;
+}
+
+.nav-profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.nav-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.nav-icon-gradient-1 {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-icon-gradient-2 {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+    display: block;
+}
+
+/* Styles pour l'élément actif du menu - Par défaut violet */
+.nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.nav-item.active .nav-label {
+    color: rgb(240, 238, 233);
+    font-weight: 500;
+}
+
+.nav-item.active .nav-icon-gradient-1,
+.nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+/* S'assurer que le mode violet est appliqué par défaut si aucune classe n'est présente */
+body:not(.mode-orange):not(.mode-violet) .nav-item.active .nav-icon,
+body:not(.mode-orange):not(.mode-violet) .nav-item.active .nav-icon-gradient-1,
+body:not(.mode-orange):not(.mode-violet) .nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+/* Mode Orange pour le sous-menu */
+html.mode-orange .nav-icon,
+body.mode-orange .nav-icon {
+    background: rgba(255, 107, 53, 0.2) !important;
+    border-color: rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-icon-gradient-1,
+html.mode-orange .nav-icon-gradient-2,
+body.mode-orange .nav-icon-gradient-1,
+body.mode-orange .nav-icon-gradient-2 {
+    background: rgba(255, 107, 53, 0.2) !important;
+    border-color: rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item:hover .nav-icon,
+html.mode-orange .nav-item:hover .nav-icon-gradient-1,
+html.mode-orange .nav-item:hover .nav-icon-gradient-2,
+body.mode-orange .nav-item:hover .nav-icon,
+body.mode-orange .nav-item:hover .nav-icon-gradient-1,
+body.mode-orange .nav-item:hover .nav-icon-gradient-2 {
+    background: rgba(255, 107, 53, 0.3) !important;
+    border-color: rgba(255, 107, 53, 0.5) !important;
+}
+
+/* Mode Orange pour l'élément actif du menu - Spécificité élevée */
+html.mode-orange .nav-item.active .nav-icon,
+body.mode-orange .nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item.active .nav-icon-gradient-1,
+html.mode-orange .nav-item.active .nav-icon-gradient-2,
+body.mode-orange .nav-item.active .nav-icon-gradient-1,
+body.mode-orange .nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4) !important;
+}
+
+html.mode-orange .nav-item.active .nav-label,
+body.mode-orange .nav-item.active .nav-label {
+    color: #fff !important;
+    font-weight: 500 !important;
+}
+
+/* Mode Violet pour le sous-menu (par défaut) */
+html.mode-violet .nav-icon,
+body.mode-violet .nav-icon {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-icon-gradient-1,
+html.mode-violet .nav-icon-gradient-2,
+body.mode-violet .nav-icon-gradient-1,
+body.mode-violet .nav-icon-gradient-2 {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item:hover .nav-icon,
+html.mode-violet .nav-item:hover .nav-icon-gradient-1,
+html.mode-violet .nav-item:hover .nav-icon-gradient-2,
+body.mode-violet .nav-item:hover .nav-icon,
+body.mode-violet .nav-item:hover .nav-icon-gradient-1,
+body.mode-violet .nav-item:hover .nav-icon-gradient-2 {
+    background: rgba(139, 92, 246, 0.3) !important;
+    border-color: rgba(139, 92, 246, 0.5) !important;
+}
+
+/* Mode Violet pour l'élément actif du menu - Spécificité élevée */
+html.mode-violet .nav-item.active .nav-icon,
+body.mode-violet .nav-item.active .nav-icon {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item.active .nav-icon-gradient-1,
+html.mode-violet .nav-item.active .nav-icon-gradient-2,
+body.mode-violet .nav-item.active .nav-icon-gradient-1,
+body.mode-violet .nav-item.active .nav-icon-gradient-2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+}
+
+html.mode-violet .nav-item.active .nav-label,
+body.mode-violet .nav-item.active .nav-label {
+    color: #fff !important;
+    font-weight: 500 !important;
+}
+
+/* Masquer Connexion dans le menu principal par défaut (desktop) */
+.nav-item-login {
+    display: none;
+}
+
+/* Responsive adjustments - Tablet */
+@media (max-width: 768px) {
+    /* Main Navigation - Mobile: Bottom bar */
+    .main-nav {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top: auto;
+        height: auto;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 1rem 0.5rem;
+        gap: 0.5rem;
+        background: transparent;
+    }
+
+    .nav-item {
+        flex: 1;
+        width: auto;
+        padding: 0.5rem 0;
+        gap: 0.25rem;
+    }
+
+    .nav-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .nav-label {
+        font-size: 0.65rem;
+    }
+
+    /* Masquer Réglages du menu principal sur tablette/mobile */
+    .nav-item-settings {
+        display: none;
+    }
+
+    /* Afficher Connexion dans le menu principal sur tablette/mobile */
+    .nav-item-login {
+        display: flex;
+    }
+
+    body {
+        padding-bottom: 80px;
+    }
+
+    .navbar {
+        padding: 1rem;
+    }
+
+    /* Assurer que container-fluid reste en ligne sur mobile */
+    .navbar .container-fluid {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-wrap: nowrap !important;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .navbar-brand {
+        flex-shrink: 0 !important;
+        width: auto !important;
+        margin-right: 0.5rem;
+    }
+
+    .logo-img {
+        height: 50px;
+    }
+
+    .search-container {
+        flex: 0 1 auto;
+        min-width: 120px;
+        max-width: 180px;
+        flex-shrink: 1;
+    }
+
+    .search-input {
+        max-width: 100%;
+        width: 100%;
+        font-size: 0.8125rem;
+    }
+
+    /* Masquer le bouton Connexion ET le bouton profil du header sur tablette/mobile */
+    .navbar .d-flex .login-btn,
+    header .login-btn,
+    .login-btn,
+    .navbar .d-flex .profile-btn-header,
+    header .profile-btn-header,
+    .profile-btn-header {
+        display: none !important;
+    }
+
+    /* Afficher le bouton Réglages dans le header sur tablette/mobile */
+    .settings-btn-header {
+        display: flex !important;
+    }
+
+    /* Ajuster le layout du header pour éviter les problèmes */
+    .navbar .d-flex,
+    .navbar .d-flex.flex-wrap {
+        flex-wrap: nowrap !important;
+        gap: 0.375rem !important;
+        flex-shrink: 0;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+
+    /* Réduire légèrement les boutons sur tablette */
+    .notification-btn,
+    .settings-btn-header {
+        width: 40px;
+        height: 40px;
+    }
+
+    .notification-icon,
+    .settings-btn-header svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
+    .logo-img {
+        height: 40px;
+    }
+
+    .navbar {
+        padding: 0.75rem 0.5rem !important;
+    }
+
+    /* Assurer que container-fluid reste en ligne sur mobile */
+    .navbar .container-fluid {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-wrap: nowrap !important;
+        gap: 0.25rem !important;
+        width: 100%;
+        padding: 0 !important;
+    }
+
+    .navbar-brand {
+        flex-shrink: 0 !important;
+        width: auto !important;
+        margin-right: 0.25rem !important;
+        padding: 0 !important;
+    }
+
+    /* Garder le layout en ligne pour le header */
+    .navbar .d-flex,
+    .navbar .d-flex.flex-wrap {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: auto;
+        gap: 0.25rem !important;
+        flex-shrink: 0;
+        display: flex !important;
+        align-items: center !important;
+        margin-left: 0.25rem;
+    }
+
+    /* Réduire la largeur de la barre de recherche pour laisser de la place aux boutons */
+    .search-container {
+        flex: 0 1 auto !important;
+        min-width: 80px !important;
+        max-width: 140px !important;
+        flex-shrink: 1;
+    }
+
+    .search-input {
+        max-width: 100% !important;
+        min-width: 80px !important;
+        font-size: 0.75rem !important;
+        padding: 0.5rem 0.75rem 0.5rem 2rem !important;
+    }
+
+    .search-icon-button {
+        left: 0.5rem !important;
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .search-icon {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    /* Réduire la taille des boutons sur mobile */
+    .notification-btn,
+    .settings-btn-header {
+        width: 36px !important;
+        height: 36px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .notification-icon,
+    .settings-btn-header svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .profile-btn-header {
+        width: 36px !important;
+        height: 36px !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 320px;
+    margin-right: 320px;
+    padding: 2rem;
+    padding-top: calc(80px + 2rem);
+    padding-bottom: 2rem;
+    max-width: 1680px;
+    flex: 1;
+}
+
+/* Glassmorphism Effect */
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+}
+
+/* Video Section */
+.video-section {
+    margin-bottom: 4rem;
+}
+
+.video-container {
+    width: 100%;
+    padding: 1.5rem;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 16px;
+    display: block;
+    margin: 0 auto;
+    aspect-ratio: 848 / 450;
+    object-fit: cover;
+}
+
+/* Content Sections */
+.content-section {
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: rgb(240, 238, 233);
+    margin-bottom: 1rem;
+}
+
+.section-description {
+    font-family: 'URW Form' sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.content-container {
+    padding: 1.5rem;
+    overflow: hidden;
+}
+
+.content-scroll {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.content-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.content-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.content-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.content-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.content-item {
+    flex-shrink: 0;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.content-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.content-title {
+    font-family: 'Brevia', sans-serif;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: rgb(240, 238, 233);
+    margin: 0;
+}
+
+.content-subtitle {
+    font-family: 'URW Form', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+/* Responsive adjustments for main content */
+@media (max-width: 991.98px) {
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1.5rem;
+        padding-top: calc(80px + 1.5rem);
+        padding-bottom: calc(80px + 1.5rem);
+        max-width: 100%;
+    }
+
+    .video-section {
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .content-item {
+        width: 180px;
+    }
+
+    .content-image {
+        height: 180px;
+    }
+}
+
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 1rem;
+        padding-top: calc(80px + 1rem);
+        padding-bottom: calc(80px + 1rem);
+    }
+
+    .video-section {
+        width: 100%;
+    }
+
+    .video-container video {
+        min-height: 50vh;
+        max-height: 70vh;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .section-description {
+        font-size: 0.9rem;
+    }
+
+    .content-container {
+        padding: 1rem;
+    }
+
+    .content-scroll {
+        gap: 1rem;
+    }
+
+    .content-item {
+        width: 150px;
+    }
+
+    .content-image {
+        height: 150px;
+    }
+
+    .content-title {
+        font-size: 1rem;
+    }
+
+    .content-subtitle {
+        font-size: 0.8rem;
+    }
+}
+
+/* Mode de couleur des boutons - Orange/Violet */
+/* Mode Orange (toggle à droite) */
+html.mode-orange .login-btn,
+html.mode-orange .category-btn,
+html.mode-orange .roll-btn,
+html.mode-orange .filter-btn-active,
+html.mode-orange .category-tab.active,
+html.mode-orange .nav-tab.active,
+html.mode-orange .genre-checkbox:checked + .genre-label,
+body.mode-orange .login-btn,
+body.mode-orange .category-btn,
+body.mode-orange .roll-btn,
+body.mode-orange .filter-btn-active,
+body.mode-orange .category-tab.active,
+body.mode-orange .nav-tab.active,
+body.mode-orange .genre-checkbox:checked + .genre-label {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%) !important;
+}
+
+html.mode-orange .login-btn:hover,
+html.mode-orange .category-btn:hover,
+html.mode-orange .roll-btn:hover:not(:disabled),
+html.mode-orange .filter-btn-active:hover,
+html.mode-orange .category-tab.active:hover,
+html.mode-orange .nav-tab.active:hover,
+html.mode-orange .genre-checkbox:checked + .genre-label:hover,
+body.mode-orange .login-btn:hover,
+body.mode-orange .category-btn:hover,
+body.mode-orange .roll-btn:hover:not(:disabled),
+body.mode-orange .filter-btn-active:hover,
+body.mode-orange .category-tab.active:hover,
+body.mode-orange .nav-tab.active:hover,
+body.mode-orange .genre-checkbox:checked + .genre-label:hover {
+    background: linear-gradient(135deg, #E55A2B 0%, #E6821A 100%) !important;
+}
+
+/* Mode Violet (toggle à gauche - par défaut) */
+html.mode-violet .login-btn,
+html.mode-violet .category-btn,
+html.mode-violet .roll-btn,
+html.mode-violet .filter-btn-active,
+html.mode-violet .category-tab.active,
+html.mode-violet .nav-tab.active,
+html.mode-violet .genre-checkbox:checked + .genre-label,
+body.mode-violet .login-btn,
+body.mode-violet .category-btn,
+body.mode-violet .roll-btn,
+body.mode-violet .filter-btn-active,
+body.mode-violet .category-tab.active,
+body.mode-violet .nav-tab.active,
+body.mode-violet .genre-checkbox:checked + .genre-label {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%) !important;
+}
+
+html.mode-violet .login-btn:hover,
+html.mode-violet .category-btn:hover,
+html.mode-violet .roll-btn:hover:not(:disabled),
+html.mode-violet .filter-btn-active:hover,
+html.mode-violet .category-tab.active:hover,
+html.mode-violet .nav-tab.active:hover,
+html.mode-violet .genre-checkbox:checked + .genre-label:hover,
+body.mode-violet .login-btn:hover,
+body.mode-violet .category-btn:hover,
+body.mode-violet .roll-btn:hover:not(:disabled),
+body.mode-violet .filter-btn-active:hover,
+body.mode-violet .category-tab.active:hover,
+body.mode-violet .nav-tab.active:hover,
+body.mode-violet .genre-checkbox:checked + .genre-label:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%) !important;
+}
+
+/* Footer Styles */
+footer,
+#bebeats-footer,
+body footer {
+    position: relative !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 2rem 1rem !important;
+    margin-top: auto !important;
+    z-index: 1 !important;
+    clear: both !important;
+}
+
+footer div,
+#bebeats-footer div,
+body footer div {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 90px !important;
+    padding: 0.625rem 1.5rem !important;
+    text-align: center !important;
+    color: rgb(240, 238, 233) !important;
+    font-family: 'URW Form', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 0.875rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+footer div:hover,
+#bebeats-footer div:hover,
+body footer div:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Responsive adjustments - Mobile */
+@media (max-width: 480px) {
+    footer,
+    #bebeats-footer,
+    body footer {
+        padding: 1.5rem 1rem !important;
+    }
+    
+    footer div,
+    #bebeats-footer div,
+    body footer div {
+        font-size: 0.75rem !important;
+        padding: 0.5rem 1.25rem !important;
+        border-radius: 60px !important;
+    }
+}
+
+/* Responsive adjustments - Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+    footer div,
+    #bebeats-footer div,
+    body footer div {
+        font-size: 0.875rem !important;
+        padding: 0.625rem 1.5rem !important;
+        border-radius: 75px !important;
+    }
 }
 
